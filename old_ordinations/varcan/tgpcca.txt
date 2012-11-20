@@ -1,0 +1,25 @@
+=========================== Output from VarCan =========================== 
+Files used:
+ 
+Y : tgpsp.txt
+X1: tgpsite.txt
+X2: tgpyr.txt
+ 
+Canonical Correspondence Analysis (CCA) 
+ 
+=========================================================================== 
+Total Contribution:
+  Matrix    Percentg. Explanation  Percentg. Exp - Adjusted   Probability 
+  X1X2      0.509418               0.433686                   0.002494 
+  X1        0.464858               0.413402                   0.002494 
+  X2        0.044822              -0.001245                   0.688279 
+
+Partitioning:
+  Fraction  Percentg. Explanation  Percentg. Exp - Adjusted   Probability 
+  a         0.464596               0.434931                   0.002494 
+  b         0.000262              -0.021528                   
+  c         0.044560               0.020283                   0.002494 
+  residual  0.490582               0.566314                   
+=========================================================================== 
+Probability [a] <> [c]  0.000000 
+=========================================================================== 

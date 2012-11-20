@@ -1,0 +1,25 @@
+=========================== Output from VarCan =========================== 
+Files used:
+ 
+Y : tgpsp.txt
+X1: tgpsite.txt
+X2: tgpyr.txt
+ 
+Redundancy Analysis (RDA) 
+ 
+=========================================================================== 
+Total Contribution:
+  Matrix    Percentg. Explanation  Percentg. Exp - Adjusted   Probability 
+  X1X2      0.605329               0.545090                   0.002500 
+  X1        0.532292               0.487860                   0.002500 
+  X2        0.073037               0.028685                   0.002500 
+
+Partitioning:
+  Fraction  Percentg. Explanation  Percentg. Exp - Adjusted   Probability 
+  a         0.532292               0.516405                   0.002500 
+  b         0.000000              -0.028545                   
+  c         0.073037               0.057230                   0.002500 
+  residual  0.394671               0.454910                   
+=========================================================================== 
+Probability [a] <> [c]  0.000000 
+=========================================================================== 

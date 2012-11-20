@@ -1,0 +1,111 @@
+##random shifts within years
+
+logCa
+ **** Summary of Monte Carlo test ****
+
+ Test of significance of all canonical axes  : Trace      =    0.107
+                                               F-ratio    =   19.735
+                                               P-value    =    0.0010
+
+ (  999 permutations under reduced model)
+
+slope
+
+ **** Summary of Monte Carlo test ****
+
+ Test of significance of all canonical axes  : Trace      =    0.044
+                                               F-ratio    =    8.152
+                                               P-value    =    0.0010
+
+ (  999 permutations under reduced model)
+
+
+northness
+
+ **** Summary of Monte Carlo test ****
+
+ Test of significance of all canonical axes  : Trace      =    0.028
+                                               F-ratio    =    5.219
+                                               P-value    =    0.0010
+
+ (  999 permutations under reduced model)
+
+
+
+#####################
+all dist 
+
+##random shifts within years
+Test of significance of all canonical axes  : Trace      =    0.019
+                                               F-ratio    =    2.145
+                                               P-value    =    0.0010
+
+##toridal shifts within sites
+Test of significance of all canonical axes  : Trace      =    0.019
+                                               F-ratio    =    2.145
+                                               P-value    =    0.0010
+
+####################
+year effects
+##toridal shifts within sites
+ Test of significance of all canonical axes  : Trace      =    0.065
+                                               F-ratio    =    2.248
+                                               P-value    =    0.0010
+
+ (  999 permutations under reduced model)
+####################
+site effects
+##random shifts within sites
+ Test of significance of all canonical axes  : Trace      =    0.744
+                                               F-ratio    =   13.471
+                                               P-value    =    0.0010
+
+ (  999 permutations under reduced model)
+
+
+###
+Years of Bison
+##torodial
+ **** Summary of Monte Carlo test ****
+
+ Test of significance of all canonical axes  : Trace      =    0.007
+                                               F-ratio    =    2.314
+                                               P-value    =    0.0010
+
+ (  999 permutations under reduced model)
+ **** Summary of Monte Carlo test ****
+
+ Test of significance of all canonical axes  : Trace      =    0.007
+                                               F-ratio    =    2.314
+                                               P-value    =    0.0010
+
+ (  999 permutations under reduced model)
+
+
+##
+BP5
+##random shift
+ Test of significance of all canonical axes  : Trace      =    0.005
+                                               F-ratio    =    1.616
+                                               P-value    =    0.0010
+
+##torodial shift
+ **** Summary of Monte Carlo test ****
+
+ Test of significance of all canonical axes  : Trace      =    0.005
+                                               F-ratio    =    1.616
+                                               P-value    =    0.0210
+
+ (  999 permutations under reduced model)
+
+##
+YrsSLB
+##torodial shift
+
+ **** Summary of Monte Carlo test ****
+
+ Test of significance of all canonical axes  : Trace      =    0.006
+                                               F-ratio    =    2.102
+                                               P-value    =    0.0010
+
+

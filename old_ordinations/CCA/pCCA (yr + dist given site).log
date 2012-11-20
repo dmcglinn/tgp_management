@@ -1,0 +1,467 @@
+[Thu Oct 09 10:03:40 2008] Log file cleared
+[Thu Oct 09 10:04:31 2008] Settings changed
+[Thu Oct 09 10:04:32 2008] Running CANOCO:
+[Thu Oct 09 10:04:32 2008] CON file [C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\CCA\pCCA (yr + dist given site).con] saved
+ Program CANOCO Version 4.5 February 2002 - written by Cajo J.F. Ter Braak
+ (C) 1988-2002 Biometris - quantitative methods in the life and earth sciences
+ Plant Research International, Wageningen University and Research Centre
+ Box 100, 6700 AC Wageningen, the Netherlands
+ CANOCO performs (partial) (detrended) (canonical) correspondence analysis,
+ principal components analysis and redundancy analysis.
+ CANOCO is an extension of Cornell Ecology program DECORANA (Hill,1979)
+
+ For explanation of the input/output see the manual or
+ Ter Braak, C.J.F. (1995) Ordination. Chapter 5 in:
+ Data Analysis in Community and Landscape Ecology
+ (Jongman, R.H.G., Ter Braak, C.J.F. and Van Tongeren, O.F.R., Eds)
+ Cambridge University Press, Cambridge, UK, 91-173 pp.
+
+ *** Type of analysis ***
+  Model             Gradient analysis
+               indirect     direct     hybrid
+ linear         1=PCA       2= RDA       3
+ unimodal       4= CA       5= CCA       6
+    ,,          7=DCA       8=DCCA       9
+               10=non-standard analysis
+ Type analysis number
+ Answer =  5
+
+
+ *** Data files ***
+ Species data       : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp sp cov.spe
+ Covariable data    : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp env.env
+ Environmental data : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp env.env
+ Initialization file:  
+
+ Forward selection of envi. variables =    0
+ Scaling of ordination scores         =    2
+ Diagnostics                          =    3
+
+ File   : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp sp cov.spe
+ Title  : tgp species data 98-08                                                          
+ Format :  (I5,1X,5(I6,F7.2))                                                  
+ No. of couplets of species number and abundance per line :    5
+
+
+ No samples omitted
+ Number of samples           220
+ Number of species           307
+ Number of occurrences     16768
+
+
+ File  : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp env.env
+ Title : tgp env                                                                        
+ Format :  (I5,1X,3(I6,F15.9))                                                 
+ No. of             covariables :    64
+
+
+ No interaction terms defined
+
+
+ ******************************************************************************
+                     Names of covariables
+ ******************************************************************************
+ 205      206      208      220      222      226      238     
+
+ 244      254      259      303      307      308      309     
+
+ 317      319      331      343      346      350     
+ ******************************************************************************
+
+ File  : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp env.env
+ Title : tgp env                                                                        
+ Format :  (I5,1X,3(I6,F15.9))                                                 
+ No. of environmental variables :    64
+
+
+ No interaction terms defined
+
+
+ Squareroot-transformation of species data
+ No species-weights specified
+ No  sample-weights specified
+    downweighting of rare species
+
+
+
+ Final species weights applied (weight*downweight)
+  1.000 1.000 1.000 0.143 0.685 0.207 0.081 1.000 0.320 0.046 1.000 1.000 1.000 1.000 0.160 1.000 0.269 1.000 1.000 0.317
+  1.000 0.925 0.408 0.023 0.052 0.819 1.000 0.446 0.137 0.503 1.000 1.000 1.000 0.500 0.046 0.391 0.548 0.046 1.000 1.000
+  1.000 0.023 1.000 1.000 0.023 1.000 1.000 0.023 1.000 1.000 0.211 1.000 0.160 1.000 1.000 1.000 0.023 1.000 1.000 0.029
+  0.953 0.046 0.044 0.762 1.000 0.023 1.000 0.365 0.531 1.000 1.000 0.104 0.023 1.000 0.913 0.046 0.320 0.790 1.000 0.218
+  0.104 1.000 0.419 0.052 1.000 1.000 0.406 0.658 0.046 0.114 1.000 0.137 0.822 0.578 0.298 0.485 0.412 1.000 0.527 0.114
+  0.759 1.000 1.000 1.000 1.000 1.000 0.879 0.772 0.023 0.068 0.789 0.023 1.000 1.000 1.000 1.000 0.044 0.784 1.000 0.023
+  0.548 0.023 0.207 0.220 0.800 0.114 0.906 0.514 1.000 0.869 0.236 0.160 0.146 1.000 1.000 0.023 0.094 0.046 0.183 0.023
+  0.023 0.023 1.000 0.068 0.186 0.075 0.269 0.303 1.000 0.725 0.334 0.114 0.097 0.143 0.160 0.464 0.023 0.023 1.000 1.000
+  0.303 0.840 0.029 1.000 1.000 1.000 1.000 0.389 1.000 0.531 1.000 1.000 0.256 1.000 0.205 1.000 1.000 0.143 0.091 0.023
+  0.023 0.023 0.385 1.000 1.000 1.000 0.044 0.371 0.433 1.000 0.075 0.348 0.773 0.285 0.143 0.251 0.224 1.000 0.046 0.400
+  0.126 1.000 1.000 1.000 0.091 1.000 0.023 0.143 1.000 0.091 0.771 0.166 1.000 0.029 1.000 1.000 0.942 0.468 1.000 0.097
+  1.000 0.046 0.029 0.023 0.052 0.274 0.456 1.000 0.560 0.160 0.091 1.000 1.000 0.046 1.000 0.068 0.228 0.287 0.046 1.000
+  1.000 1.000 1.000 0.257 0.497 1.000 0.023 0.114 1.000 0.548 0.120 0.779 0.104 1.000 0.023 0.068 1.000 0.114 1.000 1.000
+  0.218 1.000 0.068 0.740 0.023 1.000 0.211 0.616 1.000 1.000 0.023 0.046 1.000 0.914 1.000 0.036 1.000 0.023 0.571 0.599
+  1.000 0.120 0.023 0.172 1.000 0.921 0.288 0.023 1.000 1.000 0.951 0.036 0.023 0.257 0.317 0.091 0.046 1.000 1.000 1.000
+  0.023 0.146 0.068 0.350 1.000 0.068 1.000
+
+ No rescaling
+
+ No detrending
+
+
+ No. of active  samples:    220
+ No. of passive samples:      0
+ No. of active  species:    307
+
+ Total inertia in species data=
+ Sum of all eigenvalues of CA =    1.47585
+
+ Covariable 350      is linearly dependent, hence ignored
+ ****** Collinearity detected when fitting variable    31 ******
+ ****** Collinearity detected when fitting variable    35 ******
+ 
+ ****** Check on influence in covariable/environment data ******
+ The following sample(s) have extreme values
+ Sample Environmental        Covariable  + Environment space
+        variable Influence   influence     influence     
+
+     18    37      6.8x
+ ****** End of check ******
+
+1
+ **** Weighted correlation matrix (weight = sample total) ****
+ 
+ SPEC AX1	  1.0000
+ SPEC AX2	 -0.1307	  1.0000
+ SPEC AX3	 -0.0457	  0.0381	  1.0000
+ SPEC AX4	 -0.0057	 -0.0613	 -0.0416	  1.0000
+ ENVI AX1	  0.8483	  0.0000	  0.0000	  0.0000	  1.0000
+ ENVI AX2	  0.0000	  0.8659	  0.0000	  0.0000	  0.0000	  1.0000
+ ENVI AX3	  0.0000	  0.0000	  0.8345	  0.0000	  0.0000	  0.0000	  1.0000
+ ENVI AX4	  0.0000	  0.0000	  0.0000	  0.7819	  0.0000	  0.0000	  0.0000	  1.0000
+ 1998    	 -0.0065	  0.4814	  0.1383	  0.1946	 -0.0077	  0.5559	  0.1657	  0.2489
+ 1999    	  0.4891	  0.3315	 -0.0018	 -0.0749	  0.5765	  0.3828	 -0.0022	 -0.0958
+ 2000    	  0.0111	  0.3588	 -0.3090	  0.2284	  0.0131	  0.4144	 -0.3703	  0.2921
+ 2001    	  0.3833	 -0.1748	  0.0485	 -0.1823	  0.4519	 -0.2018	  0.0581	 -0.2331
+ 2002    	  0.1515	 -0.2642	  0.3493	  0.0681	  0.1786	 -0.3052	  0.4186	  0.0872
+ 2003    	  0.1325	 -0.2741	  0.1015	  0.0385	  0.1562	 -0.3165	  0.1217	  0.0493
+ 2004    	 -0.1136	 -0.0938	 -0.1871	 -0.1023	 -0.1339	 -0.1083	 -0.2242	 -0.1309
+ 2005    	 -0.1742	 -0.1071	 -0.0199	  0.0015	 -0.2054	 -0.1236	 -0.0238	  0.0020
+ 2006    	 -0.4377	  0.1880	  0.4803	 -0.1195	 -0.5160	  0.2171	  0.5755	 -0.1528
+ 2007    	 -0.0999	 -0.2669	 -0.1975	  0.0864	 -0.1178	 -0.3083	 -0.2366	  0.1105
+ 2008    	 -0.2929	 -0.0635	 -0.3623	 -0.1119	 -0.3453	 -0.0734	 -0.4342	 -0.1431
+ bison   	 -0.2349	 -0.2497	 -0.0066	 -0.3186	 -0.2769	 -0.2883	 -0.0079	 -0.4074
+ cattle  	  0.2349	  0.2497	  0.0066	  0.3186	  0.2769	  0.2883	  0.0079	  0.4074
+ YrsOB   	 -0.4568	 -0.4062	 -0.1992	  0.1183	 -0.5385	 -0.4691	 -0.2387	  0.1513
+ BP5Yrs  	  0.0128	  0.0656	  0.2895	  0.3642	  0.0151	  0.0757	  0.3469	  0.4659
+ YrsSLB  	 -0.0839	  0.1064	 -0.2566	 -0.5239	 -0.0989	  0.1228	 -0.3074	 -0.6700
+ spring  	 -0.0220	  0.0293	  0.0252	  0.3460	 -0.0259	  0.0338	  0.0302	  0.4425
+
+         	SPEC AX1	SPEC AX2	SPEC AX3	SPEC AX4	ENVI AX1	ENVI AX2	ENVI AX3	ENVI AX4
+
+ 1998    	  1.0000
+ 1999    	 -0.0828	  1.0000
+ 2000    	 -0.0828	 -0.0899	  1.0000
+ 2001    	 -0.0879	 -0.0952	 -0.0952	  1.0000
+ 2002    	 -0.0859	 -0.0932	 -0.0931	 -0.0988	  1.0000
+ 2003    	 -0.0884	 -0.0958	 -0.0957	 -0.1020	 -0.0996	  1.0000
+ 2004    	 -0.0909	 -0.0983	 -0.0984	 -0.1048	 -0.1026	 -0.1059	  1.0000
+ 2005    	 -0.0916	 -0.0996	 -0.0998	 -0.1061	 -0.1034	 -0.1070	 -0.1098	  1.0000
+ 2006    	 -0.0864	 -0.0935	 -0.0935	 -0.0996	 -0.0975	 -0.1005	 -0.1038	 -0.1045
+ 2007    	 -0.0970	 -0.1044	 -0.1049	 -0.1116	 -0.1082	 -0.1118	 -0.1151	 -0.1163
+ 2008    	 -0.0898	 -0.0977	 -0.0977	 -0.1030	 -0.1014	 -0.1042	 -0.1077	 -0.1076
+ bison   	 -0.2817	 -0.1677	 -0.1616	 -0.1847	  0.0173	  0.0251	  0.1327	  0.1415
+ cattle  	  0.2817	  0.1677	  0.1616	  0.1847	 -0.0173	 -0.0251	 -0.1327	 -0.1415
+ YrsOB   	 -0.3187	 -0.2973	 -0.2441	 -0.2077	 -0.1294	 -0.0543	  0.0321	  0.1304
+ BP5Yrs  	  0.1829	  0.0721	  0.0305	  0.0248	  0.0682	 -0.0153	  0.0019	  0.0408
+ YrsSLB  	 -0.0756	 -0.0269	  0.0118	 -0.0981	 -0.0738	  0.0239	  0.1015	 -0.0247
+ spring  	  0.1041	 -0.0118	  0.0414	  0.1322	 -0.0393	 -0.0037	  0.0097	 -0.0528
+
+         	1998    	1999    	2000    	2001    	2002    	2003    	2004    	2005    
+
+ 2006    	  1.0000
+ 2007    	 -0.1092	  1.0000
+ 2008    	 -0.1010	 -0.1131	  1.0000
+ bison   	  0.1276	  0.1655	  0.1163	  1.0000
+ cattle  	 -0.1276	 -0.1655	 -0.1163	 -1.0000	  1.0000
+ YrsOB   	  0.2136	  0.3674	  0.4056	  0.3698	 -0.3698	  1.0000
+ BP5Yrs  	 -0.0601	 -0.1760	 -0.1295	 -0.2996	  0.2996	 -0.1745	  1.0000
+ YrsSLB  	 -0.0068	  0.1007	  0.0466	  0.1332	 -0.1332	  0.0306	 -0.5946	  1.0000
+ spring  	 -0.0240	 -0.1307	 -0.0013	 -0.2751	  0.2751	 -0.0654	  0.3259	 -0.4789
+
+         	2006    	2007    	2008    	bison   	cattle  	YrsOB   	BP5Yrs  	YrsSLB  
+
+
+    N	name	   (weighted) mean	   stand. dev.	inflation factor
+
+    1	SPEC AX1	        0.0000	        1.1788
+    2	SPEC AX2	        0.0000	        1.1548
+    3	SPEC AX3	        0.0000	        1.1983
+    4	SPEC AX4	        0.0000	        1.2790
+    5	ENVI AX1	        0.0000	        1.0000
+    6	ENVI AX2	        0.0000	        1.0000
+    7	ENVI AX3	        0.0000	        1.0000
+    8	ENVI AX4	        0.0000	        1.0000
+   21	1998    	        0.0708	        0.2565	        2.7968
+   22	1999    	        0.0821	        0.2746	        2.7888
+   23	2000    	        0.0823	        0.2748	        2.6167
+   24	2001    	        0.0918	        0.2887	        2.6806
+   25	2002    	        0.0881	        0.2834	        2.3964
+   26	2003    	        0.0931	        0.2905	        2.2521
+   27	2004    	        0.0981	        0.2975	        2.1780
+   28	2005    	        0.0997	        0.2996	        2.0621
+   29	2006    	        0.0892	        0.2850	        1.8431
+   30	2007    	        0.1090	        0.3117	        1.9375
+   31	2008    	        0.0958	        0.2944	        0.0000
+   34	bison   	        0.5640	        0.4959	        5.6012
+   35	cattle  	        0.4360	        0.4959	        0.0000
+   36	YrsOB   	        3.7072	        4.3424	        9.7328
+   37	BP5Yrs  	        1.8744	        1.3531	        5.7218
+   38	YrsSLB  	        2.1171	        2.1268	        3.1858
+   40	spring  	        0.2936	        0.4554	        2.0834
+
+
+ **** Summary ****
+
+ Axes                               	     1	     2	     3	     4	 Total inertia
+
+ Eigenvalues                       :	 0.018	 0.015	 0.010	 0.008	        1.476
+ Species-environment correlations  :	 0.848	 0.866	 0.835	 0.782
+ Cumulative percentage variance
+    of species data                :	   2.9	   5.3	   6.8	   8.1
+    of species-environment relation:	  18.5	  34.0	  43.7	  52.1
+
+ Sum of all               eigenvalues      	     	      	      	      	  0.641
+ Sum of all canonical     eigenvalues      	     	      	      	      	  0.099
+
+
+ The sum of all eigenvalues is after fitting covariables
+ Percentages are taken with respect to residual variances
+                 i.e. variances after fitting covariables
+
+ *** MESSAGE ***
+ The fit for species is additional to the fit due to covariables.
+ With covariables, CANOCO cannot calculate residuals for samples.
+
+1
+ *** Specification of blocks ***
+
+ *** The permutations are conditioned on    19 covariable(s), namely: ***
+
+    covariable  205     
+    covariable  206     
+    covariable  208     
+    covariable  220     
+    covariable  222     
+    covariable  226     
+    covariable  238     
+    covariable  244     
+    covariable  254     
+    covariable  259     
+    covariable  303     
+    covariable  307     
+    covariable  308     
+    covariable  309     
+    covariable  317     
+    covariable  319     
+    covariable  331     
+    covariable  343     
+    covariable  346     
+
+ *** Sample arrangement in the permutation test ***
+
+
+ Samples in block    1 :
+     1    21    41    61    81   101   121   141   161   181
+   201
+ The      11       plots are permuted completely at random
+
+ Samples in block    2 :
+     2    22    42    62    82   102   122   142   162   182
+   202
+ The      11       plots are permuted completely at random
+
+ Samples in block    3 :
+     3    23    43    63    83   103   123   143   163   183
+   203
+ The      11       plots are permuted completely at random
+
+ Samples in block    4 :
+     4    24    44    64    84   104   124   144   164   184
+   204
+ The      11       plots are permuted completely at random
+
+ Samples in block    5 :
+     5    25    45    65    85   105   125   145   165   185
+   205
+ The      11       plots are permuted completely at random
+
+ Samples in block    6 :
+     6    26    46    66    86   106   126   146   166   186
+   206
+ The      11       plots are permuted completely at random
+
+ Samples in block    7 :
+     7    27    47    67    87   107   127   147   167   187
+   207
+ The      11       plots are permuted completely at random
+
+ Samples in block    8 :
+     8    28    48    68    88   108   128   148   168   188
+   208
+ The      11       plots are permuted completely at random
+
+ Samples in block    9 :
+     9    29    49    69    89   109   129   149   169   189
+   209
+ The      11       plots are permuted completely at random
+
+ Samples in block   10 :
+    10    30    50    70    90   110   130   150   170   190
+   210
+ The      11       plots are permuted completely at random
+
+ Samples in block   11 :
+    11    31    51    71    91   111   131   151   171   191
+   211
+ The      11       plots are permuted completely at random
+
+ Samples in block   12 :
+    12    32    52    72    92   112   132   152   172   192
+   212
+ The      11       plots are permuted completely at random
+
+ Samples in block   13 :
+    13    33    53    73    93   113   133   153   173   193
+   213
+ The      11       plots are permuted completely at random
+
+ Samples in block   14 :
+    14    34    54    74    94   114   134   154   174   194
+   214
+ The      11       plots are permuted completely at random
+
+ Samples in block   15 :
+    15    35    55    75    95   115   135   155   175   195
+   215
+ The      11       plots are permuted completely at random
+
+ Samples in block   16 :
+    16    36    56    76    96   116   136   156   176   196
+   216
+ The      11       plots are permuted completely at random
+
+ Samples in block   17 :
+    17    37    57    77    97   117   137   157   177   197
+   217
+ The      11       plots are permuted completely at random
+
+ Samples in block   18 :
+    18    38    58    78    98   118   138   158   178   198
+   218
+ The      11       plots are permuted completely at random
+
+ Samples in block   19 :
+    19    39    59    79    99   119   139   159   179   199
+   219   220
+ The      12       plots are permuted completely at random
+
+ Samples in block   20 :
+    20    40    60    80   100   120   140   160   180   200
+ The      10       plots are permuted completely at random
+
+ Seeds:     96  1763
+
+
+
+ **** Summary of Monte Carlo test ****
+
+ Test of significance of first canonical axis: eigenvalue =    0.018
+                                               F-ratio    =    5.443
+                                               P-value    =    0.0010
+
+ Test of significance of all canonical axes  : Trace      =    0.099
+                                               F-ratio    =    2.255
+                                               P-value    =    0.0010
+
+ (  999 permutations under reduced model)
+
+1
+
+ File with supplementary variables: C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\habit.spe
+
+
+ File  : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\habit.spe
+ Title : habit                                                                          
+ Format :  (I5,1X,7(I6,F4.0))                                                  
+ No. of environmental variables :     6
+
+
+ No interaction terms defined
+
+
+ ****** Collinearity detected when fitting variable     4 ******
+1
+ **** Weighted correlation matrix (weight = sample total) ****
+ 
+ SPEC AX1	  1.0000
+ SPEC AX2	 -0.1307	  1.0000
+ SPEC AX3	 -0.0457	  0.0381	  1.0000
+ SPEC AX4	 -0.0057	 -0.0613	 -0.0416	  1.0000
+ ENVI AX1	  0.8008	 -0.1320	 -0.1981	  0.0895	  1.0000
+ ENVI AX2	 -0.1368	  0.7731	  0.2461	 -0.0619	 -0.1708	  1.0000
+ ENVI AX3	 -0.2861	  0.3431	  0.5546	  0.0228	 -0.3572	  0.4438	  1.0000
+ ENVI AX4	  0.2956	 -0.1972	  0.0521	  0.2426	  0.3691	 -0.2551	  0.0940	  1.0000
+ F       	  0.4103	 -0.7123	 -0.2952	  0.1129	  0.5123	 -0.9214	 -0.5322	  0.4654
+ Gsum    	 -0.2706	 -0.4623	 -0.3302	 -0.1218	 -0.3379	 -0.5980	 -0.5954	 -0.5021
+ G3      	  0.1275	 -0.3264	 -0.5127	 -0.1052	  0.1592	 -0.4221	 -0.9243	 -0.4337
+ G4      	 -0.5729	 -0.3953	  0.0174	 -0.0835	 -0.7154	 -0.5113	  0.0314	 -0.3443
+ L       	 -0.3723	 -0.3775	 -0.1678	  0.0838	 -0.4648	 -0.4882	 -0.3025	  0.3457
+ W       	 -0.2422	 -0.2339	 -0.0288	 -0.0214	 -0.3024	 -0.3025	 -0.0519	 -0.0884
+
+         	SPEC AX1	SPEC AX2	SPEC AX3	SPEC AX4	ENVI AX1	ENVI AX2	ENVI AX3	ENVI AX4
+
+ F       	  1.0000
+ Gsum    	  0.3477	  1.0000
+ G3      	  0.3932	  0.7950	  1.0000
+ G4      	  0.1388	  0.7595	  0.2091	  1.0000
+ L       	  0.3437	  0.4630	  0.1977	  0.5343	  1.0000
+ W       	  0.1542	  0.2827	  0.0665	  0.3843	  0.3591	  1.0000
+
+         	F       	Gsum    	G3      	G4      	L       	W       
+
+    N	name	   (weighted) mean	   stand. dev.	inflation factor
+
+    1	SPEC AX1	        0.0000	        1.1788
+    2	SPEC AX2	        0.0000	        1.1548
+    3	SPEC AX3	        0.0000	        1.1983
+    4	SPEC AX4	        0.0000	        1.2790
+    5	ENVI AX1	        0.0000	        0.9441
+    6	ENVI AX2	        0.0000	        0.8928
+    7	ENVI AX3	        0.0000	        0.6646
+    8	ENVI AX4	        0.0000	        0.3102
+    1	F       	       77.1530	       17.5453	        2.3199
+    2	Gsum    	       66.5525	       11.8650	       10.3962
+    3	G3      	       33.6353	        9.0677	       11.9397
+    4	G4      	       32.9172	        6.2403	        0.0000
+    5	L       	       21.8887	        7.9783	        6.4420
+    6	W       	        3.2404	        2.0576	        5.2026
+
+
+ **** Summary ****
+
+ Axes                               	     1	     2	     3	     4	 Total inertia
+
+ Species-environment correlations  :	 0.801	 0.773	 0.555	 0.243
+ Cumulative percentage variance
+    of species data                :	   2.9	   5.3	   6.8	   8.1
+    of species-environment relation:	  27.3	  47.8	  55.0	  56.3
+
+ Sum of all               eigenvalues      	     	      	      	      	  0.641
+ Sum of all canonical     eigenvalues      	     	      	      	      	  0.060
+
+
+ The sum of all eigenvalues is after fitting covariables
+ Percentages are taken with respect to residual variances
+                 i.e. variances after fitting covariables
+
+[Thu Oct 09 10:04:44 2008] CANOCO call succeeded
+

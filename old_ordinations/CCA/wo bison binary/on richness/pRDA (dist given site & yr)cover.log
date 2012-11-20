@@ -1,0 +1,262 @@
+[Sun Mar 22 18:16:11 2009] Log file created
+[Sun Mar 22 18:17:55 2009] Settings changed
+[Sun Mar 22 18:18:08 2009] CON file [C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\CCA\wo bison binary\on richness\pRDA (dist given site & yr)cover.con] saved
+[Sun Mar 22 18:18:09 2009] Running CANOCO:
+[Sun Mar 22 18:18:09 2009] CON file [C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\CCA\wo bison binary\on richness\pRDA (dist given site & yr)cover.con] saved
+ Program CANOCO Version 4.5 February 2002 - written by Cajo J.F. Ter Braak
+ (C) 1988-2002 Biometris - quantitative methods in the life and earth sciences
+ Plant Research International, Wageningen University and Research Centre
+ Box 100, 6700 AC Wageningen, the Netherlands
+ CANOCO performs (partial) (detrended) (canonical) correspondence analysis,
+ principal components analysis and redundancy analysis.
+ CANOCO is an extension of Cornell Ecology program DECORANA (Hill,1979)
+
+ For explanation of the input/output see the manual or
+ Ter Braak, C.J.F. (1995) Ordination. Chapter 5 in:
+ Data Analysis in Community and Landscape Ecology
+ (Jongman, R.H.G., Ter Braak, C.J.F. and Van Tongeren, O.F.R., Eds)
+ Cambridge University Press, Cambridge, UK, 91-173 pp.
+
+ *** Type of analysis ***
+  Model             Gradient analysis
+               indirect     direct     hybrid
+ linear         1=PCA       2= RDA       3
+ unimodal       4= CA       5= CCA       6
+    ,,          7=DCA       8=DCCA       9
+               10=non-standard analysis
+ Type analysis number
+ Answer =  2
+
+
+ *** Data files ***
+ Species data       : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\habit.spe
+ Covariable data    : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp env.env
+ Environmental data : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp env.env
+ Initialization file:  
+
+ Forward selection of envi. variables =    0
+ Scaling of ordination scores         =    2
+ Diagnostics                          =    1
+
+ File   : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\habit.spe
+ Title  : habit                                                                           
+ Format :  (I5,1X,7(I6,F4.0))                                                  
+ No. of couplets of species number and abundance per line :    7
+
+
+ No samples omitted
+ Number of samples           220
+ Number of species             6
+ Number of occurrences      1288
+
+
+ File  : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp env.env
+ Title : tgp env                                                                        
+ Format :  (I5,1X,3(I6,F15.9))                                                 
+ No. of             covariables :    64
+
+
+ No interaction terms defined
+
+
+ ******************************************************************************
+                     Names of covariables
+ ******************************************************************************
+ 1998     1999     2000     2001     2002     2003     2004    
+
+ 2005     2006     2007     2008     205      206      208     
+
+ 220      222      226      238      244      254      259     
+
+ 303      307      308      309      317      319      331     
+
+ 343      346      350     
+ ******************************************************************************
+
+ File  : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp env.env
+ Title : tgp env                                                                        
+ Format :  (I5,1X,3(I6,F15.9))                                                 
+ No. of environmental variables :    64
+
+
+ No interaction terms defined
+
+
+ No transformation of species data
+ Weight    0.00 is given to species      2
+ No  sample-weights specified
+ Centering/standardization by species  =    1
+ Centering/standardization by samples  =    0
+
+ No. of active  samples:    220
+ No. of passive samples:      0
+ No. of active  species:      5
+
+ Total sum of squares in species data =     109977.    
+ Total standard deviation in species data TAU =     9.99894    
+ Covariable 2008     is linearly dependent, hence ignored
+ Covariable 350      is linearly dependent, hence ignored
+ 
+ ****** Check on influence in covariable/environment data ******
+ The following sample(s) have extreme values
+ Sample Environmental        Covariable  + Environment space
+        variable Influence   influence     influence     
+
+     18    37      6.6x
+    218    38      5.1x
+ ****** End of check ******
+
+1
+ **** Correlation matrix ****
+ 
+ SPEC AX1	  1.0000
+ SPEC AX2	  0.3307	  1.0000
+ SPEC AX3	  0.4722	  0.2353	  1.0000
+ SPEC AX4	 -0.9310	 -0.4216	 -0.5632	  1.0000
+ ENVI AX1	  0.3489	  0.0000	  0.0000	  0.0000	  1.0000
+ ENVI AX2	  0.0000	  0.3803	  0.0000	  0.0000	  0.0000	  1.0000
+ ENVI AX3	  0.0000	  0.0000	  0.1964	  0.0000	  0.0000	  0.0000	  1.0000
+ ENVI AX4	  0.0000	  0.0000	  0.0000	  0.0000	  0.0000	  0.0000	  0.0000	  0.0000
+ YrsOB   	 -0.2216	 -0.1843	  0.1181	  0.0000	 -0.6352	 -0.4847	  0.6014	  0.0000
+ BP5Yrs  	 -0.0516	  0.2979	  0.1186	  0.0000	 -0.1479	  0.7833	  0.6038	  0.0000
+ YrsSLB  	  0.2618	 -0.2502	  0.0125	  0.0000	  0.7504	 -0.6579	  0.0637	  0.0000
+
+         	SPEC AX1	SPEC AX2	SPEC AX3	SPEC AX4	ENVI AX1	ENVI AX2	ENVI AX3	ENVI AX4
+
+ YrsOB   	  1.0000
+ BP5Yrs  	  0.0775	  1.0000
+ YrsSLB  	 -0.1195	 -0.5878	  1.0000
+
+         	YrsOB   	BP5Yrs  	YrsSLB  
+
+    N	name	   (weighted) mean	   stand. dev.	inflation factor
+
+    1	SPEC AX1	        0.0000	        2.8665
+    2	SPEC AX2	        0.0000	        2.6293
+    3	SPEC AX3	        0.0000	        5.0918
+    4	SPEC AX4	        0.0000	        1.0000
+    5	ENVI AX1	        0.0000	        1.0000
+    6	ENVI AX2	        0.0000	        1.0000
+    7	ENVI AX3	        0.0000	        1.0000
+    8	ENVI AX4	        0.0000	        0.0000
+   36	YrsOB   	        3.3810	        4.2297	        9.0131
+   37	BP5Yrs  	        1.9318	        1.3817	        5.2868
+   38	YrsSLB  	        2.0899	        2.1335	        2.6271
+
+
+ **** Summary ****
+
+ Axes                               	     1	     2	     3	     4	Total variance
+
+ Eigenvalues                       :	 0.023	 0.005	 0.001	 0.185	        1.000
+ Species-environment correlations  :	 0.349	 0.380	 0.196	 0.000
+ Cumulative percentage variance
+    of species data                :	   8.5	  10.2	  10.6	  77.7
+    of species-environment relation:	  80.4	  96.2	 100.0	   0.0
+
+ Sum of all               eigenvalues      	     	      	      	      	  0.275
+ Sum of all canonical     eigenvalues      	     	      	      	      	  0.029
+
+
+ The sum of all eigenvalues is after fitting covariables
+ Percentages are taken with respect to residual variances
+                 i.e. variances after fitting covariables
+
+ *** MESSAGE ***
+ The fit for species is additional to the fit due to covariables.
+ With covariables, CANOCO cannot calculate residuals for samples.
+
+1
+ *** Specification of blocks ***
+
+ *** The permutations are conditioned on    10 covariable(s), namely: ***
+
+    covariable  1998    
+    covariable  1999    
+    covariable  2000    
+    covariable  2001    
+    covariable  2002    
+    covariable  2003    
+    covariable  2004    
+    covariable  2005    
+    covariable  2006    
+    covariable  2007    
+
+ *** Sample arrangement in the permutation test ***
+
+
+ Samples in block    1 :
+     1     2     3     4     5     6     7     8     9    10
+    11    12    13    14    15    16    17    18    19    20
+ The      20       plots are permuted completely at random
+
+ Samples in block    2 :
+    21    22    23    24    25    26    27    28    29    30
+    31    32    33    34    35    36    37    38    39    40
+ The      20       plots are permuted completely at random
+
+ Samples in block    3 :
+    41    42    43    44    45    46    47    48    49    50
+    51    52    53    54    55    56    57    58    59    60
+ The      20       plots are permuted completely at random
+
+ Samples in block    4 :
+    61    62    63    64    65    66    67    68    69    70
+    71    72    73    74    75    76    77    78    79    80
+ The      20       plots are permuted completely at random
+
+ Samples in block    5 :
+    81    82    83    84    85    86    87    88    89    90
+    91    92    93    94    95    96    97    98    99   100
+ The      20       plots are permuted completely at random
+
+ Samples in block    6 :
+   101   102   103   104   105   106   107   108   109   110
+   111   112   113   114   115   116   117   118   119   120
+ The      20       plots are permuted completely at random
+
+ Samples in block    7 :
+   121   122   123   124   125   126   127   128   129   130
+   131   132   133   134   135   136   137   138   139   140
+ The      20       plots are permuted completely at random
+
+ Samples in block    8 :
+   141   142   143   144   145   146   147   148   149   150
+   151   152   153   154   155   156   157   158   159   160
+ The      20       plots are permuted completely at random
+
+ Samples in block    9 :
+   161   162   163   164   165   166   167   168   169   170
+   171   172   173   174   175   176   177   178   179   180
+ The      20       plots are permuted completely at random
+
+ Samples in block   10 :
+   181   182   183   184   185   186   187   188   189   190
+   191   192   193   194   195   196   197   198   199   200
+ The      20       plots are permuted completely at random
+
+ Samples in block   11 :
+   201   202   203   204   205   206   207   208   209   210
+   211   212   213   214   215   216   217   218   219   220
+ The      20       plots are permuted completely at random
+
+ Seeds:  14886 19850
+
+
+
+ **** Summary of Monte Carlo test ****
+
+ Test of significance of first canonical axis: eigenvalue =    0.023
+                                               F-ratio    =   17.373
+                                               P-value    =    0.0010
+
+ Test of significance of all canonical axes  : Trace      =    0.029
+                                               F-ratio    =    7.373
+                                               P-value    =    0.0010
+
+ (  999 permutations under reduced model)
+
+[Sun Mar 22 18:18:11 2009] CANOCO call succeeded
+[Sun Mar 22 18:18:28 2009] Running CanoDraw
+[Sun Mar 22 18:18:29 2009] CanoDraw call succeeded
+

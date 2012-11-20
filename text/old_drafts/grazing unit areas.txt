@@ -1,0 +1,9 @@
+total of 2008 bison grazing unit (May 1st, 2008)
+88409594.989 in meters squared
+round up area
+2921872
+
+##total minus round out
+88409594.989-2921872 = 85487723 m2
+
+85487723 * 0.0001 = 8548.772 ha

@@ -1,0 +1,343 @@
+[Fri Mar 20 12:39:01 2009] Log file cleared
+[Fri Mar 20 12:39:54 2009] Settings changed
+[Fri Mar 20 12:39:56 2009] Running CANOCO:
+[Fri Mar 20 12:39:56 2009] CON file [C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\CCA\wo bison binary\pCCA (site given yr & dist).con] saved
+ Program CANOCO Version 4.5 February 2002 - written by Cajo J.F. Ter Braak
+ (C) 1988-2002 Biometris - quantitative methods in the life and earth sciences
+ Plant Research International, Wageningen University and Research Centre
+ Box 100, 6700 AC Wageningen, the Netherlands
+ CANOCO performs (partial) (detrended) (canonical) correspondence analysis,
+ principal components analysis and redundancy analysis.
+ CANOCO is an extension of Cornell Ecology program DECORANA (Hill,1979)
+
+ For explanation of the input/output see the manual or
+ Ter Braak, C.J.F. (1995) Ordination. Chapter 5 in:
+ Data Analysis in Community and Landscape Ecology
+ (Jongman, R.H.G., Ter Braak, C.J.F. and Van Tongeren, O.F.R., Eds)
+ Cambridge University Press, Cambridge, UK, 91-173 pp.
+
+ *** Type of analysis ***
+  Model             Gradient analysis
+               indirect     direct     hybrid
+ linear         1=PCA       2= RDA       3
+ unimodal       4= CA       5= CCA       6
+    ,,          7=DCA       8=DCCA       9
+               10=non-standard analysis
+ Type analysis number
+ Answer =  5
+
+
+ *** Data files ***
+ Species data       : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp sp cov.spe
+ Covariable data    : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp env.env
+ Environmental data : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp env.env
+ Initialization file:  
+
+ Forward selection of envi. variables =    0
+ Scaling of ordination scores         =    2
+ Diagnostics                          =    3
+
+ File   : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp sp cov.spe
+ Title  : tgp species data 98-08                                                          
+ Format :  (I5,1X,5(I6,F7.2))                                                  
+ No. of couplets of species number and abundance per line :    5
+
+
+ No samples omitted
+ Number of samples           220
+ Number of species           307
+ Number of occurrences     16768
+
+
+ File  : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp env.env
+ Title : tgp env                                                                        
+ Format :  (I5,1X,3(I6,F15.9))                                                 
+ No. of             covariables :    64
+
+
+ No interaction terms defined
+
+
+ ******************************************************************************
+                     Names of covariables
+ ******************************************************************************
+ 1998     1999     2000     2001     2002     2003     2004    
+
+ 2005     2006     2007     2008     YrsOB    BP5Yrs   YrsSLB  
+
+ ******************************************************************************
+
+ File  : C:\Users\Daniel McGlinn\Documents\Grad Ecology\TGP - vegmon\management manuscript\data folder\tgp env.env
+ Title : tgp env                                                                        
+ Format :  (I5,1X,3(I6,F15.9))                                                 
+ No. of environmental variables :    64
+
+
+ No interaction terms defined
+
+
+ Squareroot-transformation of species data
+ No species-weights specified
+ No  sample-weights specified
+    downweighting of rare species
+
+
+
+ Final species weights applied (weight*downweight)
+  1.000 1.000 1.000 0.143 0.685 0.207 0.081 1.000 0.320 0.046 1.000 1.000 1.000 1.000 0.160 1.000 0.269 1.000 1.000 0.317
+  1.000 0.925 0.408 0.023 0.052 0.819 1.000 0.446 0.137 0.503 1.000 1.000 1.000 0.500 0.046 0.391 0.548 0.046 1.000 1.000
+  1.000 0.023 1.000 1.000 0.023 1.000 1.000 0.023 1.000 1.000 0.211 1.000 0.160 1.000 1.000 1.000 0.023 1.000 1.000 0.029
+  0.953 0.046 0.044 0.762 1.000 0.023 1.000 0.365 0.531 1.000 1.000 0.104 0.023 1.000 0.913 0.046 0.320 0.790 1.000 0.218
+  0.104 1.000 0.419 0.052 1.000 1.000 0.406 0.658 0.046 0.114 1.000 0.137 0.822 0.578 0.298 0.485 0.412 1.000 0.527 0.114
+  0.759 1.000 1.000 1.000 1.000 1.000 0.879 0.772 0.023 0.068 0.789 0.023 1.000 1.000 1.000 1.000 0.044 0.784 1.000 0.023
+  0.548 0.023 0.207 0.220 0.800 0.114 0.906 0.514 1.000 0.869 0.236 0.160 0.146 1.000 1.000 0.023 0.094 0.046 0.183 0.023
+  0.023 0.023 1.000 0.068 0.186 0.075 0.269 0.303 1.000 0.725 0.334 0.114 0.097 0.143 0.160 0.464 0.023 0.023 1.000 1.000
+  0.303 0.840 0.029 1.000 1.000 1.000 1.000 0.389 1.000 0.531 1.000 1.000 0.256 1.000 0.205 1.000 1.000 0.143 0.091 0.023
+  0.023 0.023 0.385 1.000 1.000 1.000 0.044 0.371 0.433 1.000 0.075 0.348 0.773 0.285 0.143 0.251 0.224 1.000 0.046 0.400
+  0.126 1.000 1.000 1.000 0.091 1.000 0.023 0.143 1.000 0.091 0.771 0.166 1.000 0.029 1.000 1.000 0.942 0.468 1.000 0.097
+  1.000 0.046 0.029 0.023 0.052 0.274 0.456 1.000 0.560 0.160 0.091 1.000 1.000 0.046 1.000 0.068 0.228 0.287 0.046 1.000
+  1.000 1.000 1.000 0.257 0.497 1.000 0.023 0.114 1.000 0.548 0.120 0.779 0.104 1.000 0.023 0.068 1.000 0.114 1.000 1.000
+  0.218 1.000 0.068 0.740 0.023 1.000 0.211 0.616 1.000 1.000 0.023 0.046 1.000 0.914 1.000 0.036 1.000 0.023 0.571 0.599
+  1.000 0.120 0.023 0.172 1.000 0.921 0.288 0.023 1.000 1.000 0.951 0.036 0.023 0.257 0.317 0.091 0.046 1.000 1.000 1.000
+  0.023 0.146 0.068 0.350 1.000 0.068 1.000
+
+ No rescaling
+
+ No detrending
+
+
+ No. of active  samples:    220
+ No. of passive samples:      0
+ No. of active  species:    307
+
+ Total inertia in species data=
+ Sum of all eigenvalues of CA =    1.47585
+
+ Covariable 2008     is linearly dependent, hence ignored
+ ****** Collinearity detected when fitting variable    20 ******
+ 
+1
+ **** Weighted correlation matrix (weight = sample total) ****
+ 
+ SPEC AX1	  1.0000
+ SPEC AX2	 -0.0023	  1.0000
+ SPEC AX3	 -0.0054	 -0.0018	  1.0000
+ SPEC AX4	 -0.0015	  0.0015	 -0.0053	  1.0000
+ ENVI AX1	  0.9879	  0.0000	  0.0000	  0.0000	  1.0000
+ ENVI AX2	  0.0000	  0.9811	  0.0000	  0.0000	  0.0000	  1.0000
+ ENVI AX3	  0.0000	  0.0000	  0.9767	  0.0000	  0.0000	  0.0000	  1.0000
+ ENVI AX4	  0.0000	  0.0000	  0.0000	  0.9726	  0.0000	  0.0000	  0.0000	  1.0000
+ 205     	 -0.1923	 -0.0062	  0.0444	  0.0806	 -0.1946	 -0.0063	  0.0454	  0.0829
+ 206     	  0.1188	 -0.1743	 -0.0427	 -0.1669	  0.1202	 -0.1777	 -0.0437	 -0.1716
+ 208     	 -0.2654	  0.0895	 -0.2147	 -0.2491	 -0.2686	  0.0912	 -0.2198	 -0.2561
+ 220     	 -0.0267	  0.1770	  0.0765	  0.2329	 -0.0270	  0.1804	  0.0783	  0.2395
+ 222     	  0.0316	 -0.1429	 -0.0773	 -0.0880	  0.0320	 -0.1456	 -0.0791	 -0.0904
+ 226     	  0.0478	 -0.1659	  0.5066	  0.4292	  0.0484	 -0.1691	  0.5187	  0.4413
+ 238     	  0.2613	  0.0266	 -0.1774	 -0.1945	  0.2645	  0.0271	 -0.1816	 -0.2000
+ 244     	  0.1354	 -0.1460	 -0.1304	 -0.1044	  0.1370	 -0.1488	 -0.1335	 -0.1073
+ 254     	 -0.2759	  0.5932	  0.0548	 -0.0076	 -0.2792	  0.6047	  0.0561	 -0.0079
+ 259     	 -0.2200	 -0.2712	 -0.2534	 -0.0818	 -0.2227	 -0.2764	 -0.2595	 -0.0841
+ 303     	  0.2167	 -0.2583	  0.3704	 -0.0548	  0.2193	 -0.2632	  0.3792	 -0.0563
+ 307     	  0.1911	  0.2261	 -0.1166	 -0.0249	  0.1935	  0.2305	 -0.1194	 -0.0256
+ 308     	 -0.3848	 -0.1291	 -0.0781	  0.5720	 -0.3895	 -0.1315	 -0.0800	  0.5881
+ 309     	  0.3061	  0.0387	  0.0416	 -0.1859	  0.3098	  0.0395	  0.0426	 -0.1912
+ 317     	 -0.1428	  0.4561	  0.1701	 -0.1028	 -0.1445	  0.4649	  0.1742	 -0.1057
+ 319     	 -0.3911	 -0.2319	 -0.3455	  0.0683	 -0.3959	 -0.2364	 -0.3538	  0.0703
+ 331     	  0.4941	  0.1029	 -0.3907	  0.5038	  0.5002	  0.1049	 -0.4000	  0.5180
+ 343     	  0.0039	  0.0655	  0.0934	 -0.1441	  0.0040	  0.0667	  0.0956	 -0.1482
+ 346     	 -0.1193	 -0.2391	  0.1215	 -0.2703	 -0.1208	 -0.2437	  0.1244	 -0.2779
+ 350     	  0.0929	  0.0375	  0.2828	 -0.0927	  0.0941	  0.0382	  0.2896	 -0.0953
+
+         	SPEC AX1	SPEC AX2	SPEC AX3	SPEC AX4	ENVI AX1	ENVI AX2	ENVI AX3	ENVI AX4
+
+ 205     	  1.0000
+ 206     	 -0.1343	  1.0000
+ 208     	 -0.2102	 -0.1470	  1.0000
+ 220     	 -0.2054	 -0.1576	 -0.2144	  1.0000
+ 222     	 -0.1611	 -0.1185	 -0.1526	 -0.1585	  1.0000
+ 226     	 -0.1574	 -0.1172	 -0.1504	 -0.1544	 -0.1236	  1.0000
+ 238     	 -0.0631	 -0.0783	 -0.0809	 -0.0882	 -0.0763	 -0.0742	  1.0000
+ 244     	 -0.1018	 -0.0706	 -0.0780	 -0.0705	 -0.0816	 -0.0840	 -0.0589	  1.0000
+ 254     	  0.0415	 -0.0104	  0.0225	  0.0202	 -0.0056	 -0.0019	 -0.0434	 -0.0312
+ 259     	  0.0231	 -0.0239	  0.0032	  0.0012	 -0.0198	 -0.0174	 -0.0485	 -0.0401
+ 303     	  0.0568	 -0.0145	  0.0242	  0.0164	 -0.0050	  0.0023	 -0.0545	 -0.0246
+ 307     	 -0.0110	 -0.0468	 -0.0266	 -0.0257	 -0.0460	 -0.0468	 -0.0601	 -0.0655
+ 308     	  0.0253	 -0.0023	  0.0171	 -0.0018	  0.0066	  0.0271	 -0.0397	  0.0233
+ 309     	  0.0249	 -0.0031	  0.0170	 -0.0042	  0.0066	  0.0303	 -0.0445	  0.0270
+ 317     	 -0.0089	 -0.0463	 -0.0261	 -0.0263	 -0.0448	 -0.0454	 -0.0592	 -0.0621
+ 319     	  0.0591	 -0.0159	  0.0315	  0.0372	 -0.0123	 -0.0162	 -0.0544	 -0.0655
+ 331     	 -0.0150	  0.0007	  0.0335	  0.0602	 -0.0176	 -0.0242	 -0.0349	 -0.0995
+ 343     	 -0.0810	  0.0199	  0.0369	  0.0731	 -0.0150	 -0.0160	 -0.0176	 -0.1035
+ 346     	  0.0133	 -0.0214	 -0.0006	 -0.0082	 -0.0164	 -0.0077	 -0.0471	 -0.0208
+ 350     	  0.0034	 -0.0496	 -0.0266	 -0.0298	 -0.0447	 -0.0454	 -0.0628	 -0.0588
+
+         	205     	206     	208     	220     	222     	226     	238     	244     
+
+ 254     	  1.0000
+ 259     	 -0.0757	  1.0000
+ 303     	 -0.1058	 -0.0931	  1.0000
+ 307     	 -0.0669	 -0.0687	 -0.0746	  1.0000
+ 308     	 -0.1019	 -0.0768	 -0.1610	 -0.0255	  1.0000
+ 309     	 -0.1136	 -0.0851	 -0.1807	 -0.0267	 -0.3623	  1.0000
+ 317     	 -0.0660	 -0.0675	 -0.0747	 -0.0781	 -0.0298	 -0.0313	  1.0000
+ 319     	 -0.0948	 -0.0926	 -0.1028	 -0.1025	 -0.0188	 -0.0169	 -0.0992	  1.0000
+ 331     	 -0.0740	 -0.0737	 -0.0603	 -0.0963	  0.0358	  0.0434	 -0.0895	 -0.1461
+ 343     	 -0.0687	 -0.0616	 -0.0553	 -0.0743	 -0.0239	 -0.0262	 -0.0675	 -0.1088
+ 346     	 -0.0812	 -0.0705	 -0.1121	 -0.0528	 -0.1562	 -0.1767	 -0.0532	 -0.0627
+ 350     	 -0.0691	 -0.0707	 -0.0799	 -0.0809	 -0.0309	 -0.0324	 -0.0791	 -0.1035
+
+         	254     	259     	303     	307     	308     	309     	317     	319     
+
+ 331     	  1.0000
+ 343     	 -0.2403	  1.0000
+ 346     	 -0.0337	 -0.0473	  1.0000
+ 350     	 -0.0814	 -0.0482	 -0.0555	  1.0000
+
+         	331     	343     	346     	350     
+
+    N	name	   (weighted) mean	   stand. dev.	inflation factor
+
+    1	SPEC AX1	        0.0000	        1.0122
+    2	SPEC AX2	        0.0000	        1.0193
+    3	SPEC AX3	        0.0000	        1.0238
+    4	SPEC AX4	        0.0000	        1.0282
+    5	ENVI AX1	        0.0000	        1.0000
+    6	ENVI AX2	        0.0000	        1.0000
+    7	ENVI AX3	        0.0000	        1.0000
+    8	ENVI AX4	        0.0000	        1.0000
+    1	205     	        0.0490	        0.2159	        3.5658
+    2	206     	        0.0541	        0.2262	        2.6293
+    3	208     	        0.0487	        0.2153	        3.2908
+    4	220     	        0.0510	        0.2199	        3.3871
+    5	222     	        0.0587	        0.2351	        2.8052
+    6	226     	        0.0532	        0.2245	        2.7429
+    7	238     	        0.0550	        0.2280	        2.0893
+    8	244     	        0.0543	        0.2266	        2.1879
+    9	254     	        0.0392	        0.1941	        1.8707
+   10	259     	        0.0420	        0.2005	        1.8052
+   11	303     	        0.0556	        0.2292	        2.3002
+   12	307     	        0.0541	        0.2263	        1.9396
+   13	308     	        0.0427	        0.2021	        2.6402
+   14	309     	        0.0504	        0.2188	        2.9352
+   15	317     	        0.0520	        0.2220	        1.9026
+   16	319     	        0.0490	        0.2158	        1.9969
+   17	331     	        0.0452	        0.2077	        2.0451
+   18	343     	        0.0483	        0.2143	        2.2530
+   19	346     	        0.0458	        0.2091	        2.0222
+   20	350     	        0.0518	        0.2216	        0.0000
+
+
+ **** Summary ****
+
+ Axes                               	     1	     2	     3	     4	 Total inertia
+
+ Eigenvalues                       :	 0.132	 0.104	 0.080	 0.053	        1.476
+ Species-environment correlations  :	 0.988	 0.981	 0.977	 0.973
+ Cumulative percentage variance
+    of species data                :	  10.2	  18.3	  24.6	  28.7
+    of species-environment relation:	  17.7	  31.7	  42.6	  49.7
+
+ Sum of all               eigenvalues      	     	      	      	      	  1.288
+ Sum of all canonical     eigenvalues      	     	      	      	      	  0.744
+
+
+ The sum of all eigenvalues is after fitting covariables
+ Percentages are taken with respect to residual variances
+                 i.e. variances after fitting covariables
+
+ *** MESSAGE ***
+ The fit for species is additional to the fit due to covariables.
+ With covariables, CANOCO cannot calculate residuals for samples.
+
+1
+ *** Specification of blocks ***
+
+ *** The permutations are conditioned on    10 covariable(s), namely: ***
+
+    covariable  1998    
+    covariable  1999    
+    covariable  2000    
+    covariable  2001    
+    covariable  2002    
+    covariable  2003    
+    covariable  2004    
+    covariable  2005    
+    covariable  2006    
+    covariable  2007    
+
+ *** Sample arrangement in the permutation test ***
+
+
+ Samples in block    1 :
+     1     2     3     4     5     6     7     8     9    10
+    11    12    13    14    15    16    17    18    19    20
+ The      20       plots are permuted completely at random
+
+ Samples in block    2 :
+    21    22    23    24    25    26    27    28    29    30
+    31    32    33    34    35    36    37    38    39    40
+ The      20       plots are permuted completely at random
+
+ Samples in block    3 :
+    41    42    43    44    45    46    47    48    49    50
+    51    52    53    54    55    56    57    58    59    60
+ The      20       plots are permuted completely at random
+
+ Samples in block    4 :
+    61    62    63    64    65    66    67    68    69    70
+    71    72    73    74    75    76    77    78    79    80
+ The      20       plots are permuted completely at random
+
+ Samples in block    5 :
+    81    82    83    84    85    86    87    88    89    90
+    91    92    93    94    95    96    97    98    99   100
+ The      20       plots are permuted completely at random
+
+ Samples in block    6 :
+   101   102   103   104   105   106   107   108   109   110
+   111   112   113   114   115   116   117   118   119   120
+ The      20       plots are permuted completely at random
+
+ Samples in block    7 :
+   121   122   123   124   125   126   127   128   129   130
+   131   132   133   134   135   136   137   138   139   140
+ The      20       plots are permuted completely at random
+
+ Samples in block    8 :
+   141   142   143   144   145   146   147   148   149   150
+   151   152   153   154   155   156   157   158   159   160
+ The      20       plots are permuted completely at random
+
+ Samples in block    9 :
+   161   162   163   164   165   166   167   168   169   170
+   171   172   173   174   175   176   177   178   179   180
+ The      20       plots are permuted completely at random
+
+ Samples in block   10 :
+   181   182   183   184   185   186   187   188   189   190
+   191   192   193   194   195   196   197   198   199   200
+ The      20       plots are permuted completely at random
+
+ Samples in block   11 :
+   201   202   203   204   205   206   207   208   209   210
+   211   212   213   214   215   216   217   218   219   220
+ The      20       plots are permuted completely at random
+
+ Seeds:  27633  7038
+
+
+
+ **** Summary of Monte Carlo test ****
+
+ Test of significance of first canonical axis: eigenvalue =    0.132
+                                               F-ratio    =   21.348
+                                               P-value    =    0.0010
+
+ Test of significance of all canonical axes  : Trace      =    0.744
+                                               F-ratio    =   13.471
+                                               P-value    =    0.0010
+
+ (  999 permutations under reduced model)
+
+[Fri Mar 20 12:40:11 2009] CANOCO call succeeded
+
