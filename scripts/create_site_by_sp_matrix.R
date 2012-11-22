@@ -1,5 +1,5 @@
 
-setwd('~/Lab data/mangement/')
+setwd('~/tgp_mangement/')
 
 dat = read.csv('./data/Tgp_species_data_to_2009(all)_-_no_unk_sp_-_no_leaning_sp.csv')
 
