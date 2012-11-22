@@ -1,3 +1,4 @@
+setwd('~/Lab data/tgp_management/')
 
 env = read.csv('./data/tgpall_env.csv')
 ## drop the plots not on the UTM grid
@@ -28,7 +29,10 @@ sum(comm[ ,1] %in% plot_yr)
 ## generate plot year UTM output that will be used to query the 
 ## GIS layers
 
-out = data.frame(plot = env$plot, easting = env$easting, northing = env$northing)
+uni_plots = unique(env$plot)
+out = data.frame(plot = uni_plots, 
+                 easting = env$easting[match(uni_plots, env$plot)],
+                 northing = env$northing[match(uni_plots, env$plot)])
 write.csv(out, './data/tgp_plot_utm.csv', row.names=F)
 
 ### examine distance decay rel
