@@ -5,6 +5,8 @@
 ## columns = plot, date, 
 
 library(sp)
+library(dichromat)
+
 
 setwd('~/Lab data/tgp_management/')
 
@@ -19,6 +21,8 @@ proj4string(plots_sp) = CRS(proj4string(pasture))
 plot(pasture)
 points(plots$easting, plots$northing, pch=19, col='red')
 
+
+## extract burn data ----------------------------------------------------------------
 ## loop through each plot and each burn layer
 ## evaluate if the plot fell within any of the burn polygons
 ## record the date when it did
@@ -39,14 +43,14 @@ for (i in seq_along(plots$plot)) {
       pt_in = point.in.polygon(plots$easting[i], plots$northing[i], 
                                poly_coords[ , 1], poly_coords[ , 2])
       if (pt_in == 1) {
-        date_of_burn = burns[[j]]@data[k, date_column[j]]
+        burn_date = burns[[j]]@data[k, date_column[j]]
         if (flag == 0) {
-          plot_burn = data.frame(plot=plots$plot[i], date_of_burn)
+          plot_burn = data.frame(plot=plots$plot[i], burn_date)
           flag = 1 
         }  
         else {
           plot_burn = rbind(plot_burn, 
-                            data.frame(plot=plots$plot[i], date_of_burn))
+                            data.frame(plot=plots$plot[i], burn_date))
         }  
       }
     }
@@ -56,23 +60,53 @@ for (i in seq_along(plots$plot)) {
 ## this sort suggests these results are plausible
 sort(table(plot_burn[,1]), dec=T)
 
-as.Date('20050829', "%Y%m%d")
-as.Date('2005/08/29', "%Y/%m/%d")
+## convert dates into a consistent format
+bd = as.character(plot_burn$burn_date)
+bd = gsub('/', '', bd)
+bd = as.Date(bd, '%Y%m%d')
+plot_burn$burn_date = bd
 
 sum(sapply(tst, function(x) sum(!is.na(x[,1]))))
 nrow(plot_burn)
 ## so it appears that there were 3 burns that 
 ## overlapped in a single year period thus justifing the 
 ## more complex and inefficient looping procedure
-  
-point.in.polygon(plots$easting[1], plots$northing[1], 
-                 xy[,1], xy[,2])
+
+## export the burn data product
+write.csv(plot_burn, file = './data/plot_burn.csv', row.names=F)
+
+## extract grazing data--------------------------------------------------------------
+spplot(pasture, 'BISON_2000')
+plot(pasture)
+points(coordinates(plots_sp), pch=19, col='red')
+spplot(pasture, 'USAGE', col.regions=colorschemes$Categorical.12[1:9])
+## so some of the plots occur in the ungrazed area
+
+spplot(bison, 'BEG_DATE', col.regions=colorschemes$Categorical.12[1:9])
+spplot(bison, 'UNIT')
+
+## first extract the start date of bison grazing for each plot
+## Note
+## it is unclear how to treat the bison trap area, the bison
+## layer indicates that grazing begain and then was stopped by bison
+## I'm not sure how this area was used 
+
+plot_bison = over(plots_sp, bison)
+bison_date = plot_bison$BEG_DATE
+
+plot_pasture = over(plots_sp, pasture)
+table(plot_pasture$USAGE)
+plots[which(plot_pasture$USAGE == 'ungrazed'), ]
+
+plot_graze = data.frame(plot = plots$plot, 
+                        bison_date = as.Date(bison_date),
+                        ungrazed = plot_pasture$USAGE == 'ungrazed')
+
+## export the grazing data product
+write.csv(plot_graze, file = './data/plot_graze.csv', row.names=F)
 
 
-xy = burns[[1]]@polygons[[1]]@Polygons[[1]]@coords
-                 
-str(burns[[1]])
-                 
+## Overlay examples -----------------------------------------------------------------
 ## the example below demonstrates that the functions
 ## overlay and the newer function over only return the 
 ## first polygon a point intersects, in other words polygons
