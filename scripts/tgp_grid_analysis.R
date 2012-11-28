@@ -1,4 +1,61 @@
 library(vegan)
+library(sp)
+
+r2_adj<-function(Y,X,Z,reps,method,dummy=0) {
+  ##purpose: returns R2, R2adj, and all R2adj replicates that result from permuations
+  ##Y,X,Z are spdata, expl mat, covar mat
+  ##reps the number of permutations to perform, if no reps then only r2 and r2adj returned 
+  ##if reps is not provided then it calculates an analytical R2adj (only ok for RDA)
+  ##method specifies "cca" or "rda"
+  ##dummy is a number 0, 1 or 2 depending on how many collinear variables are in the explanatory matrix
+  ##dummy is only necessary for the analytical R2adj calculation
+  Y<-as.matrix(Y)
+  X<-as.matrix(X)
+  if(missing(Z)){
+    cca.emp<-eval(parse(text= paste(method,'(Y,X)')))
+    r2<-summary(cca.emp)$constr.chi/cca.emp$tot.chi 
+    if(missing(reps)){
+      n<-nrow(Y)
+      p<-ncol(X)-dummy
+      out = c(r2, 1-(((n-1)/(n-p-1))*(1-r2)))
+    }
+    else{
+      rand.r2<-rep(NA,reps)
+      for(i in 1:reps){
+        Xrand<-X[sample(nrow(X)),]
+        rand.r2[i]<-summary( eval(parse(text= paste(method,'(Y,Xrand)'))))$constr.chi
+        print(i)
+      }
+      out = c(r2, 
+              1-(1/(1-mean(rand.r2/cca.emp$tot.chi)))*(1-r2),
+              1-(1/(1-rand.r2/cca.emp$tot.chi))*(1-r2))
+    }
+  }  
+  else{
+    Z<-as.matrix(Z)
+    cca.emp<-eval(parse(text= paste(method,'(Y,X,Z)')))
+    r2<-summary(cca.emp)$constr.chi/cca.emp$tot.chi
+    if(missing(reps)){
+      n<-nrow(Y)
+      p<-ncol(X)-dummy
+      out = c(r2,1-(((n-1)/(n-p-1))*(1-r2)))
+    }
+    else{
+      rand.r2<-rep(NA,reps)
+      for(i in 1:reps){
+        rhold<-sample(nrow(X))
+        Xrand<-X[rhold,]
+        Zrand<-Z[rhold,]
+        rand.r2[i]<-summary( eval(parse(text= paste(method,'(Y,Xrand,Zrand)'))))$constr.chi
+        print(i)
+      }
+      out = c(r2,
+              1-(1/(1-mean(rand.r2/cca.emp$tot.chi)))*(1-r2),
+              1-(1/(1-rand.r2/cca.emp$tot.chi))*(1-r2))
+    }  
+  }
+  return(out)
+}
 
 setwd('~/Lab data/tgp_management/')
 
@@ -11,6 +68,8 @@ pl_yr = sort(c(pl_yr, env$plot_yr[env$repeat_plot == 1 & env$yr == 1998]))
 env = env[match(pl_yr, env$plot_yr), ]
 
 comm = comm[match(env$plot_yr, comm$plot.yr), ]
+## drop species that don't occur
+comm = comm[ , apply(comm, 2, sum) > 0 ] 
 
 nrow(env)
 nrow(comm)
@@ -101,13 +160,15 @@ mang_mat = as.matrix(env[ , mang_vars])
 ## how much variance in composition is related to 
 ## soil differences vs management differences
 
+tgp_xy = env[ , c('easting', 'northing')]
+
 ## pca
 pca = rda(comm_sqr)
-pca_mso = mso(pca, env[ , c('easting', 'northing')])
+pca_mso = mso(pca, tgp_xy)
 ## rda
 rda_full = rda(comm_sqr, cbind(soil_mat, mang_mat))
 plot(rda_full)
-rda_mso = mso(rda_full, env[ , c('easting', 'northing')])
+rda_mso = mso(rda_full, tgp_xy)
 
 par(mfrow=c(1,2))
 msoplot(pca_mso, ylim=c(20, 40))
@@ -116,7 +177,51 @@ msoplot(rda_mso, ylim=c(20, 40))
 varpart(comm_sqr, soil_mat, mang_mat)
 ## 8% for soil vs 2% for management
 
+## ca
+ca = cca(comm_sqr)
+ca_mso = mso(ca, tgp_xy)
 ## cca
+cca_full = cca(comm_sqr, cbind(soil_mat, mang_mat))
+plot(cca_full, display=c('bp'))
+cca_mso = mso(cca_full, tgp_xy)
+
+par(mfrow=c(1,2))
+msoplot(ca_mso, ylim=c(4, 10))
+msoplot(cca_mso, ylim=c(4, 10))
+
+full.r2<-r2_adj(comm_sqr,cbind(soil_mat, mang_mat),reps=1000,method='cca')
+pl.r2<-r2_adj(spdat.n,site.m,reps=1000,method='cca')
+yr.r2<-r2_adj(spdat.n,yr.m,reps=1000,method='cca')
+psp.r2<-r2_adj(spdat.n,psp.m,reps=1000,method='cca')
+plyr.r2<-r2_adj(spdat.n,cbind(site.m,yr.m),reps=1000,method='cca')
+plpsp.r2<-r2_adj(spdat.n,cbind(site.m,psp.m),reps=1000,method='cca')
+yrpsp.r2<-r2_adj(spdat.n,cbind(yr.m,psp.m),reps=1000,method='cca')
+
+par(mfrow=c(2,3))
+hist(pl.r2[-(1:2)])
+hist(yr.r2[-(1:2)])
+hist(psp.r2[-(1:2)])
+hist(plyr.r2[-(1:2)])
+hist(plpsp.r2[-(1:2)])
+hist(yrpsp.r2[-(1:2)])
+
+## how does adding spatial predictors change our outcome
+
+tgp_pcnm = pcnm(dist(tgp_xy))
+varpart(comm_sqr, soil_mat, mang_mat, scores(tgp_pcnm)[ , 1:3])
+## not much change at all
+
+
+rs = rowSums(comm) / sum(comm)
+pcnmw = pcnm(dist(tgp_xy), w = rs)
+ord = cca(comm ~ scores(pcnmw))
+ord_mso = mso(ord, tgp_xy)
+msoplot(ord_mso)
+plot(ord)
+par(mfrow=c(1,3))
+ordisurf(tgp_xy, scores(pcnmw, choices=1), bubble = 3, main = "PCNM 1")
+ordisurf(tgp_xy, scores(pcnmw, choices=2), bubble = 3, main = "PCNM 2")
+ordisurf(tgp_xy, scores(pcnmw, choices=3), bubble = 3, main = "PCNM 3")
 
 
 
