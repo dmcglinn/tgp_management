@@ -190,20 +190,47 @@ msoplot(ca_mso, ylim=c(4, 10))
 msoplot(cca_mso, ylim=c(4, 10))
 
 full.r2<-r2_adj(comm_sqr,cbind(soil_mat, mang_mat),reps=1000,method='cca')
-pl.r2<-r2_adj(spdat.n,site.m,reps=1000,method='cca')
-yr.r2<-r2_adj(spdat.n,yr.m,reps=1000,method='cca')
-psp.r2<-r2_adj(spdat.n,psp.m,reps=1000,method='cca')
-plyr.r2<-r2_adj(spdat.n,cbind(site.m,yr.m),reps=1000,method='cca')
-plpsp.r2<-r2_adj(spdat.n,cbind(site.m,psp.m),reps=1000,method='cca')
-yrpsp.r2<-r2_adj(spdat.n,cbind(yr.m,psp.m),reps=1000,method='cca')
+so.r2<-r2_adj(comm_sqr,soil_mat,reps=1000,method='cca')
+ma.r2<-r2_adj(comm_sqr,mang_mat,reps=1000,method='cca')
 
-par(mfrow=c(2,3))
-hist(pl.r2[-(1:2)])
-hist(yr.r2[-(1:2)])
-hist(psp.r2[-(1:2)])
-hist(plyr.r2[-(1:2)])
-hist(plpsp.r2[-(1:2)])
-hist(yrpsp.r2[-(1:2)])
+par(mfrow=c(1,2))
+hist(so.r2[-(1:2)])
+hist(ma.r2[-(1:2)])
+
+##fractions (legendre style)##much more complex looking results in almost identical results to the more straightforward palmer style
+#soil | mang
+full.r2[1] - ma.r2[1]
+full.r2[2] - ma.r2[2]
+#mang | soil
+full.r2[1] - so.r2[1]
+full.r2[2] - so.r2[2]
+#soil + mang
+full.r2[1] - (full.r2[1] - ma.r2[1]) - (full.r2[1] - so.r2[1])
+full.r2[2] - (full.r2[2] - ma.r2[2]) - (full.r2[2] - so.r2[2])
+#residuals
+1 - full.r2[1]
+1 - full.r2[2]
+
+R2s<-cbind(c(full.r2[1],
+             full.r2[1] - ma.r2[1],
+             full.r2[1] - so.r2[1],
+             full.r2[1] - (full.r2[1] - ma.r2[1]) - (full.r2[1] - so.r2[1])),
+           c(full.r2[2],
+             full.r2[2] - ma.r2[2],
+             full.r2[2] - so.r2[2],
+             full.r2[2] - (full.r2[2] - ma.r2[2]) - (full.r2[2] - so.r2[2]))
+           )
+
+colnames(R2s)<-c('R2','R2adj')
+rownames(R2s)<-c('all','soil','mang','soil+mang')
+round(R2s,3)
+            R2  R2adj
+all       0.100 0.062
+soil      0.063 0.045
+mang      0.032 0.013
+soil+mang 0.005 0.004
+
+
 
 ## how does adding spatial predictors change our outcome
 
