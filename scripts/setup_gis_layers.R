@@ -1,7 +1,7 @@
 library(sp)
 library(rgdal)
 
-setwd('~/Lab data/tgp_mangement/')
+setwd('~/Lab data/tgp_management/')
 
 readShp = function(shpName, path=NULL) {
   require(rgdal)
