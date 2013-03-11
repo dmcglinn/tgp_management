@@ -80,6 +80,8 @@ row.names(comm) = comm$plot.yr
 comm = comm[ , -1]
 comm_sqr = sqrt(comm)
 
+env$sr = rowSums(comm > 0)
+
 ## define site vars 
 
 ## examine woodyness variables-------------------------------------------------------
@@ -153,8 +155,8 @@ spplot(mang_sc, 'YrsSLB', col.regions=rev(terrain.colors(6))[-1],
 ## to capture coarser scale regional spatial variation between
 ## plots thus also acting to large degree as spatial predictiors
 
-soil_mat = soil_pca$scores[ , 1:3]
-mang_mat = as.matrix(env[ , mang_vars])
+soil_mat = as.data.frame(soil_pca$scores[ , 1:3])
+mang_mat = env[ , mang_vars]
 
 ## basic question:
 ## how much variance in composition is related to 
@@ -167,15 +169,52 @@ pca = rda(comm_sqr)
 pca_mso = mso(pca, tgp_xy)
 ## rda
 rda_full = rda(comm_sqr, cbind(soil_mat, mang_mat))
-plot(rda_full)
+plot(rda_full, display='bp')
 rda_mso = mso(rda_full, tgp_xy)
 
 par(mfrow=c(1,2))
 msoplot(pca_mso, ylim=c(20, 40))
 msoplot(rda_mso, ylim=c(20, 40))
 
+rda_soil = rda(comm_sqr ~ soil_mat[,1] + soil_mat[,2] + soil_mat[,3] +
+               Condition(as.matrix(mang_mat)))
+rda_mang = rda(comm_sqr ~ mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB +
+               Condition(as.matrix(soil_mat)))
+
+soil_tst = anova(rda_soil, step = 1000)
+          Df     Var      F N.Perm Pr(>F)    
+Model      3  2.8348 5.4321    999  0.001 ***
+Residual 144 25.0491
+
+soil_term_tst = anova(rda_soil, step=1000, by='margin')
+               Df     Var      F N.Perm Pr(>F)    
+soil_mat[, 1]   1  1.6704 9.6029    999  0.001 ***
+soil_mat[, 2]   1  0.8394 4.8254    999  0.001 ***
+soil_mat[, 3]   1  0.3538 2.0340    999  0.004 ** 
+Residual      144 25.0491                         
+
+mang_tst = anova(rda_mang, step = 1000)
+          Df     Var      F N.Perm Pr(>F)    
+Model      3  1.2114 2.3214    999  0.001 ***
+Residual 144 25.0491
+
+mang_term_tst = anova(rda_mang, step=1000, by='margin')
+                 Df     Var      F N.Perm Pr(>F)    
+mang_mat$YrsOB    1  0.4361 2.5073    999  0.002 ** 
+mang_mat$BP5Yrs   1  0.4346 2.4981    999  0.001 ***
+mang_mat$YrsSLB   1  0.3107 1.7861    999  0.006 ** 
+Residual        144 25.0491
+
 varpart(comm_sqr, soil_mat, mang_mat)
+[a] = X1|X2           3                 0.08003     TRUE
+[b]                   0                 0.01133    FALSE
+[c] = X2|X1           3                 0.02386     TRUE
+[d] = Residuals                         0.88478    FALSE
 ## 8% for soil vs 2% for management
+## same analysis but let's control for year effect
+rda_yr = rda(comm_sqr ~ env$yr)
+varpart(residuals(rda_yr), soil_mat, mang_mat)
+## 7.8% for soil vs 1.7% for management
 
 ## ca
 ca = cca(comm_sqr)
@@ -188,6 +227,36 @@ cca_mso = mso(cca_full, tgp_xy)
 par(mfrow=c(1,2))
 msoplot(ca_mso, ylim=c(4, 10))
 msoplot(cca_mso, ylim=c(4, 10))
+
+cca_soil = cca(comm_sqr ~ soil_mat[,1] + soil_mat[,2] + soil_mat[,3] +
+               env$eastness + env$northness + 
+               Condition(as.matrix(mang_mat)))
+cca_mang = cca(comm_sqr ~ mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB +
+               Condition(as.matrix(soil_mat)))
+
+soil_tst = anova(cca_soil, step = 1000)
+          Df  Chisq      F N.Perm Pr(>F)    
+Model      3 0.3897 3.3705    999  0.001 ***
+Residual 144 5.5497
+
+soil_term_tst = anova(cca_soil, step=1000, by='margin')
+               Df  Chisq      F N.Perm Pr(>F)    
+soil_mat[, 1]   1 0.2001 5.1916    999  0.001 ***
+soil_mat[, 2]   1 0.1276 3.3113    999  0.001 ***
+soil_mat[, 3]   1 0.0642 1.6658    999  0.015 *  
+Residual      144 5.5497
+
+mang_tst = anova(cca_mang, step=1000)
+          Df  Chisq      F N.Perm Pr(>F)    
+Model      3 0.1960 1.6951    999  0.001 ***
+Residual 144 5.5497
+
+mang_term_tst = anova(cca_mang, step=1000, by='margin')
+                 Df  Chisq      F N.Perm Pr(>F)   
+mang_mat$YrsOB    1 0.0678 1.7595    999  0.004 **
+mang_mat$BP5Yrs   1 0.0700 1.8164    999  0.002 **
+mang_mat$YrsSLB   1 0.0590 1.5313    999  0.005 **
+Residual        144 5.5497
 
 full.r2<-r2_adj(comm_sqr,cbind(soil_mat, mang_mat),reps=1000,method='cca')
 so.r2<-r2_adj(comm_sqr,soil_mat,reps=1000,method='cca')
