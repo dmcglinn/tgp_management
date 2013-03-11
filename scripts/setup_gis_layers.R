@@ -3,25 +3,17 @@ library(rgdal)
 
 setwd('~/Lab data/tgp_management/')
 
-readShp = function(shpName, path=NULL) {
-  require(rgdal)
-  if (is.null(path))
-    path = getwd()
-  fileName = paste(shpName, '.shp', sep='')    
-  shp = readOGR(file.path(path, fileName), shpName)
-}  
-
+source('./scripts/tgp_functions.R')
 
 ## Pasture folder
-setwd('./tgpburn/Pasture')
-fencep = readShp('fencep')
+fencep = read.shape('fencep', path='./tgpburn/Pasture')
 plot(fencep, axes=T)
 summary(fencep)
 head(fencep@data)
 ## this layer is UTM projected
 ## I assumed this is NAD 83
 
-pasture_nad27 = readShp('pasture_nad_27')
+pasture_nad27 = read.shape('pasture_nad_27', path='./tgpburn/Pasture')
 plot(pasture_nad27, axes=T)
 summary(pasture_nad27)
 head(pasture_nad27@data)
@@ -30,20 +22,20 @@ head(pasture_nad27@data)
 ## this will have to be compared to other layers in nad27
 ## to verify
 
-fencePasture = readShp('fencePasture')
+fencePasture = read.shape('fencePasture', path='./tgpburn/Pasture')
 plot(fencePasture, axes=T)
 summary(fencePasture)
 head(fencePasture@data)
 ## this layer is Lat/long projected
 
-pasture = readShp( 'pasture')
+pasture = read.shape( 'pasture', path='./tgpburn/Pasture')
 plot(pasture, axes=T)
 summary(pasture)
 head(pasture@data)
 ## this layer is Lat/long projected
 ## has information on bison and cattle grazing
 ## transform this pasture layer to nad27 
-prj = proj4string(readShp('1990', '../burn'))
+prj = proj4string(read.shape('1990', path='./tgpburn/burn'))
 pasture = spTransform(pasture, CRS(prj))
 
 xlims = c(7.2e5, 7.4e5)
@@ -60,7 +52,7 @@ par(bg='transparent')
 par(new=TRUE)
 plot(fencep, xlim=xlims, ylim=ylims)
 ##
-burn00 = readShp('2000', '../burn/')
+burn00 = read.shape('2000', './tgpburn/burn/')
 xlims = c(7.2e5, 7.4e5)
 ylims = c(4.068e6, 4.088e6)
 plot(pasture_nad27, xlim=xlims, ylim=ylims, axes=T)
@@ -81,16 +73,15 @@ plot(burn00, xlim=xlims, ylim=ylims, lty=2)
 ## very close
 
 ## grazing folder--------------------------------------------------------------------
-setwd('../grazing/')
 
-bison_unit_2008 = readShp('bison_unit_2008')
+bison_unit_2008 = read.shape('bison_unit_2008', path='./tgpburn/grazing')
 plot(bison_unit_2008, col='green', xlim=c(7.2e5, 7.45e5), ylim=c(4.07e6, 4.082e6), 
      axes=T)
 summary(bison_unit_2008)
 head(bison_unit_2008@data)
 ## NAD83 zone 14 projection per email from Matt Poole
 
-bison_update = readShp('bisonupdate')
+bison_update = read.shape('bisonupdate', path='./tgpburn/grazing')
 par(bg="transparent")
 plot(bison_unit_2008, col='green', xlim=c(7.2e5, 7.45e5), ylim=c(4.07e6, 4.082e6),
      axes=T)
@@ -122,20 +113,18 @@ proj4string(bison) = CRS(proj4string(pasture))
 ## burn folder-----------------------------------------------------------------------
 ## burn layers are nad27 default
 
-setwd('../burn/')
-
-burn_files = dir()
+burn_files = dir('./tgpburn/burn')
 burn_shps = burn_files[grep('.shp', burn_files)]
 burn_shps_nad27 = burn_shps[c(1:4, 6:9, 11:12, 14, 16, 18:19,
                                20, 22, 34, 26, 35, 32)] 
                               
 burns = vector("list", length(burn_shps_nad27))
 names(burns) = 1990:2009
-prj = proj4string(readShp('1990'))
+prj = proj4string(read.shape('1990', path='./tgpburn/burn'))
 
 for (i in seq_along(burns)) {
   shpName = sub('.shp','', burn_shps_nad27[i])
-  burns[[i]] = readShp(shpName)
+  burns[[i]] = read.shape(shpName, path='./tgpburn/burn')
   if (is.na(proj4string(burns[[i]]))) {
     proj4string(burns[[i]]) = CRS(prj)
   }  
