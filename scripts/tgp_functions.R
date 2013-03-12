@@ -1,5 +1,5 @@
 
-readShp = function(shpName, path=NULL) {
+read.shape = function(shpName, path=NULL) {
   require(rgdal)
   if (is.null(path))
     path = getwd()
