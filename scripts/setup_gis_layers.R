@@ -42,31 +42,23 @@ pasture = spTransform(pasture, CRS(prj))
 xlims = c(7.2e5, 7.4e5)
 ylims = c(4.068e6, 4.088e6)
 plot(pasture, xlim=xlims, ylim=ylims, axes=T)
-par(bg='transparent')
-par(new=TRUE)
-plot(fencep, xlim=xlims, ylim=ylims)
+plot(fencep, xlim=xlims, ylim=ylims, add=T)
 ##zoom in
 xlims = c(728798, 731413)
 ylims = c(4081505, 4079789)
 plot(pasture, xlim=xlims, ylim=ylims, axes=T)
-par(bg='transparent')
-par(new=TRUE)
-plot(fencep, xlim=xlims, ylim=ylims)
+plot(fencep, xlim=xlims, ylim=ylims, add=T)
 ##
 burn00 = read.shape('2000', './tgpburn/burn/')
 xlims = c(7.2e5, 7.4e5)
 ylims = c(4.068e6, 4.088e6)
 plot(pasture_nad27, xlim=xlims, ylim=ylims, axes=T)
-par(bg='transparent')
-par(new=TRUE)
-plot(burn00, xlim=xlims, ylim=ylims, lty=2)
+plot(burn00, xlim=xlims, ylim=ylims, lty=2, add=T)
 ##zoom in
 xlims = c(728798, 731413)
 ylims = c(4081505, 4079789)
 plot(pasture_nad27, xlim=xlims, ylim=ylims, axes=T)
-par(bg='transparent')
-par(new=TRUE)
-plot(burn00, xlim=xlims, ylim=ylims, lty=2)
+plot(burn00, xlim=xlims, ylim=ylims, lty=2, add=T)
 
 ## from these graphs we can see that the transformed layer
 ## pasture is truely in nad27 while the layer referred to as
@@ -80,9 +72,7 @@ tgpBnd = read.shape('tgpBnd', path='./tgpburn/tract')
 ylims = c(4.070e6, 4.08e6)
 xlims = c(7.240e5, 7.248e5)
 plot(tgpBnd, axes=T, ylim=ylims, xlim=xlims)
-par(bg='transparent')
-par(new=T)
-plot(pasture, ylim=ylims, xlim=xlims, border='red')
+plot(pasture, ylim=ylims, xlim=xlims, border='red', add=T)
 
 ## so the boundary is in NAD27
 proj4string(tgpBnd) = CRS(proj4string(pasture))
@@ -109,16 +99,12 @@ plot(bison_update, col="transparent", xlim=c(7.2e5, 7.45e5), ylim=c(4.07e6, 4.08
 xlims = c(7.2e5, 7.4e5)
 ylims = c(4.068e6, 4.088e6)
 plot(bison_update, xlim=xlims, ylim=ylims, axes=T)
-par(bg='transparent')
-par(new=TRUE)
-plot(pasture, xlim=xlims, ylim=ylims, lty=2)
+plot(pasture, xlim=xlims, ylim=ylims, lty=2, add=T)
 ##zoom in
 xlims = c(728798, 731413)
 ylims = c(4081505, 4079789)
 plot(bison_update, xlim=xlims, ylim=ylims, axes=T)
-par(bg='transparent')
-par(new=TRUE)
-plot(pasture, xlim=xlims, ylim=ylims, lty=2)
+plot(pasture, xlim=xlims, ylim=ylims, lty=2, add=T)
 
 ## ok so its safe to associate the nad 27 projection info
 ## with this shapefile, let's rename it and do this
