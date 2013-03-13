@@ -1,5 +1,6 @@
 library(sp)
 library(rgdal)
+library(ggplot2)
 
 setwd('~/Lab data/tgp_management/')
 
@@ -71,6 +72,20 @@ plot(burn00, xlim=xlims, ylim=ylims, lty=2)
 ## pasture is truely in nad27 while the layer referred to as
 ## pasture_nad27 is mostly likely actually in nad28 or something
 ## very close
+
+## tgp boundary----------------------------------------------------------------------
+## TGP boundary
+tgpBnd = read.shape('tgpBnd', path='./tgpburn/tract')
+
+ylims = c(4.070e6, 4.08e6)
+xlims = c(7.240e5, 7.248e5)
+plot(tgpBnd, axes=T, ylim=ylims, xlim=xlims)
+par(bg='transparent')
+par(new=T)
+plot(pasture, ylim=ylims, xlim=xlims, border='red')
+
+## so the boundary is in NAD27
+proj4string(tgpBnd) = CRS(proj4string(pasture))
 
 ## grazing folder--------------------------------------------------------------------
 
@@ -144,7 +159,7 @@ sapply(burns, function(x) grep('DATE', names(x)))
 
 ## shapefile export------------------------------------------------------------------
 ## output burn shape files
-save(pasture, bison, burns, 
+save(pasture, bison, burns, tgpBnd,
      file='~/Lab data/tgp_management/data/tgp_shpfiles.Rdata')
 
 
