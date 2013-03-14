@@ -30,7 +30,8 @@ r2_adj<-function(Y,X,Z,reps,method,dummy=0) {
       for(i in 1:reps){
         Xrand<-X[sample(nrow(X)),]
         rand.r2[i]<-summary( eval(parse(text= paste(method,'(Y,Xrand)'))))$constr.chi
-        print(i)
+        if (i %% 100 == 0)
+          print(i)
       }
       out = c(r2, 
               1-(1/(1-mean(rand.r2/cca.emp$tot.chi)))*(1-r2),
@@ -53,7 +54,8 @@ r2_adj<-function(Y,X,Z,reps,method,dummy=0) {
         Xrand<-X[rhold,]
         Zrand<-Z[rhold,]
         rand.r2[i]<-summary( eval(parse(text= paste(method,'(Y,Xrand,Zrand)'))))$constr.chi
-        print(i)
+        if (i %% 100 == 0)
+          print(i)
       }
       out = c(r2,
               1-(1/(1-mean(rand.r2/cca.emp$tot.chi)))*(1-r2),
