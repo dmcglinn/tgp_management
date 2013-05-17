@@ -238,47 +238,23 @@ par(mfrow=c(1,2))
 hist(so.r2[-(1:2)])
 hist(ma.r2[-(1:2)])
 
-##fractions (legendre style)##much more complex looking results in almost identical results to the more straightforward palmer style
-#soil | mang
-full.r2[1] - ma.r2[1]
-full.r2[2] - ma.r2[2]
-#mang | soil
-full.r2[1] - so.r2[1]
-full.r2[2] - so.r2[2]
-#soil + mang
-full.r2[1] - (full.r2[1] - ma.r2[1]) - (full.r2[1] - so.r2[1])
-full.r2[2] - (full.r2[2] - ma.r2[2]) - (full.r2[2] - so.r2[2])
-#residuals
-1 - full.r2[1]
-1 - full.r2[2]
-
-R2s<-cbind(c(full.r2[1],
-             full.r2[1] - ma.r2[1],
-             full.r2[1] - so.r2[1],
-             full.r2[1] - (full.r2[1] - ma.r2[1]) - (full.r2[1] - so.r2[1])),
-           c(full.r2[2],
-             full.r2[2] - ma.r2[2],
-             full.r2[2] - so.r2[2],
-             full.r2[2] - (full.r2[2] - ma.r2[2]) - (full.r2[2] - so.r2[2]))
-           )
-
-colnames(R2s)<-c('R2','R2adj')
-rownames(R2s)<-c('all','soil','mang','soil+mang')
-round(R2s,3)
 ## cca results
-             R2 R2adj
-all       0.111 0.066
-soil      0.069 0.047
-mang      0.037 0.014
-soil+mang 0.006 0.004
+partition_r2(full.r2, so.r2, ma.r2)
+                R2 R2adj
+all          0.111 0.066
+X indep.     0.069 0.047
+X & Y shared 0.006 0.004
+Y indep.     0.037 0.014
+resid.       0.889 0.934
 
 ## rda results
-             R2 R2adj
-all       0.157 0.115
-soil      0.096 0.077
-mang      0.044 0.023
-soil+mang 0.017 0.015
-
+partition_r2(full.r2, so.r2, ma.r2)
+                R2 R2adj
+all          0.157 0.115
+X indep.     0.096 0.077
+X & Y shared 0.017 0.015
+Y indep.     0.044 0.023
+resid.       0.843 0.885
 
 ## how does adding spatial predictors change our outcome
 
