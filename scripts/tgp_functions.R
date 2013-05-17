@@ -157,8 +157,8 @@ ordi_part = function(resp, X1, X2, X3, method, digit=3, ...) {
     r2_X12 = r2_adj(resp, cbind(X1, X2), method=method, ...)
     r2_X13 = r2_adj(resp, cbind(X1, X3), method=method, ...)
     r2_X23 = r2_adj(resp, cbind(X2, X3), method=method, ...)
-    part = partition_r2(full, r2_X1, r2_X2, r2_X3, 
-                        r2_X12, r2_X13, r2_X23, digit=digit)
+    part = partition_r2(full[1:2], r2_X1[1:2], r2_X2[1:2], r2_X3[1:2], 
+                        r2_X12[1:2], r2_X13[1:2], r2_X23[1:2], digit=digit)
     p$part = part
     p$r2$X1 = r2_X1
     p$r2$X2 = r2_X2
