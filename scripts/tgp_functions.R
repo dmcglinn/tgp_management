@@ -81,3 +81,65 @@ r2_adj = function(Y, X, Z, reps, method, dummy=0) {
   return(out)
 }
 
+partition_r2 = function(full, X, Y, Z, X_Y, X_Z, X_YZ, Y_Z, Y_XZ, Z_XY,
+                        adj=TRUE, digit=3) {
+  ## Partition R2 values between two (XY) or three (XYZ) classes
+  ## Returns:
+  ## the independent and shared components of variation
+  ## the two class partitioning is based on Legendre and Legendre 1998, p770-775
+  ## the three class paritioning is based on Anderson & Gribble 1998
+  ## Arguments:
+  ## full: r2 for . ~ X + Y or . ~ X + Y + Z
+  ## X : r2 for . ~ X
+  ## Y : r2 for . ~ Y
+  ## Z : r2 for . ~ Z
+  ## X_Y : r2 for (. ~ Y) ~ X
+  ## X_Z : r2 for (. ~ Z) ~ X
+  ## X_YZ : r2 for (. ~ Y + Z) ~ X
+  ## Y_Z : r2 for (. ~ Z) ~ Y
+  ## Y_XZ : r2 for (. ~ X + Z) ~ Y
+  ## Z_XY : r2 for (. ~ X + Y) ~ Z
+  ## adj : boolean, if true then it expects adjusted r2 are also in the previous arguments
+  ## digit : positive integer where to round the output table at
+  ## Examples:
+  ## from Legendre and Legendre (1998)
+  ## partition_r2(.784, .450, .734, adj=F)
+  ## from Anderson & Gribble (1998)
+  ## partition_r2(.5050, .3467, .3772, .0794, .1073, .3004, .0889, .3367, .1252, .0205, adj=F, digit=6) * 100
+  ## Citations:
+  ## Anderson, M. J., and N. A. Gribble. 1998. Partitioning the variation among 
+  ##    spatial, temporal and environmental components in a multivariate data set.
+  ##    Austral Ecology 23:158–167.
+  ## Legendre, P., and L. Legendre. 1998. Numerical ecology. Elsevier, Boston, Mass., USA.
+  if (missing(Z)) {
+    ## Legendre and Legendre (1998) p770-775
+    abc = full
+    ab = X
+    bc = Y
+    a = abc - bc
+    c = abc - ab
+    b = abc - a - c
+    d = 1 - abc
+    part = rbind(abc, a, b, c, d)
+    rownames(part) = c('all', 'X indep.', 'X & Y shared', 'Y indep.', 'resid.')
+  }
+  else {
+    ## Anderson & Gribble (1998)
+    XYZ = X_YZ + (X - X_Y) + (X - X_Z) - X
+    part = rbind(full, X_YZ, Y_XZ, Z_XY,
+                 X - X_Y - XYZ,
+                 X - X_Z - XYZ,
+                 Y - Y_Z - XYZ,
+                 XYZ, 1 - full)
+    rownames(part) = c('all', 'X indep.' , 'Y indep.' ,'Z indep.',
+                       'X & Y shared', 'X & Z shared', 'Y & Z shared',
+                       'X & Y & Z shared', 'resid.')
+  }
+  if (adj)
+    colnames(part) = c('R2','R2adj')
+  else
+    colnames(part) = c('R2')
+  part = round(part, digit)
+  return(part)
+}
+
