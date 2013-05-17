@@ -23,7 +23,7 @@ r2_adj = function(Y, X, Z, method, nperm, dummy=0) {
   X = as.matrix(X)
   if (missing(Z)) {
     cca.emp = eval(parse(text= paste(method, '(Y,X)')))
-    r2 = summary(cca.emp)$constr.chi / cca.emp$tot.chi 
+    r2 = cca.emp$CCA$tot.chi / cca.emp$tot.chi 
     if (missing(nperm)) {
       if (method == 'rda') {
         n = nrow(Y)
@@ -39,7 +39,7 @@ r2_adj = function(Y, X, Z, method, nperm, dummy=0) {
       rand.r2 = rep(NA, nperm)
       for(i in 1:nperm){
         Xrand = X[sample(nrow(X)), ]
-        rand.r2[i] = summary(eval(parse(text=paste(method, '(Y,Xrand)'))))$constr.chi
+        rand.r2[i] = eval(parse(text=paste(method, '(Y,Xrand)')))$CCA$tot.chi
         if (i %% 100 == 0)
           print(i)
       }
@@ -51,7 +51,7 @@ r2_adj = function(Y, X, Z, method, nperm, dummy=0) {
   else{
     Z = as.matrix(Z)
     cca.emp = eval(parse(text=paste(method, '(Y,X,Z)')))
-    r2 = summary(cca.emp)$constr.chi / cca.emp$tot.chi
+    r2 = cca.emp$CCA$tot.chi / cca.emp$tot.chi
     if (missing(nperm)) {
       if (method == 'rda') {
         n = nrow(Y)
@@ -69,7 +69,7 @@ r2_adj = function(Y, X, Z, method, nperm, dummy=0) {
         rhold = sample(nrow(X))
         Xrand = X[rhold, ]
         Zrand = Z[rhold, ]
-        rand.r2[i] = summary( eval(parse(text=paste(method, '(Y,Xrand,Zrand)'))))$constr.chi
+        rand.r2[i] = eval(parse(text=paste(method, '(Y,Xrand,Zrand)')))$CCA$tot.chi
         if (i %% 100 == 0)
           print(i)
       }
