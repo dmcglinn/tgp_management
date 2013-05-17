@@ -222,9 +222,17 @@ mang_mat$BP5Yrs   1 0.0405 1.1329    999  0.204
 mang_mat$YrsSLB   1 0.0511 1.4301    999  0.003 ** 
 Residual        121 4.3228
 
+## Species Composition variation partitioning --------------------------------------
+
+## cca analysis
 full.r2<-r2_adj(comm_sqr,cbind(soil_mat, mang_mat),reps=1000,method='cca')
 so.r2<-r2_adj(comm_sqr,soil_mat,reps=1000,method='cca')
 ma.r2<-r2_adj(comm_sqr,mang_mat,reps=1000,method='cca')
+
+## rda analysis
+full.r2<-r2_adj(comm_sqr,cbind(soil_mat, mang_mat),method='rda')
+so.r2<-r2_adj(comm_sqr,soil_mat,method='rda')
+ma.r2<-r2_adj(comm_sqr,mang_mat,method='rda')
 
 par(mfrow=c(1,2))
 hist(so.r2[-(1:2)])
@@ -257,11 +265,19 @@ R2s<-cbind(c(full.r2[1],
 colnames(R2s)<-c('R2','R2adj')
 rownames(R2s)<-c('all','soil','mang','soil+mang')
 round(R2s,3)
+## cca results
              R2 R2adj
-all       0.111 0.065
+all       0.111 0.066
 soil      0.069 0.047
 mang      0.037 0.014
 soil+mang 0.006 0.004
+
+## rda results
+             R2 R2adj
+all       0.157 0.115
+soil      0.096 0.077
+mang      0.044 0.023
+soil+mang 0.017 0.015
 
 
 ## how does adding spatial predictors change our outcome
@@ -276,8 +292,6 @@ varpart(comm_sqr, soil_mat, mang_mat, scores(tgp_pcnm)[ , 1:3])
 ## not much change at all
 varpart(comm_sqr, scores(tgp_pcnm)[ , 1:106], mang_mat)
 
-
-
 rs = rowSums(comm) / sum(comm)
 pcnmw = pcnm(dist(tgp_xy), w = rs)
 ord = cca(comm ~ scores(pcnmw))
@@ -288,6 +302,65 @@ par(mfrow=c(1,3))
 ordisurf(tgp_xy, scores(pcnmw, choices=1), bubble = 3, main = "PCNM 1")
 ordisurf(tgp_xy, scores(pcnmw, choices=2), bubble = 3, main = "PCNM 2")
 ordisurf(tgp_xy, scores(pcnmw, choices=3), bubble = 3, main = "PCNM 3")
+
+## Distance based-analysis ----------------------------------------------------------
+topo_mat = env[ , c('eastness', 'northness', 'slope')]
+
+comm_d = vegdist(comm)
+mang_d = dist(mang_mat)
+soil_d = dist(soil_mat)
+geo_d = dist(tgp_xy)
+#topo_d = dist(topo_mat) previous analyses demonstrate that topo is unimportant
+
+mang_soil_d = dist(cbind(mang_mat, soil_mat))
+mang_geo_d = dist(cbind(mang_mat, tgp_xy))
+soil_geo_d = dist(cbind(soil_mat, tgp_xy))
+
+pdf('./figs/grid_dist_rel.pdf', width=7 * 3, height=7)
+  par(mfrow=c(1,3))
+  plot(mang_d, comm_d, pch='.')
+  lines(lowess(mang_d, comm_d), col='red', lwd=2)
+  plot(soil_d, comm_d, pch='.')
+  lines(lowess(soil_d, comm_d), col='red', lwd=2)
+  plot(geo_d, comm_d, pch='.')
+  lines(lowess(geo_d, comm_d), col='red', lwd=2)
+dev.off()
+
+panel.cor <- function(x, y, digits=2, prefix="", cex.cor, ...)
+{
+  usr <- par("usr"); on.exit(par(usr))
+  par(usr = c(0, 1, 0, 1))
+  r <- abs(cor(x, y))
+  txt <- format(c(r, 0.123456789), digits=digits)[1]
+  txt <- paste(prefix, txt, sep="")
+  if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
+  text(0.5, 0.5, txt, cex = cex.cor * r)
+}
+
+pdf('./figs/grid_dist_pairs.pdf', width= 7*2, height=7*2)
+  pairs(comm_d ~ mang_d + soil_d + geo_d, pch='.', 
+        lower.panel=panel.cor, upper.panel = panel.smooth)
+dev.off()
+
+mod = lm(comm_d ~ mang_d + soil_d + geo_d)
+summary(mod)
+
+mantel(comp_d, soil_d)
+mantel(comp_d, mang_d)
+mantel(comp_d, geo_d)
+
+mantel.partial(comp_d, soil_d, mang_d)
+mantel.partial(comp_d, soil_d, geo_d)
+mantel.partial(comp_d, mang_d, soil_d)
+mantel.partial(comp_d, mang_d, geo_d)
+mantel.partial(comp_d, geo_d, mang_d)
+mantel.partial(comp_d, geo_d, soil_d)
+
+mantel.partial(comp_d, geo_d, mang_soil_d)
+mantel.partial(comp_d, soil_d, mang_geo_d)
+mantel.partial(comp_d, mang_d, soil_geo_d)
+mantel.partial(comp_d, geo_d, mang_soil_d)
+
 
 ## Richness: model building ---------------------------------------------------------
 
