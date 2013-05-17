@@ -145,6 +145,7 @@ partition_r2 = function(full, X, Y, Z, X_Y, X_Z, X_YZ, Y_Z, Y_XZ, Z_XY,
 }
 
 ord_partition = function(resp, v1, v2, v3, method, ...) {
+  ## Carries out variation partitioning on 
   p = list()
   if (missing(v3)) {
     full = r2_adj(resp, cbind(v1, v2), method=method, ...)
@@ -152,8 +153,8 @@ ord_partition = function(resp, v1, v2, v3, method, ...) {
     Y = r2_adj(resp, v2, method=method, ...)
     part = partition_r2(full[1:2], X[1:2], Y[1:2])
     p$part = part
-    p$raw$X = X
-    p$raw$Y = Y
+    p$r2$X = X
+    p$r2$Y = Y
   }
   else {
     full = r2_adj(resp, cbind(v1, v2, v3), method=method, ...)
@@ -168,15 +169,15 @@ ord_partition = function(resp, v1, v2, v3, method, ...) {
     Z_XY = r2_adj(resp, v3, cbind(v1, v2), method=method, ...)
     part = partition_r2(full, X, Y, Z, X_Y, X_Z, X_YZ, Y_Z, Y_XZ, Z_XY)
     p$part = part
-    p$raw$X = X
-    p$raw$Y = Y
-    p$raw$Z = Z
-    p$raw$X_Y = X_Y
-    p$raw$X_Z = X_Z
-    p$raw$X_YZ = X_YZ
-    p$raw$Y_Z = Y_Z
-    p$raw$Y_XZ = Y_XZ
-    p$raw$Z_XY = Z_XY
+    p$r2$X = X
+    p$r2$Y = Y
+    p$r2$Z = Z
+    p$r2$X_Y = X_Y
+    p$r2$X_Z = X_Z
+    p$r2$X_YZ = X_YZ
+    p$r2$Y_Z = Y_Z
+    p$r2$Y_XZ = Y_XZ
+    p$r2$Z_XY = Z_XY
   }
   return(p)
 }
