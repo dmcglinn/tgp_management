@@ -22,7 +22,7 @@ r2_adj = function(Y, X, Z, method, nperm, dummy=0) {
   Y = as.matrix(Y)
   X = as.matrix(X)
   if (missing(Z)) {
-    cca.emp = eval(parse(text= paste(method, '(Y,X)')))
+    cca.emp = eval(parse(text= paste(method, '(Y, X)')))
     r2 = cca.emp$CCA$tot.chi / cca.emp$tot.chi 
     if (missing(nperm)) {
       if (method == 'rda') {
@@ -37,11 +37,16 @@ r2_adj = function(Y, X, Z, method, nperm, dummy=0) {
       if (nperm <= 0)
         stop('nperm argument must either be a positive integer or not specified')
       rand.r2 = rep(NA, nperm)
-      for(i in 1:nperm){
+      i = 1
+      while (i <= nperm) {
         Xrand = X[sample(nrow(X)), ]
-        rand.r2[i] = eval(parse(text=paste(method, '(Y,Xrand)')))$CCA$tot.chi
-        if (i %% 100 == 0)
-          print(i)
+        cca.rand = try(eval(parse(text=paste(method, '(Y, Xrand)'))), TRUE)
+        if (class(cca.rand) == 'cca') {
+          rand.r2[i] = cca.rand$CCA$tot.chi
+          if (i %% 100 == 0)
+            print(i)
+          i = i + 1
+        }
       }
       out = c(r2, 
               1 - (1 / (1 - mean(rand.r2 / cca.emp$tot.chi))) * (1 - r2),
@@ -50,7 +55,7 @@ r2_adj = function(Y, X, Z, method, nperm, dummy=0) {
   }  
   else{
     Z = as.matrix(Z)
-    cca.emp = eval(parse(text=paste(method, '(Y,X,Z)')))
+    cca.emp = eval(parse(text=paste(method, '(Y, X, Z)')))
     r2 = cca.emp$CCA$tot.chi / cca.emp$tot.chi
     if (missing(nperm)) {
       if (method == 'rda') {
@@ -65,13 +70,18 @@ r2_adj = function(Y, X, Z, method, nperm, dummy=0) {
       if (nperm <= 0)
         stop('nperm argument must either be a positive integer or not specified')
       rand.r2 = rep(NA, nperm)
-      for(i in 1:nperm){
+      i = 1
+      while (i <= nperm) {
         rhold = sample(nrow(X))
         Xrand = X[rhold, ]
         Zrand = Z[rhold, ]
-        rand.r2[i] = eval(parse(text=paste(method, '(Y,Xrand,Zrand)')))$CCA$tot.chi
-        if (i %% 100 == 0)
-          print(i)
+        cca.rand = try(eval(parse(text=paste(method, '(Y, Xrand, Zrand)'))), TRUE)
+        if (class(cca.rand) == 'cca') {
+          rand.r2[i] = cca.rand$CCA$tot.chi
+          if (i %% 100 == 0)
+            print(i)
+          i = i + 1
+        }
       }
       out = c(r2,
               1 - (1 / (1 - mean(rand.r2 / cca.emp$tot.chi))) * (1 - r2),
