@@ -81,7 +81,7 @@ r2_adj = function(Y, X, Z, method, reps, dummy=0) {
   return(out)
 }
 
-partition_r2 = function(full, X, Y, Z, X_Y, X_Z, X_YZ, Y_Z, Y_XZ, Z_XY,
+partition_r2 = function(full, X1, X2, X3, X12, X13, X23,
                         adj=TRUE, digit=3) {
   ## Partition R2 values between two (XY) or three (XYZ) classes of
   ## explanatory variables
@@ -90,16 +90,7 @@ partition_r2 = function(full, X, Y, Z, X_Y, X_Z, X_YZ, Y_Z, Y_XZ, Z_XY,
   ## the two class partitioning is based on Legendre and Legendre 1998, p770-775
   ## the three class paritioning is based on Anderson & Gribble 1998
   ## Arguments:
-  ## full: r2 for . ~ X + Y or . ~ X + Y + Z
-  ## X : r2 for . ~ X
-  ## Y : r2 for . ~ Y
-  ## Z : r2 for . ~ Z
-  ## X_Y : r2 for (. ~ Y) ~ X
-  ## X_Z : r2 for (. ~ Z) ~ X
-  ## X_YZ : r2 for (. ~ Y + Z) ~ X
-  ## Y_Z : r2 for (. ~ Z) ~ Y
-  ## Y_XZ : r2 for (. ~ X + Z) ~ Y
-  ## Z_XY : r2 for (. ~ X + Y) ~ Z
+  ## full: r2 for . ~ X1 + X2 or . ~ X1 + X2 + X3
   ## adj : boolean, if true then it expects adjusted r2 are also in the previous arguments
   ## digit : positive integer where to round the output table at
   ## Examples:
@@ -108,34 +99,30 @@ partition_r2 = function(full, X, Y, Z, X_Y, X_Z, X_YZ, Y_Z, Y_XZ, Z_XY,
   ## from Anderson & Gribble (1998)
   ## partition_r2(.5050, .3467, .3772, .0794, .1073, .3004, .0889, .3367, .1252, .0205, adj=F, digit=6) * 100
   ## Citations:
-  ## Anderson, M. J., and N. A. Gribble. 1998. Partitioning the variation among 
-  ##    spatial, temporal and environmental components in a multivariate data set.
-  ##    Austral Ecology 23:158–167.
   ## Legendre, P., and L. Legendre. 1998. Numerical ecology. Elsevier, Boston, Mass., USA.
-  if (missing(Z)) {
-    ## Legendre and Legendre (1998) p770-775
-    abc = full
-    ab = X
-    bc = Y
-    a = abc - bc
-    c = abc - ab
-    b = abc - a - c
-    d = 1 - abc
-    part = rbind(abc, a, b, c, d)
-    rownames(part) = c('all', 'X indep.', 'X & Y shared', 'Y indep.', 'resid.')
+  ##     p770-775
+  if (missing(X3)) {
+    a = full - X2
+    c = full - X1
+    b = full - a - c
+    d = 1 - full
+    part = rbind(full, a, b, c, d)
+    rownames(part) = c('all = X1+X2', '[a] = X1 | X2', '[b]',
+                       '[c] = X2 | X1', '[d] = Residuals')
   }
   else {
-    ## Anderson & Gribble (1998)
-    XYZ = X_YZ + (X - X_Y) + (X - X_Z) - X
-    part = rbind(full, X_YZ, Y_XZ, Z_XY,
-                 X - X_Y - XYZ,
-                 X - X_Z - XYZ,
-                 Y - Y_Z - XYZ,
-                 XYZ, 1 - full)
-    rownames(part) = c('all', 'X indep.' , 'Y indep.' ,'Z indep.',
-                       'X & Y shared', 'X & Z shared', 'Y & Z shared',
-                       'X & Y & Z shared', 'resid.')
-  }
+    a = full - X23
+    b = full - X13
+    c = full - X12
+    d = full - X3 - a - b
+    e = full - X1 - b - c
+    f = full - X2 - a - c
+    g = full - a - b - c - d - e - f
+    h = 1 - full
+    part = rbind(full, a, b, c, d, e, f, g, h)
+    rownames(part) = c('all = X1+X2+X3', '[a] = X1 | X2+X3', '[b] = X2 | X1+X3',
+                       '[c] = X3 | X1+X2', '[d]', '[e]', '[f]', '[g]', '[h] = Residuals')
+  }  
   if (adj)
     colnames(part) = c('R2','R2adj')
   else
@@ -144,41 +131,37 @@ partition_r2 = function(full, X, Y, Z, X_Y, X_Z, X_YZ, Y_Z, Y_XZ, Z_XY,
   return(part)
 }
 
-ord_partition = function(resp, v1, v2, v3, method, ...) {
-  ## Carries out variation partitioning on 
+ordi_part = function(resp, X1, X2, X3, method, digit=3, ...) {
+  ## Carries out variation partitioning using direct ordination
+  ## vegan function varpart is faster and can do up to 4 classes
+  ## for RDA, this function allows CCA as well
   p = list()
-  if (missing(v3)) {
-    full = r2_adj(resp, cbind(v1, v2), method=method, ...)
-    X = r2_adj(resp, v1, method=method, ...)
-    Y = r2_adj(resp, v2, method=method, ...)
-    part = partition_r2(full[1:2], X[1:2], Y[1:2])
+  if (missing(X3)) {
+    full = r2_adj(resp, cbind(X1, X2), method=method, ...)
+    r2_X1 = r2_adj(resp, X1, method=method, ...)
+    r2_X2 = r2_adj(resp, X2, method=method, ...)
+    part = partition_r2(full[1:2], r2_X1[1:2], r2_X2[1:2], digit=digit)
     p$part = part
-    p$r2$X = X
-    p$r2$Y = Y
+    p$r2$X1 = r2_X1
+    p$r2$Y2 = r2_X2
   }
   else {
-    full = r2_adj(resp, cbind(v1, v2, v3), method=method, ...)
-    X = r2_adj(resp, v1, method=method, ...)
-    Y = r2_adj(resp, v2, method=method, ...)
-    Z = r2_adj(resp, v3, method=method, ...)
-    X_Y = r2_adj(resp, v1, v2, method=method, ...)
-    X_Z = r2_adj(resp, v1, v3, method=method, ...)
-    X_YZ = r2_adj(resp, v1, cbind(v2, v3), method=method, ...)
-    Y_Z = r2_adj(resp, v2, v3, method=method, ...)
-    Y_XZ = r2_adj(resp, v2, cbind(v1, v3), method=method, ...)
-    Z_XY = r2_adj(resp, v3, cbind(v1, v2), method=method, ...)
-    part = partition_r2(full, X, Y, Z, X_Y, X_Z, X_YZ, Y_Z, Y_XZ, Z_XY)
+    full = r2_adj(resp, cbind(X1, X2, X3), method=method, ...)
+    r2_X1 = r2_adj(resp, X1, method=method, ...)
+    r2_X2 = r2_adj(resp, X2, method=method, ...)
+    r2_X3 = r2_adj(resp, X3, method=method, ...)
+    r2_X12 = r2_adj(resp, cbind(X1, X2), method=method, ...)
+    r2_X13 = r2_adj(resp, cbind(X1, X3), method=method, ...)
+    r2_X23 = r2_adj(resp, cbind(X2, X3), method=method, ...)
+    part = partition_r2(full, r2_X1, r2_X2, r2_X3, 
+                        r2_X12, r2_X13, r2_X23, digit=digit)
     p$part = part
-    p$r2$X = X
-    p$r2$Y = Y
-    p$r2$Z = Z
-    p$r2$X_Y = X_Y
-    p$r2$X_Z = X_Z
-    p$r2$X_YZ = X_YZ
-    p$r2$Y_Z = Y_Z
-    p$r2$Y_XZ = Y_XZ
-    p$r2$Z_XY = Z_XY
+    p$r2$X1 = r2_X1
+    p$r2$X2 = r2_X2
+    p$r2$X3 = r2_X3
+    p$r2$X12 = r2_X12
+    p$r2$X13 = r2_X13
+    p$r2$X23 = r2_X23
   }
   return(p)
 }
-
