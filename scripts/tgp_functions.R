@@ -8,28 +8,34 @@ read.shape = function(shpName, path=NULL) {
 }  
 
 r2_adj = function(Y, X, Z, reps, method, dummy=0) {
-  ## Purpose
-  ## returns R2, R2adj, and all R2adj replicates that result from permuations
+  ## Returns
+  ## a vector of R2, R2adj, and all R2adj replicates that result from permuations
   ## Arguments
   ## Y, X, Z: are species matrix, expl matrix, covar matrix
   ## reps: the number of permutations to perform, 
-  ##  if no reps then only r2 and r2adj returned 
-  ##  if reps is not provided then it calculates an analytical R2adj (only ok for RDA)
+  ##  if reps not specified the analytical r2 and/or r2adj is returned 
+  ##  if method (see next) is rda then r2adj also returned
   ## method: specifies "cca" or "rda"
   ## dummy: a number 0, 1 or 2 depending on how many collinear variables are in the
   ##  explanatory matrix
   ##  dummy is only necessary for the analytical R2adj calculation
   Y = as.matrix(Y)
   X = as.matrix(X)
-  if ( missing(Z)) {
-    cca.emp = eval(parse(text= paste(method,'(Y,X)')))
-    r2 = summary(cca.emp)$constr.chi/cca.emp$tot.chi 
+  if (missing(Z)) {
+    cca.emp = eval(parse(text= paste(method, '(Y,X)')))
+    r2 = summary(cca.emp)$constr.chi / cca.emp$tot.chi 
     if (missing(reps)) {
-      n = nrow(Y)
-      p = ncol(X)-dummy
-      out = c(r2, 1 - (((n - 1) / (n - p - 1)) * (1 - r2)))
+      if (method == 'rda') {
+        n = nrow(Y)
+        p = ncol(X) - dummy
+        out = c(r2, 1 - (((n - 1) / (n - p - 1)) * (1 - r2)))
+      }
+      else 
+        out = c(r2, NA)
     }
     else {
+      if (reps <= 0)
+        stop('reps argument must either be a positive integer or not specified')
       rand.r2 = rep(NA, reps)
       for(i in 1:reps){
         Xrand = X[sample(nrow(X)), ]
@@ -47,11 +53,17 @@ r2_adj = function(Y, X, Z, reps, method, dummy=0) {
     cca.emp = eval(parse(text=paste(method, '(Y,X,Z)')))
     r2 = summary(cca.emp)$constr.chi / cca.emp$tot.chi
     if (missing(reps)) {
-      n = nrow(Y)
-      p = ncol(X) - dummy
-      out = c(r2, 1 - (((n - 1)/(n - p - 1)) * (1 - r2)))
+      if (method == 'rda') {
+        n = nrow(Y)
+        p = ncol(X) - dummy
+        out = c(r2, 1 - (((n - 1)/(n - p - 1)) * (1 - r2)))
+      }
+      else
+        out = c(r2, NA)
     }
     else{
+      if (reps <= 0)
+        stop('reps argument must either be a positive integer or not specified')
       rand.r2 = rep(NA, reps)
       for(i in 1:reps){
         rhold = sample(nrow(X))
