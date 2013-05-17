@@ -7,7 +7,7 @@ read.shape = function(shpName, path=NULL) {
   shp = readOGR(file.path(path, fileName), shpName)
 }  
 
-r2_adj = function(Y, X, Z, reps, method, dummy=0) {
+r2_adj = function(Y, X, Z, method, reps, dummy=0) {
   ## Returns
   ## a vector of R2, R2adj, and all R2adj replicates that result from permuations
   ## Arguments
@@ -83,7 +83,8 @@ r2_adj = function(Y, X, Z, reps, method, dummy=0) {
 
 partition_r2 = function(full, X, Y, Z, X_Y, X_Z, X_YZ, Y_Z, Y_XZ, Z_XY,
                         adj=TRUE, digit=3) {
-  ## Partition R2 values between two (XY) or three (XYZ) classes
+  ## Partition R2 values between two (XY) or three (XYZ) classes of
+  ## explanatory variables
   ## Returns:
   ## the independent and shared components of variation
   ## the two class partitioning is based on Legendre and Legendre 1998, p770-775
@@ -141,5 +142,42 @@ partition_r2 = function(full, X, Y, Z, X_Y, X_Z, X_YZ, Y_Z, Y_XZ, Z_XY,
     colnames(part) = c('R2')
   part = round(part, digit)
   return(part)
+}
+
+ord_partition = function(resp, v1, v2, v3, method, ...) {
+  p = list()
+  if (missing(v3)) {
+    full = r2_adj(resp, cbind(v1, v2), method=method, ...)
+    X = r2_adj(resp, v1, method=method, ...)
+    Y = r2_adj(resp, v2, method=method, ...)
+    part = partition_r2(full[1:2], X[1:2], Y[1:2])
+    p$part = part
+    p$raw$X = X
+    p$raw$Y = Y
+  }
+  else {
+    full = r2_adj(resp, cbind(v1, v2, v3), method=method, ...)
+    X = r2_adj(resp, v1, method=method, ...)
+    Y = r2_adj(resp, v2, method=method, ...)
+    Z = r2_adj(resp, v3, method=method, ...)
+    X_Y = r2_adj(resp, v1, v2, method=method, ...)
+    X_Z = r2_adj(resp, v1, v3, method=method, ...)
+    X_YZ = r2_adj(resp, v1, cbind(v2, v3), method=method, ...)
+    Y_Z = r2_adj(resp, v2, v3, method=method, ...)
+    Y_XZ = r2_adj(resp, v2, cbind(v1, v3), method=method, ...)
+    Z_XY = r2_adj(resp, v3, cbind(v1, v2), method=method, ...)
+    part = partition_r2(full, X, Y, Z, X_Y, X_Z, X_YZ, Y_Z, Y_XZ, Z_XY)
+    p$part = part
+    p$raw$X = X
+    p$raw$Y = Y
+    p$raw$Z = Z
+    p$raw$X_Y = X_Y
+    p$raw$X_Z = X_Z
+    p$raw$X_YZ = X_YZ
+    p$raw$Y_Z = Y_Z
+    p$raw$Y_XZ = Y_XZ
+    p$raw$Z_XY = Z_XY
+  }
+  return(p)
 }
 
