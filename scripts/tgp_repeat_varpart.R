@@ -21,30 +21,30 @@ comm_sqr = sqrt(comm)
 
 env$sr = rowSums(comm > 0)
 
-## create dummy matrices
-plot_id = sort(unique(env$plot))
-year_id = sort(unique(env$yr))
-plot_mat = matrix(0, ncol=length(plot_id), nrow=nrow(env))
-year_mat = matrix(0, ncol=length(year_id), nrow=nrow(env))
+## create explanatory modeling variables
+## soil variables
+soil_vars = c("P","CA","MG","K","NA","B","FE","MN","CU","ZN","AL")
+soil_vars = paste('log', soil_vars, sep='')
+soil_pca = princomp(scale(env[ , soil_vars]))
+soil_mat = as.data.frame(soil_pca$scores[ , 1:3])
 
-for(i in 1:nrow(env)) {
-  plot_mat[i, match(env$plot[i], plot_id)] = 1
-  year_mat[i, match(env$yr[i], year_id)] = 1 
-}
+## rain variables
+env$rain2 = ifelse(is.na(env$rain2), 0, env$rain2)
+sum_rain = apply(env[ , paste('rain', 6:9, sep='')], 1, sum)
+win_rain = apply(env[ , paste('rain', c(10:12, 1), sep='')], 1, sum)
+spr_rain = apply(env[ , paste('rain', 2:5, sep='')], 1, sum)
+rain_mat = cbind(sum_rain, win_rain, spr_rain)
 
+## management variables
 mang_vars = c('YrsOB', 'BP5Yrs', 'YrsSLB')
 mang_mat = env[ , mang_vars]
 
-## drop first columns
-plot_mat = plot_mat[ , -1]
-year_mat = year_mat[ , -1]
-
 ## carry out partitioning analysis
-ols_part = ordi_part(env$sr, plot_mat, year_mat, mang_mat, method='rda')
+ols_part = ordi_part(env$sr, soil_mat, rain_mat, mang_mat, method='rda')
 
-rda_part = ordi_part(comm_sqr, plot_mat, year_mat, mang_mat, method='rda')
+rda_part = ordi_part(comm_sqr, soil_mat, rain_mat, mang_mat, method='rda')
 
-cca_part = ordi_part(comm_sqr, plot_mat, year_mat, mang_mat, method='cca',
+cca_part = ordi_part(comm_sqr, soil_mat, rain_mat, mang_mat, method='cca',
                      nperm=999)
 
 ## print results
