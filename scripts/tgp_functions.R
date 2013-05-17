@@ -179,3 +179,12 @@ ordi_part = function(resp, X1, X2, X3, method, digit=3, ...) {
   }
   return(p)
 }
+
+get_diam = function(diam1, perc1, perc2) {
+  area1 = pi * (diam1 / 2)^2
+  area2 = (area1 * perc2) / perc1
+  diam2 = 2 * sqrt(area2 / pi)
+  return(diam2)
+}
+
+
