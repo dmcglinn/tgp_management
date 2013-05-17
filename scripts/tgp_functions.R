@@ -7,13 +7,13 @@ read.shape = function(shpName, path=NULL) {
   shp = readOGR(file.path(path, fileName), shpName)
 }  
 
-r2_adj = function(Y, X, Z, method, reps, dummy=0) {
+r2_adj = function(Y, X, Z, method, nperm, dummy=0) {
   ## Returns
   ## a vector of R2, R2adj, and all R2adj replicates that result from permuations
   ## Arguments
   ## Y, X, Z: are species matrix, expl matrix, covar matrix
-  ## reps: the number of permutations to perform, 
-  ##  if reps not specified the analytical r2 and/or r2adj is returned 
+  ## nperm: the number of permutations to perform, 
+  ##  if nperm not specified the analytical r2 and/or r2adj is returned 
   ##  if method (see next) is rda then r2adj also returned
   ## method: specifies "cca" or "rda"
   ## dummy: a number 0, 1 or 2 depending on how many collinear variables are in the
@@ -24,7 +24,7 @@ r2_adj = function(Y, X, Z, method, reps, dummy=0) {
   if (missing(Z)) {
     cca.emp = eval(parse(text= paste(method, '(Y,X)')))
     r2 = summary(cca.emp)$constr.chi / cca.emp$tot.chi 
-    if (missing(reps)) {
+    if (missing(nperm)) {
       if (method == 'rda') {
         n = nrow(Y)
         p = ncol(X) - dummy
@@ -34,10 +34,10 @@ r2_adj = function(Y, X, Z, method, reps, dummy=0) {
         out = c(r2, NA)
     }
     else {
-      if (reps <= 0)
-        stop('reps argument must either be a positive integer or not specified')
-      rand.r2 = rep(NA, reps)
-      for(i in 1:reps){
+      if (nperm <= 0)
+        stop('nperm argument must either be a positive integer or not specified')
+      rand.r2 = rep(NA, nperm)
+      for(i in 1:nperm){
         Xrand = X[sample(nrow(X)), ]
         rand.r2[i] = summary(eval(parse(text=paste(method, '(Y,Xrand)'))))$constr.chi
         if (i %% 100 == 0)
@@ -52,7 +52,7 @@ r2_adj = function(Y, X, Z, method, reps, dummy=0) {
     Z = as.matrix(Z)
     cca.emp = eval(parse(text=paste(method, '(Y,X,Z)')))
     r2 = summary(cca.emp)$constr.chi / cca.emp$tot.chi
-    if (missing(reps)) {
+    if (missing(nperm)) {
       if (method == 'rda') {
         n = nrow(Y)
         p = ncol(X) - dummy
@@ -62,10 +62,10 @@ r2_adj = function(Y, X, Z, method, reps, dummy=0) {
         out = c(r2, NA)
     }
     else{
-      if (reps <= 0)
-        stop('reps argument must either be a positive integer or not specified')
-      rand.r2 = rep(NA, reps)
-      for(i in 1:reps){
+      if (nperm <= 0)
+        stop('nperm argument must either be a positive integer or not specified')
+      rand.r2 = rep(NA, nperm)
+      for(i in 1:nperm){
         rhold = sample(nrow(X))
         Xrand = X[rhold, ]
         Zrand = Z[rhold, ]
@@ -123,10 +123,14 @@ partition_r2 = function(full, X1, X2, X3, X12, X13, X23,
     rownames(part) = c('all = X1+X2+X3', '[a] = X1 | X2+X3', '[b] = X2 | X1+X3',
                        '[c] = X3 | X1+X2', '[d]', '[e]', '[f]', '[g]', '[h] = Residuals')
   }  
-  if (adj)
-    colnames(part) = c('R2','R2adj')
-  else
-    colnames(part) = c('R2')
+  if (adj) {
+    part = cbind(part, (part[ , 2] / part[1, 2]) * 100)
+    colnames(part) = c('R2', 'R2adj', '% expl')
+  }  
+  else {
+    part = cbind(part, (part[ , 1] / part[1, 1]) * 100)
+    colnames(part) = c('R2', '% expl')
+  }  
   part = round(part, digit)
   return(part)
 }
