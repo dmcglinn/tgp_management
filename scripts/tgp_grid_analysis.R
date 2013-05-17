@@ -238,23 +238,22 @@ par(mfrow=c(1,2))
 hist(so.r2[-(1:2)])
 hist(ma.r2[-(1:2)])
 
-## cca results
 partition_r2(full.r2, so.r2, ma.r2)
-                R2 R2adj
-all          0.111 0.066
-X indep.     0.069 0.047
-X & Y shared 0.006 0.004
-Y indep.     0.037 0.014
-resid.       0.889 0.934
+## cca results
+                   R2 R2adj
+all = X1+X2     0.111 0.066
+[a] = X1 | X2   0.069 0.047
+[b]             0.006 0.004
+[c] = X2 | X1   0.037 0.014
+[d] = Residuals 0.889 0.934
 
 ## rda results
-partition_r2(full.r2, so.r2, ma.r2)
-                R2 R2adj
-all          0.157 0.115
-X indep.     0.096 0.077
-X & Y shared 0.017 0.015
-Y indep.     0.044 0.023
-resid.       0.843 0.885
+                   R2 R2adj
+all = X1+X2     0.157 0.115
+[a] = X1 | X2   0.096 0.077
+[b]             0.017 0.015
+[c] = X2 | X1   0.044 0.023
+[d] = Residuals 0.843 0.885
 
 ## how does adding spatial predictors change our outcome
 
