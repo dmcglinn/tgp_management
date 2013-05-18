@@ -3,7 +3,7 @@ library(sp)
 library(nlme)
 
 
-setwd('~/Lab data/tgp_management/')
+setwd('~/tgp_management/')
 
 source('./scripts/tgp_functions.R')
 
