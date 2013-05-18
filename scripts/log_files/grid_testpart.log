@@ -1,0 +1,143 @@
+Loading required package: permute
+This is vegan 2.0-5
+Warning message:
+In dir.create("./results/") : './results' already exists
+[1] "OLS model of richness------------------------------------"
+
+Call:
+lm(formula = env$sr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 
+    3] + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-20.872  -7.130  -0.656   6.166  38.110 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      64.6146     4.7648  13.561  < 2e-16 ***
+soil_mat[, 1]    -2.4144     0.5580  -4.327 3.13e-05 ***
+soil_mat[, 2]    -1.5491     0.7424  -2.087    0.039 *  
+soil_mat[, 3]    -0.8247     0.9478  -0.870    0.386    
+mang_mat$YrsOB    1.0205     0.8977   1.137    0.258    
+mang_mat$BP5Yrs  -0.1464     1.3234  -0.111    0.912    
+mang_mat$YrsSLB  -0.3560     1.0669  -0.334    0.739    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+Residual standard error: 11.81 on 121 degrees of freedom
+Multiple R-squared: 0.1701,	Adjusted R-squared: 0.129 
+F-statistic: 4.135 on 6 and 121 DF,  p-value: 0.0008195 
+
+Permutation test for rda under reduced model
+Marginal effects of terms
+
+Model: rda(formula = env$sr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 3] + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
+                 Df     Var       F N.Perm  Pr(>F)   
+soil_mat[, 1]     1  20.542 18.7203    199 0.00500 **
+soil_mat[, 2]     1   4.778  4.3539   1099 0.03182 * 
+soil_mat[, 3]     1   0.831  0.7571     99 0.37000   
+mang_mat$YrsOB    1   1.418  1.2921     99 0.23000   
+mang_mat$BP5Yrs   1   0.013  0.0122     99 0.91000   
+mang_mat$YrsSLB   1   0.122  0.1114     99 0.74000   
+Residual        121 132.776                          
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for rda under reduced model
+Marginal effects of terms
+
+Model: rda(formula = env$sr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 3] + Condition(mang_mat$YrsOB) + Condition(mang_mat$BP5Yrs) + Condition(mang_mat$YrsSLB))
+               Df     Var       F N.Perm  Pr(>F)   
+soil_mat[, 1]   1  20.542 18.7203    199 0.00500 **
+soil_mat[, 2]   1   4.778  4.3539   1599 0.03562 * 
+soil_mat[, 3]   1   0.831  0.7571     99 0.34000   
+Residual      121 132.776                          
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for rda under reduced model
+Marginal effects of terms
+
+Model: rda(formula = env$sr ~ Condition(soil_mat[, 1]) + Condition(soil_mat[, 2]) + Condition(soil_mat[, 3]) + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
+                 Df     Var      F N.Perm Pr(>F)
+mang_mat$YrsOB    1   1.418 1.2921     99   0.30
+mang_mat$BP5Yrs   1   0.013 0.0122     99   0.91
+mang_mat$YrsSLB   1   0.122 0.1114     99   0.75
+Residual        121 132.776                     
+[1] "RDA model of composition-------------------------------"
+Permutation test for rda under reduced model
+Marginal effects of terms
+
+Model: rda(formula = comm_sqr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 3] + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
+                 Df     Var      F N.Perm  Pr(>F)   
+soil_mat[, 1]     1  1.3312 7.9059    199 0.00500 **
+soil_mat[, 2]     1  0.6598 3.9184    199 0.00500 **
+soil_mat[, 3]     1  0.3375 2.0044    199 0.00500 **
+mang_mat$YrsOB    1  0.4307 2.5578    199 0.00500 **
+mang_mat$BP5Yrs   1  0.2095 1.2440     99 0.16000   
+mang_mat$YrsSLB   1  0.2327 1.3817    899 0.03111 * 
+Residual        121 20.3736                         
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for rda under reduced model
+Marginal effects of terms
+
+Model: rda(formula = comm_sqr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 3] + Condition(mang_mat$YrsOB) + Condition(mang_mat$BP5Yrs) + Condition(mang_mat$YrsSLB))
+               Df     Var      F N.Perm Pr(>F)   
+soil_mat[, 1]   1  1.3312 7.9059    199  0.005 **
+soil_mat[, 2]   1  0.6598 3.9184    199  0.005 **
+soil_mat[, 3]   1  0.3375 2.0044    199  0.005 **
+Residual      121 20.3736                        
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for rda under reduced model
+Marginal effects of terms
+
+Model: rda(formula = comm_sqr ~ Condition(soil_mat[, 1]) + Condition(soil_mat[, 2]) + Condition(soil_mat[, 3]) + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
+                 Df     Var      F N.Perm  Pr(>F)   
+mang_mat$YrsOB    1  0.4307 2.5578    199 0.00500 **
+mang_mat$BP5Yrs   1  0.2095 1.2440     99 0.15000   
+mang_mat$YrsSLB   1  0.2327 1.3817   1499 0.03467 * 
+Residual        121 20.3736                         
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+[1] "CCA model of composition-------------------------------"
+Permutation test for cca under reduced model
+Marginal effects of terms
+
+Model: cca(formula = comm_sqr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 3] + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
+                 Df  Chisq      F N.Perm Pr(>F)   
+soil_mat[, 1]     1 0.1649 4.6148    199  0.005 **
+soil_mat[, 2]     1 0.1075 3.0086    199  0.005 **
+soil_mat[, 3]     1 0.0630 1.7640    199  0.005 **
+mang_mat$YrsOB    1 0.0659 1.8451    199  0.005 **
+mang_mat$BP5Yrs   1 0.0405 1.1329     99  0.230   
+mang_mat$YrsSLB   1 0.0511 1.4301    199  0.010 **
+Residual        121 4.3228                        
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for cca under reduced model
+Marginal effects of terms
+
+Model: cca(formula = comm_sqr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 3] + Condition(mang_mat$YrsOB) + Condition(mang_mat$BP5Yrs) + Condition(mang_mat$YrsSLB))
+               Df  Chisq      F N.Perm Pr(>F)   
+soil_mat[, 1]   1 0.1649 4.6148    199  0.005 **
+soil_mat[, 2]   1 0.1075 3.0086    199  0.005 **
+soil_mat[, 3]   1 0.0630 1.7640    199  0.005 **
+Residual      121 4.3228                        
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for cca under reduced model
+Marginal effects of terms
+
+Model: cca(formula = comm_sqr ~ Condition(soil_mat[, 1]) + Condition(soil_mat[, 2]) + Condition(soil_mat[, 3]) + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
+                 Df  Chisq      F N.Perm Pr(>F)   
+mang_mat$YrsOB    1 0.0659 1.8451    199  0.005 **
+mang_mat$BP5Yrs   1 0.0405 1.1329     99  0.220   
+mang_mat$YrsSLB   1 0.0511 1.4301    199  0.015 * 
+Residual        121 4.3228                        
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Error variance of regression model underestimated by -4.5 percent 
+Error variance of regression model underestimated by -0.1 percent 
+Error variance of regression model underestimated by NaN percent 
+null device 
+          1 
