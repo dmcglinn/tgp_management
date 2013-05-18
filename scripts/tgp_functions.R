@@ -135,13 +135,14 @@ partition_r2 = function(full, X1, X2, X3, X12, X13, X23,
   }  
   if (adj) {
     part = cbind(part, (part[ , 2] / part[1, 2]) * 100)
+    part = cbind(round(part[ , 1:2], digit), round(part[ , 3], digit - 2))
     colnames(part) = c('R2', 'R2adj', '% expl')
   }  
   else {
     part = cbind(part, (part[ , 1] / part[1, 1]) * 100)
+    part = cbind(round(part[ , 1], digit), round(part[ , 2], digit - 2))
     colnames(part) = c('R2', '% expl')
   }  
-  part = round(part, digit)
   return(part)
 }
 
