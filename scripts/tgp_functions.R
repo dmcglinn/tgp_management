@@ -14,7 +14,7 @@ r2_adj = function(Y, X, Z, method, nperm, dummy=0) {
   ## Y, X, Z: are species matrix, expl matrix, covar matrix
   ## nperm: the number of permutations to perform, 
   ##  if nperm not specified the analytical r2 and/or r2adj is returned 
-  ##  if method (see next) is rda then r2adj also returned
+  ##  Note: for CCA only the permutation based r2 adj is unbiased 
   ## method: specifies "cca" or "rda"
   ## dummy: a number 0, 1 or 2 depending on how many collinear variables are in the
   ##  explanatory matrix
@@ -25,13 +25,9 @@ r2_adj = function(Y, X, Z, method, nperm, dummy=0) {
     cca.emp = eval(parse(text= paste(method, '(Y, X)')))
     r2 = cca.emp$CCA$tot.chi / cca.emp$tot.chi 
     if (missing(nperm)) {
-      if (method == 'rda') {
-        n = nrow(Y)
-        p = ncol(X) - dummy
-        out = c(r2, 1 - (((n - 1) / (n - p - 1)) * (1 - r2)))
-      }
-      else 
-        out = c(r2, NA)
+      n = nrow(Y)
+      p = ncol(X) - dummy
+      out = c(r2, 1 - (((n - 1) / (n - p - 1)) * (1 - r2)))
     }
     else {
       if (nperm <= 0)
@@ -58,13 +54,9 @@ r2_adj = function(Y, X, Z, method, nperm, dummy=0) {
     cca.emp = eval(parse(text=paste(method, '(Y, X, Z)')))
     r2 = cca.emp$CCA$tot.chi / cca.emp$tot.chi
     if (missing(nperm)) {
-      if (method == 'rda') {
-        n = nrow(Y)
-        p = ncol(X) - dummy
-        out = c(r2, 1 - (((n - 1)/(n - p - 1)) * (1 - r2)))
-      }
-      else
-        out = c(r2, NA)
+      n = nrow(Y)
+      p = ncol(X) - dummy
+      out = c(r2, 1 - (((n - 1)/(n - p - 1)) * (1 - r2)))
     }
     else{
       if (nperm <= 0)
@@ -146,7 +138,7 @@ partition_r2 = function(full, X1, X2, X3, X12, X13, X23,
   return(part)
 }
 
-ordi_part = function(resp, X1, X2, X3, method, digit=3, ...) {
+ordi_part = function(resp, X1, X2, X3, method, adj=TRUE, digit=3, ...) {
   ## Carries out variation partitioning using direct ordination
   ## vegan function varpart is faster and can do up to 4 classes
   ## for RDA, this function allows CCA as well
@@ -155,7 +147,12 @@ ordi_part = function(resp, X1, X2, X3, method, digit=3, ...) {
     full = r2_adj(resp, cbind(X1, X2), method=method, ...)
     r2_X1 = r2_adj(resp, X1, method=method, ...)
     r2_X2 = r2_adj(resp, X2, method=method, ...)
-    part = partition_r2(full[1:2], r2_X1[1:2], r2_X2[1:2], digit=digit)
+    if (adj)
+      part = partition_r2(full[1:2], r2_X1[1:2], r2_X2[1:2], adj=adj,
+                          digit=digit)
+    else 
+      part = partition_r2(full[1], r2_X1[1], r2_X2[1], adj=adj,
+                          digit=digit)
     p$part = part
     p$r2$X1 = r2_X1
     p$r2$Y2 = r2_X2
@@ -168,8 +165,12 @@ ordi_part = function(resp, X1, X2, X3, method, digit=3, ...) {
     r2_X12 = r2_adj(resp, cbind(X1, X2), method=method, ...)
     r2_X13 = r2_adj(resp, cbind(X1, X3), method=method, ...)
     r2_X23 = r2_adj(resp, cbind(X2, X3), method=method, ...)
-    part = partition_r2(full[1:2], r2_X1[1:2], r2_X2[1:2], r2_X3[1:2], 
-                        r2_X12[1:2], r2_X13[1:2], r2_X23[1:2], digit=digit)
+    if (adj)
+      part = partition_r2(full[1:2], r2_X1[1:2], r2_X2[1:2], r2_X3[1:2], 
+                          r2_X12[1:2], r2_X13[1:2], r2_X23[1:2], digit=digit)
+    else
+      part = partition_r2(full[1], r2_X1[1], r2_X2[1], r2_X3[1], 
+                          r2_X12[1], r2_X13[1], r2_X23[1], adj=adj, digit=digit)
     p$part = part
     p$r2$X1 = r2_X1
     p$r2$X2 = r2_X2
