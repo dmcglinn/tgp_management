@@ -6,27 +6,55 @@ setwd('~/tgp_management/')
 source('./scripts/tgp_grid_data_import.R')
 
 grid_mod = lm(scale(env$sr) ~ scale(soil_mat) + scale(mang_mat))
-grid_coef = coef(grid_mod)[5]
-grid_err = 1.96 * summary(grid_mod)$coef[5 , 2]
+grid_coef = coef(grid_mod)[5:7]
+grid_err = 1.96 * summary(grid_mod)$coef[5:7 , 2]
 
 source('./scripts/tgp_repeat_data_import.R')
 rep_mod = lm(scale(env$sr) ~ scale(soil_mat) + scale(mang_mat) + scale(rain_mat))
-rep_coef = coef(rep_mod)[5]
-rep_err = 1.96 * summary(rep_mod)$coef[5 , 2]
+rep_coef = coef(rep_mod)[5:7]
+rep_err = 1.96 * summary(rep_mod)$coef[5:7 , 2]
 
-pdf('./figs/Bison_effect_comparison.pdf')
-plot(1:2, c(grid_coef, rep_coef), xlab='', ylab='', pch=19, 
-     xlim= c(0, 3), ylim=c(-.1, .6), cex = 1.25,
+pdf('./figs/bison_effect_comparison.pdf')
+plot(1:2, c(grid_coef[1], rep_coef[1]), xlab='', ylab='',
+     pch=19, xlim= c(0, 3), ylim=c(-.1, .6), cex = 1.25,
      frame.plot=F, axes=F)
 axis(side=2, cex.axis=1, lwd=2, at = seq(-.1, .6, .1))
 axis(side=1, at=c(1, 2), lab=c('Grid','Repeat'), tick=F, 
      cex.axis=1.5)
+mtext(side=2, 'Partial Standarized Effect Size', padj=-3, cex=1.5)
 x = 1:2
-y1 = c(grid_coef + grid_err, rep_coef + rep_err)
-y2 = c(grid_coef - grid_err, rep_coef - rep_err)
+y1 = c(grid_coef[1] + grid_err[1], rep_coef[1] + rep_err[1])
+y2 = c(grid_coef[1] - grid_err[1], rep_coef[1] - rep_err[1])
 arrows(x, y1, x, y2, angle=90, length=.1, code=3, lwd=2) 
 abline(h=0, col='grey', lty=2, lwd=2)
 dev.off()
+
+
+pdf('./figs/manag_effect_comparison.pdf')
+incr = .2/2
+plot(1:3 - incr, grid_coef, xlab='', ylab='',
+     pch=19, xlim= c(.5, 3.5), ylim=c(-.6, .6), cex = 1.25,
+     frame.plot=F, axes=F, col='grey')
+points(1:3 + incr, rep_coef, pch=19, cex=1.25)
+axis(side=2, cex.axis=1, lwd=2)
+axis(side=1, at=1:3,
+     lab=c('Years of\n bison', '# of burns\n past 5 years', 'Years since\n last burn'),
+     tick=F,   cex.axis=1.25)
+mtext(side=2, 
+      expression('Partial Standarized Coefficient, '* hat(beta)),
+      padj=-1.5, cex=1.25)
+x = 1:3
+y1 = grid_coef + grid_err
+y1b = rep_coef + rep_err
+y2 = grid_coef - grid_err
+y2b = rep_coef - rep_err
+arrows(x-incr, y1, x-incr, y2, angle=90, length=.1, code=3, lwd=2, col='grey') 
+arrows(x+incr, y1b, x+incr, y2b,angle=90, length=.1, code=3, lwd=2)
+abline(h=0, col='grey', lty=2, lwd=2)
+legend('topright',c('Grid Analysis', 'Repeat Analysis'), col=c('grey','black'),
+       bty='n', pch=19, cex=1.25)
+dev.off()
+
 
 ##
 barplot(c(grid_coef, rep_coef), width=.25, space=.6,
