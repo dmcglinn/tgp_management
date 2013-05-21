@@ -1,4 +1,3 @@
-setwd('~/tgp_management/')
 
 env = read.csv('./data/tgp_utm_env_complete.csv')
 env = env[env$repeat_plot == 1, ]
