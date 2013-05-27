@@ -36,17 +36,41 @@ Permutation test for rda under reduced model
 Marginal effects of terms
 
 Model: rda(formula = env$sr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 3] + rain_mat$sum_rain + rain_mat$win_rain + rain_mat$spr_rain + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
-                   Df    Var       F N.Perm Pr(>F)   
-soil_mat[, 1]       1 37.849 97.0900    199  0.005 **
-soil_mat[, 2]       1  1.233  3.1635    199  0.130   
-soil_mat[, 3]       1  1.667  4.2759    799  0.030 * 
-rain_mat$sum_rain   1  7.961 20.4207    199  0.005 **
-rain_mat$win_rain   1  2.386  6.1203    199  0.005 **
-rain_mat$spr_rain   1  1.028  2.6357    199  0.140   
-mang_mat$YrsOB      1 15.802 40.5358    199  0.005 **
-mang_mat$BP5Yrs     1  3.628  9.3074    199  0.015 * 
-mang_mat$YrsSLB     1  4.349 11.1569    199  0.010 **
-Residual          230 89.662                         
+                   Df    Var       F N.Perm  Pr(>F)   
+soil_mat[, 1]       1 37.849 97.0900    199 0.00500 **
+soil_mat[, 2]       1  1.233  3.1635    799 0.07625 . 
+soil_mat[, 3]       1  1.667  4.2759   2099 0.03810 * 
+rain_mat$sum_rain   1  7.961 20.4207    199 0.00500 **
+rain_mat$win_rain   1  2.386  6.1203    199 0.01500 * 
+rain_mat$spr_rain   1  1.028  2.6357     99 0.13000   
+mang_mat$YrsOB      1 15.802 40.5358    199 0.00500 **
+mang_mat$BP5Yrs     1  3.628  9.3074    199 0.00500 **
+mang_mat$YrsSLB     1  4.349 11.1569    199 0.00500 **
+Residual          230 89.662                          
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for rda under reduced model
+
+Model: rda(X = env$sr, Y = soil_mat, Z = cbind(rain_mat, mang_mat))
+          Df    Var      F N.Perm Pr(>F)   
+Model      3 43.530 37.221    199  0.005 **
+Residual 230 89.662                        
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for rda under reduced model
+
+Model: rda(X = env$sr, Y = rain_mat, Z = cbind(soil_mat, mang_mat))
+          Df    Var      F N.Perm Pr(>F)   
+Model      3  9.591 8.2005    199  0.005 **
+Residual 230 89.662                        
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for rda under reduced model
+
+Model: rda(X = env$sr, Y = mang_mat, Z = cbind(rain_mat, soil_mat))
+          Df    Var      F N.Perm Pr(>F)   
+Model      3 37.128 31.747    199  0.005 **
+Residual 230 89.662                        
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 [1] "RDA model of composition-------------------------------"
@@ -57,14 +81,38 @@ Model: rda(formula = comm_sqr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 3] + 
                    Df     Var       F N.Perm Pr(>F)   
 soil_mat[, 1]       1  2.2589 23.2497    199  0.005 **
 soil_mat[, 2]       1  0.8639  8.8920    199  0.005 **
-soil_mat[, 3]       1  1.2050 12.4024    199  0.005 **
+soil_mat[, 3]       1  1.2050 12.4022    199  0.005 **
 rain_mat$sum_rain   1  0.2156  2.2187    199  0.005 **
 rain_mat$win_rain   1  0.2543  2.6173    199  0.005 **
 rain_mat$spr_rain   1  0.1834  1.8879    199  0.005 **
-mang_mat$YrsOB      1  0.9522  9.8008    199  0.005 **
-mang_mat$BP5Yrs     1  0.5402  5.5597    199  0.005 **
+mang_mat$YrsOB      1  0.9522  9.8009    199  0.005 **
+mang_mat$BP5Yrs     1  0.5402  5.5598    199  0.005 **
 mang_mat$YrsSLB     1  0.2181  2.2450    199  0.005 **
 Residual          230 22.3465                         
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for rda under reduced model
+
+Model: rda(X = comm_sqr, Y = soil_mat, Z = cbind(rain_mat, mang_mat))
+          Df     Var      F N.Perm Pr(>F)   
+Model      3  4.3708 14.996    199  0.005 **
+Residual 230 22.3465                        
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for rda under reduced model
+
+Model: rda(X = comm_sqr, Y = rain_mat, Z = cbind(soil_mat, mang_mat))
+          Df     Var      F N.Perm Pr(>F)   
+Model      3  0.6646 2.2802    199  0.005 **
+Residual 230 22.3465                        
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for rda under reduced model
+
+Model: rda(X = comm_sqr, Y = mang_mat, Z = cbind(rain_mat, soil_mat))
+          Df     Var      F N.Perm Pr(>F)   
+Model      3  1.8562 6.3682    199  0.005 **
+Residual 230 22.3465                        
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 [1] "CCA model of composition-------------------------------"
@@ -72,17 +120,41 @@ Permutation test for cca under reduced model
 Marginal effects of terms
 
 Model: cca(formula = comm_sqr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 3] + rain_mat$sum_rain + rain_mat$win_rain + rain_mat$spr_rain + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
-                   Df   Chisq       F N.Perm  Pr(>F)   
-soil_mat[, 1]       1  0.1554 15.4348    199 0.00500 **
-soil_mat[, 2]       1  0.0613  6.0893    199 0.00500 **
-soil_mat[, 3]       1  0.0857  8.5099    199 0.00500 **
-rain_mat$sum_rain   1  0.0142  1.4130    199 0.01000 **
-rain_mat$win_rain   1  0.0192  1.9091    199 0.00500 **
-rain_mat$spr_rain   1  0.0127  1.2631   1099 0.07545 . 
-mang_mat$YrsOB      1  0.0526  5.2207    199 0.00500 **
-mang_mat$BP5Yrs     1  0.0410  4.0679    199 0.00500 **
-mang_mat$YrsSLB     1  0.0224  2.2193    199 0.00500 **
-Residual          230  2.3163                          
+                   Df   Chisq       F N.Perm Pr(>F)   
+soil_mat[, 1]       1  0.1554 15.4638    199  0.005 **
+soil_mat[, 2]       1  0.0613  6.1012    199  0.005 **
+soil_mat[, 3]       1  0.0856  8.5114    199  0.005 **
+rain_mat$sum_rain   1  0.0142  1.4139    199  0.010 **
+rain_mat$win_rain   1  0.0192  1.9128    199  0.005 **
+rain_mat$spr_rain   1  0.0127  1.2649   3799  0.060 . 
+mang_mat$YrsOB      1  0.0526  5.2301    199  0.005 **
+mang_mat$BP5Yrs     1  0.0410  4.0758    199  0.005 **
+mang_mat$YrsSLB     1  0.0223  2.2202    199  0.005 **
+Residual          230  2.3118                         
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for cca under reduced model
+
+Model: cca(X = comm_sqr, Y = soil_mat, Z = cbind(rain_mat, mang_mat))
+          Df  Chisq      F N.Perm Pr(>F)   
+Model      3 0.3006 9.9693    199  0.005 **
+Residual 230 2.3118                        
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for cca under reduced model
+
+Model: cca(X = comm_sqr, Y = rain_mat, Z = cbind(soil_mat, mang_mat))
+          Df  Chisq      F N.Perm Pr(>F)   
+Model      3 0.0460 1.5252    199  0.005 **
+Residual 230 2.3118                        
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Permutation test for cca under reduced model
+
+Model: cca(X = comm_sqr, Y = mang_mat, Z = cbind(rain_mat, soil_mat))
+          Df  Chisq      F N.Perm Pr(>F)   
+Model      3 0.1329 4.4081    199  0.005 **
+Residual 230 2.3118                        
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 Error variance of regression model underestimated by -3.8 percent 
