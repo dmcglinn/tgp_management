@@ -14,8 +14,13 @@ full = rda(env$sr ~ soil_mat[,1] + soil_mat[,2] + soil_mat[,3] +
              mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
 summary(lm(env$sr ~ soil_mat[,1] + soil_mat[,2] + soil_mat[,3] +
              mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB))
-
 anova(full, by='margin')
+
+soil = rda(env$sr, soil_mat, mang_mat)
+anova(soil)
+
+mang = rda(env$sr, mang_mat, soil_mat)
+anova(mang)
 
 print('RDA model of composition-------------------------------')
 ### rda model of composition
@@ -23,12 +28,23 @@ full = rda(comm_sqr ~ soil_mat[,1] + soil_mat[,2] + soil_mat[,3] +
              mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
 anova(full, by='margin')
 
+soil = rda(comm_sqr, soil_mat, mang_mat)
+anova(soil)
+
+mang = rda(comm_sqr, mang_mat, soil_mat)
+anova(mang)
+
 print('CCA model of composition-------------------------------')
 ### cca model of composition
 full = cca(comm_sqr ~ soil_mat[,1] + soil_mat[,2] + soil_mat[,3] +
              mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
-
 anova(full, by='margin')
+
+soil = cca(comm_sqr, soil_mat, mang_mat)
+anova(soil)
+
+mang = cca(comm_sqr, mang_mat, soil_mat)
+anova(mang)
 
 ## examine for residual spatial dependence
 tgp_xy = env[ , c('easting', 'northing')]
