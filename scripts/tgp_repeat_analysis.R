@@ -3,11 +3,9 @@ library(sp)
 library(nlme)
 
 
-setwd('~/Lab data/tgp_management/')
+setwd('~/tgp_management/')
 
 source('./scripts/tgp_functions.R')
-
-load('./data/tgp_shpfiles.Rdata')
 
 env = read.csv('./data/tgp_utm_env_complete.csv')
 comm = read.csv('./data/tgp_comm_mat_all.csv')
@@ -39,19 +37,79 @@ for(i in 1:nrow(env)) {
   year_mat[i, match(env$yr[i], year_id)] = 1 
 }
 
-mang_vars = c('YrsOB', 'BP5Yrs', 'YrsSLB')
-mang_mat = env[ , mang_vars]
-
-## drop first columns
+## drop first columns so no singular variables in models
 plot_mat = plot_mat[ , -1]
 year_mat = year_mat[ , -1]
 
+## define management variables
+mang_vars = c('YrsOB', 'BP5Yrs', 'YrsSLB')
+mang_mat = env[ , mang_vars]
+
+## define temporal precip variables
+## summer : june-sept : 6, 7, 8 ,9
+## winter : oct-jan : 10, 11, 12, 1
+## spring : feb-may : 2, 3, 4, 5
+env$rain2 = ifelse(is.na(env$rain2), 0, env$rain2)
+sum_rain = apply(env[ , paste('rain', 6:9, sep='')], 1, sum)
+win_rain = apply(env[ , paste('rain', c(10:12, 1), sep='')], 1, sum)
+spr_rain = apply(env[ , paste('rain', 2:5, sep='')], 1, sum)
+
+rain_mat = cbind(sum_rain, win_rain, spr_rain)
+
+## alternatively define using pca - does not change result much
+rain_vars = paste('rain', 1:12, sep='')
+rain_pca = princomp(scale(env[ , rain_vars]))
+par(mfrow=c(1,2))
+plot(rain_pca)
+biplot(rain_pca)
+
+rain_mat = as.data.frame(rain_pca$scores[ , 1:3])
+
+## define spatial soil variables
+soil_vars = c("P","CA","MG","K","NA","B","FE","MN","CU","ZN","AL")
+soil_vars = paste('log', soil_vars, sep='')
+soil_pca = princomp(scale(env[ , soil_vars]))
+summary(soil_pca)
+sum(soil_pca$sdev)
+par(mfrow=c(1,2))
+plot(soil_pca)
+biplot(soil_pca)
+par(mfrow=c(1,1))
+biplot(soil_pca, col=c('white', 'black'))
+biplot(soil_pca, choices = c(3,4), col=c('white', 'black'))
+
+soil_mat = as.data.frame(soil_pca$scores[ , 1:3])
+
+## define site variables
+site_mat = env[ , c('logCA', 'slope', 'northness')]
 
 ## composition analysis ------------------------------------------------
 
-full = cca(comm_sqr, plot_mat, year_mat, mang_mat)
+ordi_part(comm_sqr, site_mat, rain_mat, mang_mat, method='rda')$part
+                     R2  R2adj  % expl
+all = X1+X2+X3    0.224  0.193 100.000
+[a] = X1 | X2+X3  0.124  0.117  60.480
+[b] = X2 | X1+X3  0.020  0.010   5.150
+[c] = X3 | X1+X2  0.066  0.057  29.524
+[d]              -0.001 -0.002  -1.151
+[e]               0.001  0.000  -0.039
+[f]               0.014  0.012   6.327
+[g]               0.000 -0.001  -0.291
+[h] = Residuals   0.776  0.807 417.800
 
-ordi_part(comm_sqr, plot_mat, year_mat, mang_mat, method='rda')
+ordi_part(comm_sqr, soil_mat, rain_mat, mang_mat, method='rda')$part
+                     R2  R2adj  % expl
+all = X1+X2+X3    0.247  0.217 100.000
+[a] = X1 | X2+X3  0.147  0.141  64.886
+[b] = X2 | X1+X3  0.022  0.013   5.935
+[c] = X3 | X1+X2  0.063  0.054  24.888
+[d]              -0.003 -0.005  -2.383
+[e]               0.001  0.000   0.079
+[f]               0.017  0.015   6.967
+[g]              -0.001 -0.001  -0.372
+[h] = Residuals   0.753  0.783 360.075
+
+rda_part = ordi_part(comm_sqr, plot_mat, year_mat, mang_mat, method='rda')
 $part
                      R2  R2adj  % expl
 all = X1+X2+X3    0.610  0.548 100.000
@@ -65,10 +123,34 @@ all = X1+X2+X3    0.610  0.548 100.000
 [h] = Residuals   0.390  0.452  82.507
 
 cca_part = ordi_part(comm_sqr, plot_mat, year_mat, mang_mat,
-                     method='cca', nperm=999)
-
+                     method='cca', nperm=100)
+$part
+R2  R2adj  % expl
+all = X1+X2+X3    0.511  0.432 100.000
+[a] = X1 | X2+X3  0.405  0.382  88.351
+[b] = X2 | X1+X3  0.043  0.018   4.254
+[c] = X3 | X1+X2  0.014  0.008   1.930
+[d]               0.005 -0.014  -3.237
+[e]               0.001  0.001   0.242
+[f]               0.047  0.043  10.012
+[g]              -0.005 -0.007  -1.552
+[h] = Residuals   0.489  0.568 131.318
 
 ## richness analysis ----------------------------------------------------
+
+ols_part = ordi_part(env$sr, plot_mat, year_mat, mang_mat, method='rda')
+$part
+R2  R2adj  % expl
+all = X1+X2+X3    0.755  0.716 100.000
+[a] = X1 | X2+X3  0.481  0.487  68.027
+[b] = X2 | X1+X3  0.127  0.126  17.594
+[c] = X3 | X1+X2  0.038  0.040   5.548
+[d]               0.002 -0.031  -4.294
+[e]               0.036  0.035   4.915
+[f]               0.073  0.066   9.262
+[g]              -0.002 -0.008  -1.053
+[h] = Residuals   0.245  0.284  39.719
+
 mod = lm(sr ~ plot_mat + year_mat + 
            YrsOB + YrsSLB + BP5Yrs, data=env)
 summary(mod)
