@@ -390,9 +390,9 @@ plot(Variogram(gls(sr ~ 1, data=env), form = ~ easting + northing,
 ## it is not necessary to use more complex models.
 
 ## examine partial effects for job talk
-attach(env)
-mod = lm(sr ~ logCA + slope + northness +
-          YrsOB + BP5Yrs + YrsSLB)
+
+mod = lm(sr ~ soil_mat[,1] + soil_mat[,2] + soil_mat[,3] +
+          YrsOB + BP5Yrs + YrsSLB, data=env)
 termplot(mod, terms='YrsOB', partial=T, se=T,
          lwd.term=3,lwd.se=3,
          col.term='blue', col.se='blue',
