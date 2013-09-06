@@ -32,30 +32,34 @@ Permutation test for rda under reduced model
 Marginal effects of terms
 
 Model: rda(formula = env$sr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 3] + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
-                 Df     Var       F N.Perm  Pr(>F)   
-soil_mat[, 1]     1  20.542 18.7203    199 0.00500 **
-soil_mat[, 2]     1   4.778  4.3539    699 0.02857 * 
-soil_mat[, 3]     1   0.831  0.7571     99 0.34000   
-mang_mat$YrsOB    1   1.418  1.2921     99 0.19000   
-mang_mat$BP5Yrs   1   0.013  0.0122     99 0.94000   
-mang_mat$YrsSLB   1   0.122  0.1114     99 0.69000   
-Residual        121 132.776                          
+                 Df     Var       F N.Perm Pr(>F)   
+soil_mat[, 1]     1  20.542 18.7203    199  0.005 **
+soil_mat[, 2]     1   4.778  4.3539    799  0.030 * 
+soil_mat[, 3]     1   0.831  0.7571     99  0.360   
+mang_mat$YrsOB    1   1.418  1.2921     99  0.300   
+mang_mat$BP5Yrs   1   0.013  0.0122     99  0.900   
+mang_mat$YrsSLB   1   0.122  0.1114     99  0.730   
+Residual        121 132.776                         
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-Permutation test for rda under reduced model
 
-Model: rda(X = env$sr, Y = soil_mat, Z = mang_mat)
-          Df    Var      F N.Perm Pr(>F)   
-Model      3  26.60 8.0803    199  0.005 **
-Residual 121 132.78                        
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-Permutation test for rda under reduced model
+Permutation test for rda 
 
-Model: rda(X = env$sr, Y = mang_mat, Z = soil_mat)
-          Df     Var      F N.Perm Pr(>F)
-Model      3   1.828 0.5553     99   0.59
-Residual 121 132.776                     
+Call: rda(X = env$sr, Y = soil_mat, Z = mang_mat)
+Permutation test for all constrained eigenvalues
+Pseudo-F:	 8.080255 (with 3, 121 Degrees of Freedom)
+Significance:	 0.001 
+Based on 999 permutations under reduced model.
+
+
+Permutation test for rda 
+
+Call: rda(X = env$sr, Y = mang_mat, Z = soil_mat)
+Permutation test for all constrained eigenvalues
+Pseudo-F:	 0.5553445 (with 3, 121 Degrees of Freedom)
+Significance:	 0.623 
+Based on 999 permutations under reduced model.
+
 [1] "RDA model of composition-------------------------------"
 Permutation test for rda under reduced model
 Marginal effects of terms
@@ -66,27 +70,29 @@ soil_mat[, 1]     1  1.3312 7.9059    199 0.00500 **
 soil_mat[, 2]     1  0.6598 3.9184    199 0.00500 **
 soil_mat[, 3]     1  0.3375 2.0044    199 0.00500 **
 mang_mat$YrsOB    1  0.4307 2.5578    199 0.00500 **
-mang_mat$BP5Yrs   1  0.2095 1.2440    299 0.09667 . 
-mang_mat$YrsSLB   1  0.2327 1.3817   1199 0.03417 * 
+mang_mat$BP5Yrs   1  0.2095 1.2440    599 0.07667 . 
+mang_mat$YrsSLB   1  0.2327 1.3817    699 0.02571 * 
 Residual        121 20.3736                         
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-Permutation test for rda under reduced model
 
-Model: rda(X = comm_sqr, Y = soil_mat, Z = mang_mat)
-          Df     Var      F N.Perm Pr(>F)   
-Model      3  2.3181 4.5891    199  0.005 **
-Residual 121 20.3736                        
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-Permutation test for rda under reduced model
+Permutation test for rda 
 
-Model: rda(X = comm_sqr, Y = mang_mat, Z = soil_mat)
-          Df     Var      F N.Perm Pr(>F)   
-Model      3  1.0575 2.0936    199  0.005 **
-Residual 121 20.3736                        
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Call: rda(X = comm_sqr, Y = soil_mat, Z = mang_mat)
+Permutation test for all constrained eigenvalues
+Pseudo-F:	 4.589142 (with 3, 121 Degrees of Freedom)
+Significance:	 0.001 
+Based on 999 permutations under reduced model.
+
+
+Permutation test for rda 
+
+Call: rda(X = comm_sqr, Y = mang_mat, Z = soil_mat)
+Permutation test for all constrained eigenvalues
+Pseudo-F:	 2.093573 (with 3, 121 Degrees of Freedom)
+Significance:	 0.001 
+Based on 999 permutations under reduced model.
+
 [1] "CCA model of composition-------------------------------"
 Permutation test for cca under reduced model
 Marginal effects of terms
@@ -97,27 +103,29 @@ soil_mat[, 1]     1 0.1649 4.6148    199  0.005 **
 soil_mat[, 2]     1 0.1075 3.0086    199  0.005 **
 soil_mat[, 3]     1 0.0630 1.7640    199  0.005 **
 mang_mat$YrsOB    1 0.0659 1.8451    199  0.005 **
-mang_mat$BP5Yrs   1 0.0405 1.1329     99  0.180   
-mang_mat$YrsSLB   1 0.0511 1.4301    199  0.005 **
+mang_mat$BP5Yrs   1 0.0405 1.1329     99  0.190   
+mang_mat$YrsSLB   1 0.0511 1.4301    199  0.010 **
 Residual        121 4.3228                        
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-Permutation test for cca under reduced model
 
-Model: cca(X = comm_sqr, Y = soil_mat, Z = mang_mat)
-          Df  Chisq      F N.Perm Pr(>F)   
-Model      3 0.3342 3.1180    199  0.005 **
-Residual 121 4.3228                        
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-Permutation test for cca under reduced model
+Permutation test for cca 
 
-Model: cca(X = comm_sqr, Y = mang_mat, Z = soil_mat)
-          Df  Chisq      F N.Perm Pr(>F)   
-Model      3 0.1781 1.6613    199  0.005 **
-Residual 121 4.3228                        
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Call: cca(X = comm_sqr, Y = soil_mat, Z = mang_mat)
+Permutation test for all constrained eigenvalues
+Pseudo-F:	 3.118036 (with 3, 121 Degrees of Freedom)
+Significance:	 0.001 
+Based on 999 permutations under reduced model.
+
+
+Permutation test for cca 
+
+Call: cca(X = comm_sqr, Y = mang_mat, Z = soil_mat)
+Permutation test for all constrained eigenvalues
+Pseudo-F:	 1.661333 (with 3, 121 Degrees of Freedom)
+Significance:	 0.001 
+Based on 999 permutations under reduced model.
+
 Error variance of regression model underestimated by -3.6 percent 
 Error variance of regression model underestimated by NaN percent 
 Error variance of regression model underestimated by NaN percent 
