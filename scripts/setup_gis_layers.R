@@ -6,15 +6,15 @@ setwd('~/Lab data/tgp_management/')
 
 source('./scripts/tgp_functions.R')
 
-## Pasture folder
-fencep = read.shape('fencep', path='./gis/Pasture')
+## pasture folder
+fencep = read.shape('fencep', path='./gis/pasture')
 plot(fencep, axes=T)
 summary(fencep)
 head(fencep@data)
 ## this layer is UTM projected
 ## I assumed this is NAD 83
 
-pasture_nad27 = read.shape('pasture_nad_27', path='./gis/Pasture')
+pasture_nad27 = read.shape('pasture_nad_27', path='./gis/pasture')
 plot(pasture_nad27, axes=T)
 summary(pasture_nad27)
 head(pasture_nad27@data)
@@ -23,13 +23,13 @@ head(pasture_nad27@data)
 ## this will have to be compared to other layers in nad27
 ## to verify
 
-fencePasture = read.shape('fencePasture', path='./gis/Pasture')
+fencepasture = read.shape('fencepasture', path='./gis/pasture')
 plot(fencePasture, axes=T)
 summary(fencePasture)
 head(fencePasture@data)
 ## this layer is Lat/long projected
 
-pasture = read.shape( 'pasture', path='./gis/Pasture')
+pasture = read.shape( 'pasture', path='./gis/pasture')
 plot(pasture, axes=T)
 summary(pasture)
 head(pasture@data)
