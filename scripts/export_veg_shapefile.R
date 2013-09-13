@@ -24,6 +24,6 @@ par(new=TRUE)
 plot(pasture)
 
 path = getwd()
-writeOGR(tgp_utm, dsn=file.path(path, 'tgpburn/coords'), 
+writeOGR(tgp_utm, dsn=file.path(path, 'gis/coords'), 
          layer= 'tgp_utm', driver='ESRI Shapefile',
          dataset_options='RESIZE=no', overwrite_layer=TRUE)
