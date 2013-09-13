@@ -1,4 +1,4 @@
-setwd('~/Lab data/tgp_management/')
+setwd('~/tgp_management/')
 
 env = read.csv('./data/tgp_utm_env.csv')
 burn = read.csv('./data/plot_burn.csv')

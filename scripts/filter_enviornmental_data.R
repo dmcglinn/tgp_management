@@ -1,4 +1,4 @@
-setwd('~/Lab data/tgp_management/')
+setwd('~/tgp_management/')
 
 env = read.csv('./data/tgpall_env.csv')
 env$date_samp = as.Date(env$date_samp, format='%m/%d/%Y')

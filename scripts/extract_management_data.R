@@ -8,7 +8,7 @@ library(sp)
 library(dichromat)
 
 
-setwd('~/Lab data/tgp_management/')
+setwd('~/tgp_management/')
 
 load('./data/tgp_shpfiles.Rdata')
 
