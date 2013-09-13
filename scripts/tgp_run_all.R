@@ -9,6 +9,17 @@ dir.create('./log_files')
 system('Rscript tgp_mesonet_download.R > ./log_files/mesonet_download.log 2>&1',
        wait=FALSE)
 
+system('Rscript filter_enviornmental_data.R > ./log_files/filter_envio.log 2>&1',
+       wait=FALSE)
+
+system('Rscript merge_management_data.R > ./log_files/merge_mang.log 2>&1',
+       wait=FALSE)
+
+system('Rscript extract_management_data.R > ./log_files/extract_mang.log 2>&1',
+       wait=FALSE)
+
+system('Rscript create_site_by_sp_matrix.R > ./log_files/site_by_sp.log 2>&1',
+       wait=FALSE)
 
 ## conduct analysis ------------------------------------------------------------
 ## variation partitioning 
