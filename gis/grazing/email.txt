@@ -1,0 +1,69 @@
+From mpoole@TNC.ORG Tue Aug 12 07:12:53 2008
+Date: Tue, 12 Aug 2008 07:11:48 -0500
+From: Matthew Poole <mpoole@TNC.ORG>
+To: "Earls, Pete" <pete.earls@okstate.edu>
+Subject: RE: bison grazing shapefile
+
+Pete,
+
+Here is the updated Bison Unit Pasture Boundary.  As always Shapefile
+projection is UTM Nad 83.
+
+We are wrapping up our summer burning season, 1 more unit left, so when
+we finish it up, I will bump you an updated 2008 burn shapefile.
+
+Hope your staying dry.
+
+-Matt
+
+-----Original Message-----
+From: Peter Earls [mailto:pete.earls@okstate.edu]
+Sent: Saturday, August 09, 2008 3:32 PM
+To: Matthew Poole
+Subject: bison grazing shapefile
+
+Matt,
+
+Have you updated the bison grazing shapefile to include the area added
+this May?  If so, could you send it?  Thanks.
+
+-- Pete
+
+==================================================================
+Peter Earls
+Department of Botany
+Oklahoma State University
+pete.earls@okstate.edu
+office: 115A LSE
+phone: 405.744.8733 (405.744.TREE)
+fax: 405.744.7841
+
+
+    [ Part 2, "bison_unit_2008.shx"  Application/OCTET-STREAM (Name: ]
+    [ "bison_unit_2008.shx") 111 bytes. ]
+    [ Unable to print this part. ]
+
+
+    [ Part 3, "bison_unit_2008.dbf"  Application/OCTET-STREAM (Name: ]
+    [ "bison_unit_2008.dbf") 681 bytes. ]
+    [ Unable to print this part. ]
+
+
+    [ Part 4, "bison_unit_2008.prj"  Application/OCTET-STREAM (Name: ]
+    [ "bison_unit_2008.prj") 426 bytes. ]
+    [ Unable to print this part. ]
+
+
+    [ Part 5, "bison_unit_2008.sbn"  Application/OCTET-STREAM (Name: ]
+    [ "bison_unit_2008.sbn") 136 bytes. ]
+    [ Unable to print this part. ]
+
+
+    [ Part 6, "bison_unit_2008.sbx"  Application/OCTET-STREAM (Name: ]
+    [ "bison_unit_2008.sbx") 121 bytes. ]
+    [ Unable to print this part. ]
+
+
+    [ Part 7, "bison_unit_2008.shp"  Application/OCTET-STREAM (Name: ]
+    [ "bison_unit_2008.shp") 4.2 KB. ]
+    [ Unable to print this part. ]

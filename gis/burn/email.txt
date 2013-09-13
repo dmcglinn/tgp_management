@@ -1,0 +1,94 @@
+From mpoole@TNC.ORG Mon Jun 23 08:12:14 2008
+Date: Mon, 23 Jun 2008 08:11:48 -0500
+From: Matthew Poole <mpoole@TNC.ORG>
+To: "Earls, Pete" <pete.earls@okstate.edu>
+Subject: RE: 2008 spring burns and updated 2004 burns
+
+Pete,
+
+Yes UTM NAD83, and the same goes for the attached updated 2004 burn data that includes all the burns both on and off TNC property.  Hopefully I will have the 2005 burn data finished sometime this week and I will send that to you ASAP.
+
+-Matt
+
+________________________________
+From: Peter Earls
+Sent: Sun 6/22/2008 8:38 PM
+To: Matthew Poole
+Subject: RE: 2008 spring burns
+
+
+Matt,
+
+Thanks!  Is the datum UTM NAD83 (versus NAD27)?
+
+-- Pete
+
+> Date: Sun, 22 Jun 2008 13:09:29 -0500
+> From: Matthew Poole <mpoole@TNC.ORG>
+> To: "Earls, Pete" <pete.earls@okstate.edu>
+> Subject: RE: 2008 spring burns
+>
+> Pete,
+>
+> Here is all the burn data for 2008.
+>
+> -Matt
+>
+> -----Original Message-----
+> From: Peter Earls [mailto:pete.earls@okstate.edu]
+> Sent: Friday, June 20, 2008 4:20 PM
+> To: Matthew Poole
+> Subject: 2008 spring burns
+>
+> Hi Matthew,
+>
+> If you have already created a shapefile of the burns for this spring, I
+> would like to get it for generating the burn history data for our
+> vegetation monitoring plots that folks are sampling this month.  Mike
+> Palmer is compiling data for the plots in preparation for a grant
+> application, and having the very latest data could be helpful.  The
+> shapefile does not to be cleaned up so long as the boundaries are fairly
+> close.  Thanks.
+>
+> -- Pete
+>
+> ==================================================================
+> Peter Earls
+> Department of Botany
+> Oklahoma State University
+> pete.earls@okstate.edu
+> office: 115A LSE
+> phone: 405.744.8733 (405.744.TREE)
+> fax: 405.744.7841
+>
+
+
+
+    [ Part 2, "2004_burns_nad_83.shp"  Application/OCTET-STREAM (Name: ]
+    [ "2004_burns_nad_83.shp") 104 KB. ]
+    [ Unable to print this part. ]
+
+
+    [ Part 3, "2004_burns_nad_83.sbx"  Application/OCTET-STREAM (Name: ]
+    [ "2004_burns_nad_83.sbx") 186 bytes. ]
+    [ Unable to print this part. ]
+
+
+    [ Part 4, "2004_burns_nad_83.sbn"  Application/OCTET-STREAM (Name: ]
+    [ "2004_burns_nad_83.sbn") 672 bytes. ]
+    [ Unable to print this part. ]
+
+
+    [ Part 5, "2004_Burns_Nad_83.prj"  Application/OCTET-STREAM (Name: ]
+    [ "2004_Burns_Nad_83.prj") 426 bytes. ]
+    [ Unable to print this part. ]
+
+
+    [ Part 6, "2004_Burns_Nad_83.dbf"  Application/OCTET-STREAM (Name: ]
+    [ "2004_Burns_Nad_83.dbf") 3.9 KB. ]
+    [ Unable to print this part. ]
+
+
+    [ Part 7, "2004_burns_nad_83.shx"  Application/OCTET-STREAM (Name: ]
+    [ "2004_burns_nad_83.shx") 400 bytes. ]
+    [ Unable to print this part. ]

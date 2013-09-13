@@ -1,0 +1,4 @@
+This shapefile from Matt Poole is a single shape of the entire bison grazing
+area as of the May 2008 addition of the Hubble Pasture and a little more area
+on the south end.
+
