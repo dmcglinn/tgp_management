@@ -51,14 +51,23 @@ tgp_xy = env[ , c('easting', 'northing')]
 
 ols_lm = rda(env$sr, cbind(soil_mat, mang_mat))
 rda_lm = rda(comm_sqr, cbind(soil_mat, mang_mat))
-cca_lm = cca(comm_sqr, cbind(soil_mat, mang_mat))
 
-ols_mso = mso(ols_lm, tgp_xy, grain=1000, permutations = 999)
-rda_mso = mso(rda_lm, tgp_xy, grain=1000, permutations = 999)
-cca_mso = mso(cca_lm, tgp_xy, grain=1000, permutations = 999)
+resid_list = list(residuals(ols_lm), residuals(rda_lm))
 
-pdf('./figs/grid_model_mso.pdf')
-  msoplot(ols_mso, main='Grid, OLS', ylim=c(50, 250))
-  msoplot(rda_mso, main='Grid, RDA', ylim=c(15, 30))
-  msoplot(cca_mso, main='Grid, CCA', ylim=c(3, 6))
+## Mantel tests
+spat_mantel = sapply(1:2, function(x) mantel(dist(tgp_xy), dist(resid_list[[x]])))
+
+mod_names = c('OLS', 'RDA')
+
+pdf('./figs/grid_model_mantel.pdf')
+  for(i in 1:2) {
+    plot(dist(tgp_xy), dist(resid_list[[i]]), ylab='Residual Distance', xlab='Spatial Distance (m)',
+         main=paste('Grid, ', mod_names[i], ', Spatial Corr', sep=''),
+         type='n')
+    abline(lm(dist(resid_list[[i]]) ~ dist(tgp_xy)), col='red', lwd=2)
+    lines(lowess(dist(tgp_xy), dist(resid_list[[i]])), col='blue', lwd=2)
+    mtext(side=3,paste('Mantel, p=', spat_mantel[4, i], sep=''))
+    legend('topright', c('Linear', 'Lowess'), col=c('red', 'blue'), lty=1, 
+           lwd=4, bty='n') 
+  }  
 dev.off()
