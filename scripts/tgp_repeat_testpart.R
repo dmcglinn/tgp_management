@@ -63,7 +63,7 @@ permutest(rain, permutations=999)
 mang = cca(comm_sqr, mang_mat, cbind(rain_mat, soil_mat))
 permutest(mang, permutations=999)
 
-## examine for residual spatial dependence
+## examine for residual spatial and temporal dependence
 tgp_xy = env[ , c('easting', 'northing')]
 
 ols_lm = rda(env$sr, cbind(soil_mat, rain_mat, mang_mat))
