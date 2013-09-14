@@ -68,22 +68,35 @@ tgp_xy = env[ , c('easting', 'northing')]
 
 ols_lm = rda(env$sr, cbind(soil_mat, rain_mat, mang_mat))
 rda_lm = rda(comm_sqr, cbind(soil_mat, rain_mat, mang_mat))
-cca_lm = cca(comm_sqr, cbind(soil_mat, rain_mat, mang_mat))
 
-ols_mso_spat = mso(ols_lm, tgp_xy, grain=1000, permutations = 999)
-rda_mso_spat = mso(rda_lm, tgp_xy, grain=1000, permutations = 999)
-cca_mso_spat = mso(cca_lm, tgp_xy, grain=1000, permutations = 999)
+resid_list = list(residuals(ols_lm), residuals(rda_lm))
 
-ols_mso_temp = mso(ols_lm, env$yr, permutations = 999)
-rda_mso_temp = mso(rda_lm, env$yr, permutations = 999)
-cca_mso_temp = mso(cca_lm, env$yr, permutations = 999)
+## Mantel tests
+spat_mantel = sapply(1:2, function(x) mantel(dist(tgp_xy), dist(resid_list[[x]])))
 
-pdf('./figs/repeat_model_mso.pdf', width=7*2, height=7)
+temp_mantel = sapply(1:2, function(x) mantel(dist(env$yr), dist(resid_list[[x]])))
+
+mod_names = c('OLS', 'RDA')
+xlabs = c('Spatial Distance (m)', 'Temporal Distance (yr)')
+
+pdf('./figs/repeat_model_mantel.pdf', width=7*2, height=7)
   par(mfrow=c(1,2))
-  msoplot(ols_mso_spat, main='Repeat, OLS, spatial', ylim=c(50, 250))
-  msoplot(ols_mso_temp, main='Repeat, OLS, temporal', ylim=c(50, 225))
-  msoplot(rda_mso_spat, main='Repeat, RDA, spatial', ylim=c(10, 40))
-  msoplot(rda_mso_temp, main='Repeat, RDA, temporal', ylim=c(20, 35))
-  msoplot(cca_mso_spat, main='Repeat, CCA, spatial', ylim=c(1, 4))
-  msoplot(cca_mso_temp, main='Repeat, CCA, temporal', ylim=c(2, 3.5))
+  for(i in 1:2) {
+    plot(dist(tgp_xy), dist(resid_list[[i]]), ylab='Residual Distance', xlab=xlabs[1],
+         main=paste('Repeat, ', mod_names[i], ', Spatial Corr', sep=''),
+         type='n')
+    abline(lm(dist(resid_list[[i]]) ~ dist(tgp_xy)), col='red', lwd=2)
+    lines(lowess(dist(tgp_xy), dist(resid_list[[i]])), col='blue', lwd=2)
+    mtext(side=3,paste('Mantel, p=', spat_mantel[4, i], sep=''))
+    ##
+    plot(dist(env$yr), dist(resid_list[[i]]), ylab='Residual Distance', xlab=xlabs[2],
+         main=paste('Repeat, ', mod_names[i], ', Temporal Corr', sep=''),
+         type='n')
+    abline(lm(dist(resid_list[[i]]) ~ dist(env$yr)), col='red', lwd=2)
+    lines(lowess(dist(env$yr), dist(resid_list[[i]])), col='blue', lwd=2)
+    mtext(side=3,paste('Mantel, p=', temp_mantel[4, i], sep=''))
+    legend('topright', c('Linear', 'Lowess'), col=c('red', 'blue'), lty=1, 
+           lwd=4, bty='n')    
+  }  
 dev.off()
+
