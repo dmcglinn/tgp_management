@@ -5,14 +5,14 @@ setwd('~/tgp_management/')
 
 source('./scripts/tgp_grid_data_import.R')
 
-grid_mod = lm(scale(env$sr) ~ scale(soil_mat) + scale(mang_mat))
-grid_coef = coef(grid_mod)[5:7]
-grid_err = 1.96 * summary(grid_mod)$coef[5:7 , 2]
+grid_mod = lm(scale(env$sr) ~ scale(mang_mat) + scale(soil_mat))
+grid_coef = coef(grid_mod)[2:4]
+grid_err = 1.96 * summary(grid_mod)$coef[2:4 , 2]
 
 source('./scripts/tgp_repeat_data_import.R')
-rep_mod = lm(scale(env$sr) ~ scale(soil_mat) + scale(mang_mat) + scale(rain_mat))
-rep_coef = coef(rep_mod)[5:7]
-rep_err = 1.96 * summary(rep_mod)$coef[5:7 , 2]
+rep_mod = lm(scale(env$sr) ~ scale(mang_mat) + scale(plot_mat) + scale(year_mat))
+rep_coef = coef(rep_mod)[2:4]
+rep_err = 1.96 * summary(rep_mod)$coef[2:4 , 2]
 
 pdf('./figs/bison_effect_comparison.pdf')
 plot(1:2, c(grid_coef[1], rep_coef[1]), xlab='', ylab='',
@@ -33,10 +33,10 @@ dev.off()
 pdf('./figs/manag_effect_comparison.pdf')
 incr = .2/2
 plot(1:3 - incr, grid_coef, xlab='', ylab='',
-     pch=19, xlim= c(.5, 3.5), ylim=c(-.6, .6), cex = 1.25,
+     pch=19, xlim= c(.5, 3.5), ylim=c(-.4, .8), cex = 1.25,
      frame.plot=F, axes=F, col='grey')
 points(1:3 + incr, rep_coef, pch=19, cex=1.25)
-axis(side=2, cex.axis=1, lwd=2)
+axis(side=2, cex.axis=1, at=seq(-0.4, 0.8, .2), lwd=2)
 axis(side=1, at=1:3,
      lab=c('Years of\n bison', '# of burns\n past 5 years', 'Years since\n last burn'),
      tick=F,   cex.axis=1.25)
