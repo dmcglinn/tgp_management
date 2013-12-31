@@ -1,15 +1,24 @@
-
-setwd('~/Lab data/tgp_management/')
-
+library(vegan)
 library(dichromat)
+library(sp)
 
 source('./scripts/tgp_functions.R')
 
 load('./data/tgp_shpfiles.Rdata')
 
-ls()
-
 source('./scripts/tgp_grid_data_import.R')
+
+tgp_xy = cbind(env$easting, env$northing)
+pdf('./figs/grid_analysis_variables.pdf', width=7*3, height=7*2)
+  par(mfrow=c(2,3))
+  ordisurf(tgp_xy, env$BP5Yrs, bubble=5)
+  ordisurf(tgp_xy, env$YrsSLB, bubble=5)
+  ordisurf(tgp_xy, env$bison, bubble=5)
+  ordisurf(tgp_xy, soil_mat[,1], bubble=5)
+  ordisurf(tgp_xy, soil_mat[,2], bubble=5)
+  ordisurf(tgp_xy, soil_mat[,3], bubble=5)
+dev.off()
+
 env = read.csv('./data/tgp_utm_env_complete.csv')
 env[is.na(env$waterpct), ]$waterpct = 0
 env[is.na(env$rockpct), ]$rockpct = 0
@@ -29,7 +38,6 @@ pdf('./figs/fire_93_03.pdf')
 dev.off()
 
 ## make bison map --------------------------------------------
-sort(bison@data$BEG_DATE)
 nlvs = length(seq(1993, 2004, 2))
 cls = colorRampPalette(c('green3','khaki1'))(nlvs)
 cls = rep(cls, each =2)
@@ -65,7 +73,7 @@ pdf('./figs/plot_map.pdf')
          col='dodgerblue')
 dev.off()
 
-pdf('./figs/maps_for_ms.pdf', width=7*3, height=7)
+pdf('./figs/fig1_maps_for_ms.pdf', width=7*3, height=7)
 #  x = 724500
 #  y = 4086000
   par(mfrow=c(1,3))
