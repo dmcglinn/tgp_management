@@ -1,6 +1,4 @@
 
-setwd('~/tgp_management/')
-
 ## estimate scaled parital effect size
 
 source('./scripts/tgp_grid_data_import.R')
@@ -14,7 +12,7 @@ rep_mod = lm(scale(env$sr) ~ scale(mang_mat) + scale(plot_mat) + scale(year_mat)
 rep_coef = coef(rep_mod)[2:4]
 rep_err = 1.96 * summary(rep_mod)$coef[2:4 , 2]
 
-pdf('./figs/bison_effect_comparison.pdf')
+png('./figs/bison_effect_comparison.png')
 plot(1:2, c(grid_coef[1], rep_coef[1]), xlab='', ylab='',
      pch=19, xlim= c(0, 3), ylim=c(-.1, .6), cex = 1.25,
      frame.plot=F, axes=F)
@@ -30,7 +28,7 @@ abline(h=0, col='grey', lty=2, lwd=2)
 dev.off()
 
 
-pdf('./figs/manag_effect_comparison.pdf')
+png('./figs/manag_effect_comparison.png')
 incr = .2/2
 plot(1:3 - incr, grid_coef, xlab='', ylab='',
      pch=19, xlim= c(.5, 3.5), ylim=c(-.4, .8), cex = 1.25,
@@ -53,6 +51,25 @@ arrows(x+incr, y1b, x+incr, y2b,angle=90, length=.1, code=3, lwd=2)
 abline(h=0, col='grey', lty=2, lwd=2)
 legend('topright',c('Grid Analysis', 'Repeat Analysis'), col=c('grey','black'),
        bty='n', pch=19, cex=1.25)
+dev.off()
+
+
+png('./figs/fig4_manag_effect_repeat.png')
+plot(1:3, rep_coef, xlab='', ylab='',
+     pch=19, xlim= c(.5, 3.5), ylim=c(-.4, .8), cex = 1.25,
+     frame.plot=F, axes=F)
+axis(side=2, cex.axis=1, at=seq(-0.4, 0.8, .2), lwd=2)
+axis(side=1, at=1:3,
+     lab=c('Years of\n bison', '# of burns\n past 5 years', 'Years since\n last burn'),
+     tick=F, cex.axis=1.25)
+mtext(side=2, 
+      expression('Partial Standarized Coefficient, '* hat(beta)),
+      padj=-1.5, cex=1.25)
+x = 1:3
+y1 = rep_coef + rep_err
+y2 = rep_coef - rep_err
+arrows(x, y1, x, y2, angle=90, length=.1, code=3, lwd=2) 
+abline(h=0, col='grey', lty=2, lwd=2)
 dev.off()
 
 
@@ -118,7 +135,7 @@ for (w in 2:lyrs) {
   }
 }
 
-pdf('./figs/repeat_mang_effects_time_scale.pdf', width=7 * 2, height=7*1.5)
+png('./figs/repeat_mang_effects_time_scale.png', width=7 * 2, height=7*1.5)
 par(mfrow=c(2,3))
 for(i in 1:3) {
   index = 3 * (i - 1)
