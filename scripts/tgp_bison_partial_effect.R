@@ -54,22 +54,23 @@ legend('topright',c('Grid Analysis', 'Repeat Analysis'), col=c('grey','black'),
 dev.off()
 
 
-png('./figs/fig4_manag_effect_repeat.png')
+png('./figs/fig4_manag_effect_repeat.png', width=480 * 1.5, height=480*1.5, 
+    res=100)
 plot(1:3, rep_coef, xlab='', ylab='',
-     pch=19, xlim= c(.5, 3.5), ylim=c(-.4, .8), cex = 1.25,
+     pch=19, xlim= c(.5, 3.5), ylim=c(-.4, .8), cex = 1.5,
      frame.plot=F, axes=F)
-axis(side=2, cex.axis=1, at=seq(-0.4, 0.8, .2), lwd=2)
+axis(side=2, cex.axis=1.33, at=seq(-0.4, 0.8, .2), lwd=3)
 axis(side=1, at=1:3,
      lab=c('Years of\n bison', '# of burns\n past 5 years', 'Years since\n last burn'),
-     tick=F, cex.axis=1.25)
+     tick=F, cex.axis=1.33)
 mtext(side=2, 
       expression('Partial Standarized Coefficient, '* hat(beta)),
-      padj=-1.5, cex=1.25)
+      padj=-1.1, cex=1.5)
 x = 1:3
 y1 = rep_coef + rep_err
 y2 = rep_coef - rep_err
-arrows(x, y1, x, y2, angle=90, length=.1, code=3, lwd=2) 
-abline(h=0, col='grey', lty=2, lwd=2)
+arrows(x, y1, x, y2, angle=90, length=.1, code=3, lwd=3) 
+abline(h=0, col='grey', lty=2, lwd=3)
 dev.off()
 
 
