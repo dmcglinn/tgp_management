@@ -73,22 +73,22 @@ pdf('./figs/plot_map.pdf')
          col='dodgerblue')
 dev.off()
 
-pdf('./figs/fig1_maps_for_ms.pdf', width=7*3, height=7)
-#  x = 724500
-#  y = 4086000
+tiff('./figs/fig1_maps_for_ms.tiff', width=480*3, height=480)
+  x = 724500
+  y = 4086000
   par(mfrow=c(1,3))
   ## management map
   plot(bison, col=cls_ord, xlim=xlims, ylim=ylims)
   plot(tgpBnd, lwd=3, add=T)
-#  text(x, y, '(a)', cex=5)
+  text(x, y, 'A', cex=5)
   ## grid plot map
   plot(tgpBnd, lwd=3)
   points(env$easting[grassland], env$northing[grassland],
          pch=19, cex=1.5)
-#  text(x, y, '(b)', cex=5)
+  text(x, y, 'B', cex=5)
   ## repeat plot map
   plot(tgpBnd, lwd=3)
   points(env$easting[env$repeat_plot==1],
          env$northing[env$repeat_plot==1], pch=19, cex=1.5)
-#  text(x, y, '(c)', cex=5)
+  text(x, y, 'C', cex=5)
 dev.off()
