@@ -1,10 +1,10 @@
 ## Purpose:
 ## This script calls each neccesary R script in the proper order to download and massage
 ## data, analyeze the data, and generate figures.
-## 
 
 dir.create('./results')
 dir.create('./scirpts/log_files')
+dir.create('./figs')
 
 ## perpare datasets ------------------------------------------------------------
 
