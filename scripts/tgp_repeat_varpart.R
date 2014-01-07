@@ -1,18 +1,16 @@
 library(vegan)
 
-setwd('~/tgp_management/')
-
 source('./scripts/tgp_functions.R')
 source('./scripts/tgp_repeat_data_import.R')
 
 dir.create('./results/')
 
 ## carry out partitioning analysis
-ols_part = ordi_part(env$sr, soil_mat, rain_mat, mang_mat, method='rda')
+ols_part = ordi_part(env$sr, plot_mat, year_mat, mang_mat, method='rda')
 
-rda_part = ordi_part(comm_sqr, soil_mat, rain_mat, mang_mat, method='rda')
+rda_part = ordi_part(comm_sqr, plot_mat, year_mat, mang_mat, method='rda')
 
-cca_part = ordi_part(comm_sqr, soil_mat, rain_mat, mang_mat, method='cca',
+cca_part = ordi_part(comm_sqr, plot_mat, year_mat, mang_mat, method='cca',
                      nperm=999)
 
 ## print results
