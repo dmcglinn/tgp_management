@@ -31,3 +31,18 @@ rain_mat = cbind(sum_rain, win_rain, spr_rain)
 ## management variables
 mang_vars = c('YrsOB', 'BP5Yrs', 'YrsSLB')
 mang_mat = env[ , mang_vars]
+
+## site and year dummy variables
+plot_id = sort(unique(env$plot))
+year_id = sort(unique(env$yr))
+plot_mat = matrix(0, ncol=length(plot_id), nrow=nrow(env))
+year_mat = matrix(0, ncol=length(year_id), nrow=nrow(env))
+
+for(i in 1:nrow(env)) {
+  plot_mat[i, match(env$plot[i], plot_id)] = 1
+  year_mat[i, match(env$yr[i], year_id)] = 1 
+}
+
+## drop first columns so no singular variables in models
+plot_mat = plot_mat[ , -1]
+year_mat = year_mat[ , -1]
