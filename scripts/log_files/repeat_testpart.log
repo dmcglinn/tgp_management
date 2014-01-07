@@ -5,74 +5,93 @@ In dir.create("./results/") : './results' already exists
 [1] "OLS model of richness-----------------------------------"
 
 Call:
-lm(formula = env$sr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 
-    3] + rain_mat$sum_rain + rain_mat$win_rain + rain_mat$spr_rain + 
-    mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
+lm(formula = env$sr ~ plot_mat + year_mat + mang_mat$YrsOB + 
+    mang_mat$BP5Yrs + mang_mat$YrsSLB)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--21.5278  -6.2537   0.2746   6.5818  23.5152 
+-13.6630  -4.5495  -0.2101   4.6440  18.8344 
 
 Coefficients:
-                   Estimate Std. Error t value Pr(>|t|)    
-(Intercept)       80.503174   4.305760  18.697  < 2e-16 ***
-soil_mat[, 1]      3.404288   0.345493   9.853  < 2e-16 ***
-soil_mat[, 2]     -0.873837   0.491302  -1.779 0.076624 .  
-soil_mat[, 3]      1.265104   0.611802   2.068 0.039774 *  
-rain_mat$sum_rain -0.023327   0.005162  -4.519 9.94e-06 ***
-rain_mat$win_rain  0.017113   0.006917   2.474 0.014087 *  
-rain_mat$spr_rain  0.010949   0.006744   1.623 0.105853    
-mang_mat$YrsOB     1.168777   0.183575   6.367 1.04e-09 ***
-mang_mat$BP5Yrs   -2.302541   0.754733  -3.051 0.002550 ** 
-mang_mat$YrsSLB   -1.323974   0.396376  -3.340 0.000977 ***
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      58.9145     3.7283  15.802  < 2e-16 ***
+plot_mat1        12.3694     2.9998   4.123 5.41e-05 ***
+plot_mat2        -1.6879     2.8360  -0.595  0.55240    
+plot_mat3         0.3894     2.8583   0.136  0.89177    
+plot_mat4        18.1155     2.9403   6.161 3.74e-09 ***
+plot_mat5         3.7464     2.9233   1.282  0.20144    
+plot_mat6        21.1118     3.2765   6.443 8.11e-10 ***
+plot_mat7        18.6768     3.1905   5.854 1.87e-08 ***
+plot_mat8        -5.0368     4.2387  -1.188  0.23609    
+plot_mat9         0.1597     3.9338   0.041  0.96766    
+plot_mat10       27.1453     4.3204   6.283 1.94e-09 ***
+plot_mat11       21.8096     3.6024   6.054 6.59e-09 ***
+plot_mat12       -0.3512     4.7105  -0.075  0.94065    
+plot_mat13       20.9760     4.7395   4.426 1.56e-05 ***
+plot_mat14       10.6727     3.6032   2.962  0.00342 ** 
+plot_mat15       10.8231     4.1298   2.621  0.00943 ** 
+plot_mat16       19.2298     4.0376   4.763 3.60e-06 ***
+plot_mat17       11.1773     4.0610   2.752  0.00644 ** 
+plot_mat18        8.8300     4.0507   2.180  0.03040 *  
+plot_mat19       15.8055     3.6382   4.344 2.19e-05 ***
+year_mat1         7.8330     2.1806   3.592  0.00041 ***
+year_mat2         7.2864     2.1945   3.320  0.00106 ** 
+year_mat3        15.9072     2.2121   7.191 1.17e-11 ***
+year_mat4         9.2996     2.2321   4.166 4.55e-05 ***
+year_mat5        11.4747     2.2895   5.012 1.16e-06 ***
+year_mat6         9.3771     2.3468   3.996 8.98e-05 ***
+year_mat7        10.0921     2.3955   4.213 3.77e-05 ***
+year_mat8        -0.2240     2.4995  -0.090  0.92867    
+year_mat9        13.1193     2.6140   5.019 1.12e-06 ***
+year_mat10        6.4352     2.7044   2.380  0.01825 *  
+year_mat11        4.6196     2.8157   1.641  0.10239    
+mang_mat$YrsOB    1.3034     0.2859   4.560 8.78e-06 ***
+mang_mat$BP5Yrs  -1.9458     0.7451  -2.611  0.00968 ** 
+mang_mat$YrsSLB  -1.0426     0.3214  -3.244  0.00137 ** 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 
-Residual standard error: 9.653 on 230 degrees of freedom
-Multiple R-squared: 0.4593,	Adjusted R-squared: 0.4381 
-F-statistic: 21.71 on 9 and 230 DF,  p-value: < 2.2e-16 
+Residual standard error: 6.866 on 206 degrees of freedom
+Multiple R-squared: 0.755,	Adjusted R-squared: 0.7157 
+F-statistic: 19.23 on 33 and 206 DF,  p-value: < 2.2e-16 
 
 Permutation test for rda under reduced model
 Marginal effects of terms
 
-Model: rda(formula = env$sr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 3] + rain_mat$sum_rain + rain_mat$win_rain + rain_mat$spr_rain + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
-                   Df    Var       F N.Perm  Pr(>F)   
-soil_mat[, 1]       1 37.849 97.0900    199 0.00500 **
-soil_mat[, 2]       1  1.233  3.1635    399 0.10750   
-soil_mat[, 3]       1  1.667  4.2759   3499 0.04086 * 
-rain_mat$sum_rain   1  7.961 20.4207    199 0.00500 **
-rain_mat$win_rain   1  2.386  6.1203    299 0.01667 * 
-rain_mat$spr_rain   1  1.028  2.6357     99 0.14000   
-mang_mat$YrsOB      1 15.802 40.5358    199 0.00500 **
-mang_mat$BP5Yrs     1  3.628  9.3074    199 0.01500 * 
-mang_mat$YrsSLB     1  4.349 11.1569    199 0.00500 **
-Residual          230 89.662                          
+Model: rda(formula = env$sr ~ plot_mat + year_mat + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
+                 Df    Var       F N.Perm Pr(>F)   
+plot_mat         19 79.755 21.2822    199  0.005 **
+year_mat         11 21.129  9.7387    199  0.005 **
+mang_mat$YrsOB    1  4.101 20.7924    199  0.005 **
+mang_mat$BP5Yrs   1  1.345  6.8194    299  0.020 * 
+mang_mat$YrsSLB   1  2.076 10.5258    199  0.005 **
+Residual        206 40.631                         
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 
 Permutation test for rda 
 
-Call: rda(X = env$sr, Y = soil_mat, Z = cbind(rain_mat, mang_mat))
+Call: rda(X = env$sr, Y = plot_mat, Z = cbind(year_mat, mang_mat))
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 37.22057 (with 3, 230 Degrees of Freedom)
+Pseudo-F:	 21.28222 (with 19, 206 Degrees of Freedom)
 Significance:	 0.001 
 Based on 999 permutations under reduced model.
 
 
 Permutation test for rda 
 
-Call: rda(X = env$sr, Y = rain_mat, Z = cbind(soil_mat, mang_mat))
+Call: rda(X = env$sr, Y = year_mat, Z = cbind(plot_mat, mang_mat))
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 8.200527 (with 3, 230 Degrees of Freedom)
+Pseudo-F:	 9.738668 (with 11, 206 Degrees of Freedom)
 Significance:	 0.001 
 Based on 999 permutations under reduced model.
 
 
 Permutation test for rda 
 
-Call: rda(X = env$sr, Y = mang_mat, Z = cbind(rain_mat, soil_mat))
+Call: rda(X = env$sr, Y = mang_mat, Z = cbind(year_mat, plot_mat))
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 31.74687 (with 3, 230 Degrees of Freedom)
+Pseudo-F:	 10.73047 (with 3, 206 Degrees of Freedom)
 Significance:	 0.001 
 Based on 999 permutations under reduced model.
 
@@ -80,44 +99,40 @@ Based on 999 permutations under reduced model.
 Permutation test for rda under reduced model
 Marginal effects of terms
 
-Model: rda(formula = comm_sqr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 3] + rain_mat$sum_rain + rain_mat$win_rain + rain_mat$spr_rain + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
-                   Df     Var       F N.Perm Pr(>F)   
-soil_mat[, 1]       1  2.2589 23.2497    199  0.005 **
-soil_mat[, 2]       1  0.8639  8.8920    199  0.005 **
-soil_mat[, 3]       1  1.2050 12.4022    199  0.005 **
-rain_mat$sum_rain   1  0.2156  2.2187    199  0.005 **
-rain_mat$win_rain   1  0.2543  2.6173    199  0.005 **
-rain_mat$spr_rain   1  0.1834  1.8879    199  0.005 **
-mang_mat$YrsOB      1  0.9522  9.8009    199  0.005 **
-mang_mat$BP5Yrs     1  0.5402  5.5598    199  0.005 **
-mang_mat$YrsSLB     1  0.2181  2.2450    199  0.005 **
-Residual          230 22.3465                         
+Model: rda(formula = comm_sqr ~ plot_mat + year_mat + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
+                 Df     Var       F N.Perm Pr(>F)   
+plot_mat         19 13.6475 12.7989    199  0.005 **
+year_mat         11  1.7692  2.8658    199  0.005 **
+mang_mat$YrsOB    1  0.1408  2.5086    199  0.005 **
+mang_mat$BP5Yrs   1  0.1103  1.9655    199  0.005 **
+mang_mat$YrsSLB   1  0.1008  1.7967    199  0.005 **
+Residual        206 11.5610                         
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 
 Permutation test for rda 
 
-Call: rda(X = comm_sqr, Y = soil_mat, Z = cbind(rain_mat, mang_mat))
+Call: rda(X = comm_sqr, Y = plot_mat, Z = cbind(year_mat, mang_mat))
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 14.99556 (with 3, 230 Degrees of Freedom)
+Pseudo-F:	 12.79891 (with 19, 206 Degrees of Freedom)
 Significance:	 0.001 
 Based on 999 permutations under reduced model.
 
 
 Permutation test for rda 
 
-Call: rda(X = comm_sqr, Y = rain_mat, Z = cbind(soil_mat, mang_mat))
+Call: rda(X = comm_sqr, Y = year_mat, Z = cbind(plot_mat, mang_mat))
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 2.280248 (with 3, 230 Degrees of Freedom)
+Pseudo-F:	 2.865835 (with 11, 206 Degrees of Freedom)
 Significance:	 0.001 
 Based on 999 permutations under reduced model.
 
 
 Permutation test for rda 
 
-Call: rda(X = comm_sqr, Y = mang_mat, Z = cbind(rain_mat, soil_mat))
+Call: rda(X = comm_sqr, Y = mang_mat, Z = cbind(year_mat, plot_mat))
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 6.36824 (with 3, 230 Degrees of Freedom)
+Pseudo-F:	 2.234845 (with 3, 206 Degrees of Freedom)
 Significance:	 0.001 
 Based on 999 permutations under reduced model.
 
@@ -125,52 +140,40 @@ Based on 999 permutations under reduced model.
 Permutation test for cca under reduced model
 Marginal effects of terms
 
-Model: cca(formula = comm_sqr ~ soil_mat[, 1] + soil_mat[, 2] + soil_mat[, 3] + rain_mat$sum_rain + rain_mat$win_rain + rain_mat$spr_rain + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
-                   Df   Chisq       F N.Perm  Pr(>F)   
-soil_mat[, 1]       1  0.1554 15.4638    199 0.00500 **
-soil_mat[, 2]       1  0.0613  6.1012    199 0.00500 **
-soil_mat[, 3]       1  0.0856  8.5114    199 0.00500 **
-rain_mat$sum_rain   1  0.0142  1.4139    599 0.02833 * 
-rain_mat$win_rain   1  0.0192  1.9128    199 0.00500 **
-rain_mat$spr_rain   1  0.0127  1.2649   3299 0.06182 . 
-mang_mat$YrsOB      1  0.0526  5.2301    199 0.00500 **
-mang_mat$BP5Yrs     1  0.0410  4.0758    199 0.00500 **
-mang_mat$YrsSLB     1  0.0223  2.2202    199 0.00500 **
-Residual          230  2.3118                          
+Model: cca(formula = comm_sqr ~ plot_mat + year_mat + mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
+                 Df  Chisq      F N.Perm Pr(>F)   
+plot_mat         19 1.1423 9.0114    199  0.005 **
+year_mat         11 0.1219 1.6615    199  0.005 **
+mang_mat$YrsOB    1 0.0161 2.4202    199  0.005 **
+mang_mat$BP5Yrs   1 0.0088 1.3137    199  0.015 * 
+mang_mat$YrsSLB   1 0.0117 1.7577    199  0.005 **
+Residual        206 1.3743                        
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 
 Permutation test for cca 
 
-Call: cca(X = comm_sqr, Y = soil_mat, Z = cbind(rain_mat, mang_mat))
+Call: cca(X = comm_sqr, Y = plot_mat, Z = cbind(year_mat, mang_mat))
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 9.969302 (with 3, 230 Degrees of Freedom)
+Pseudo-F:	 9.011365 (with 19, 206 Degrees of Freedom)
 Significance:	 0.001 
 Based on 999 permutations under reduced model.
 
 
 Permutation test for cca 
 
-Call: cca(X = comm_sqr, Y = rain_mat, Z = cbind(soil_mat, mang_mat))
+Call: cca(X = comm_sqr, Y = year_mat, Z = cbind(plot_mat, mang_mat))
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 1.525224 (with 3, 230 Degrees of Freedom)
+Pseudo-F:	 1.661538 (with 11, 206 Degrees of Freedom)
 Significance:	 0.001 
 Based on 999 permutations under reduced model.
 
 
 Permutation test for cca 
 
-Call: cca(X = comm_sqr, Y = mang_mat, Z = cbind(rain_mat, soil_mat))
+Call: cca(X = comm_sqr, Y = mang_mat, Z = cbind(year_mat, plot_mat))
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 4.408116 (with 3, 230 Degrees of Freedom)
+Pseudo-F:	 1.999312 (with 3, 206 Degrees of Freedom)
 Significance:	 0.001 
 Based on 999 permutations under reduced model.
 
-Error variance of regression model underestimated by -3.8 percent 
-Error variance of regression model underestimated by -1.4 percent 
-Error variance of regression model underestimated by -1.3 percent 
-Error variance of regression model underestimated by 0.2 percent 
-Error variance of regression model underestimated by 0.3 percent 
-Error variance of regression model underestimated by -0.6 percent 
-null device 
-          1 
