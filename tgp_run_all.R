@@ -3,7 +3,7 @@
 ## data, analyeze the data, and generate figures.
 
 dir.create('./results')
-dir.create('./scirpts/log_files')
+dir.create('./scripts/log_files')
 dir.create('./figs')
 
 ## perpare datasets ------------------------------------------------------------
