@@ -2,9 +2,6 @@ library(vegan)
 library(sp)
 library(nlme)
 
-
-setwd('~/tgp_management/')
-
 source('./scripts/tgp_functions.R')
 
 load('./data/tgp_shpfiles.Rdata')
@@ -261,11 +258,29 @@ tgp_pcnm = pcnm(dist(tgp_xy))
 par(mfrow=c(1,3))
 ordisurf(tgp_xy, scores(tgp_pcnm, choi=1), bubble=4)
 ordisurf(tgp_xy, scores(tgp_pcnm, choi=2), bubble=4)
-ordisurf(tgp_xy, scores(tgp_pcnm, choi=3), bubble=4)
+ordisurf(tgp_xy, scores(tgp_pcnm, choi=17), bubble=4)
 
 varpart(comm_sqr, soil_mat, mang_mat, scores(tgp_pcnm)[ , 1:3])
 ## not much change at all
-varpart(comm_sqr, scores(tgp_pcnm)[ , 1:106], mang_mat)
+varpart(comm_sqr, scores(tgp_pcnm)[, 1:3], mang_mat)
+
+spat = scores(tgp_pcnm)
+
+tst = eval(parse(text=paste('rda(comm ~ ', paste('spat[,', 1:76,']',
+                                           sep='', collapse=' + '),')', sep='')))
+anova(tst, step=1000, by='terms')
+
+varpart(comm, spat[ , c(1, 2, 74)], mang_mat)
+
+ord = rda(comm ~ spat[ , 1] + spat[, 2] + spat[, 74] + mang_mat[,1] + mang_mat[,2] + mang_mat[,3])
+anova(ord, by='terms')
+
+par(mfrow=c(1,3))
+ordisurf(tgp_xy, spat[,1], bubble = 3, main = "PCNM 1")
+ordisurf(tgp_xy, spat[,2], bubble = 3, main = "PCNM 2")
+ordisurf(tgp_xy, spat[,74], bubble = 3, main = "PCNM 74")
+
+
 
 rs = rowSums(comm) / sum(comm)
 pcnmw = pcnm(dist(tgp_xy), w = rs)
