@@ -2,9 +2,6 @@ library(vegan)
 library(sp)
 library(nlme)
 
-
-setwd('~/tgp_management/')
-
 source('./scripts/tgp_functions.R')
 
 env = read.csv('./data/tgp_utm_env_complete.csv')
