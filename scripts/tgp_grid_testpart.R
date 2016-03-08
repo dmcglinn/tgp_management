@@ -55,6 +55,7 @@ for(i in names(dat)) {
 dev.off()
 
 grid_mod = lm(scale(env$sr) ~ scale(soil_mat) + scale(mang_mat))
+summary(grid_mod)
 grid_coef = coef(grid_mod)[-1]
 grid_err = 1.96 * summary(grid_mod)$coef[-1 , 2]
 
