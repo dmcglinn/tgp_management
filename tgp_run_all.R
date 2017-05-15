@@ -12,7 +12,7 @@ dir.create('./figs')
 system('Rscript ./scripts/tgp_mesonet_download.R > ./scripts/log_files/mesonet_download.log 2>&1',
        wait=T)
 
-## filter enviornemntal data
+## filter enviornmental data
 system('Rscript ./scripts/filter_enviornmental_data.R > ./scripts/log_files/filter_envio.log 2>&1',
        wait=T)
 
