@@ -34,22 +34,22 @@ full = lm(sr ~ ., data=dat)
 png('./figs/grid_partial_regression.png', width=480*3, height=480*2,
     res=100)
 par(mfrow=c(2,3))
-for(i in names(dat)) {
-    if (i != 'sr') {
-        termplot(full, partial.resid = T, terms=i,
-                 se=T, smooth=panel.smooth,
-                 col.term = 'blue', lwd.term=2,
-                 col.se = 'blue', lwd.se = 2, lty.se=3,
-                 col.smth = 'red', lty.smth = 2,
-                 xlab='', ylab='', axes=F, bty='n')
-        axis(side=1, cex.axis=1.75, padj=0.5)
-        axis(side=2, cex.axis=1.75)
-        mtext(side=1, i, padj=2.5, cex=1.5)
-        mtext(side=2, "Partial Residuals", padj=-1.75, cex=1.5)
-    }
-    if (i == 'Comp.3')
+ylabs = c('Soil PC1', 'Soil PC2' , 'Soil PC3', 
+          'Years of Bison', '# of Burns in Past 5 Years', 'Years Since Burn')
+for(i in seq_along(ylabs)) {
+    termplot(full, partial.resid = T, terms=names(dat)[i + 1],
+             se=T, smooth=panel.smooth, col.res = 'black',
+             col.term = 'blue', lwd.term=2,
+             col.se = 'blue', lwd.se = 2, lty.se=3,
+             col.smth = 'red', lty.smth = 2,
+             xlabs='', ylabs='', axes=F, bty='n')
+    axis(side=1, cex.axis=1.75, padj=0.5)
+    axis(side=2, cex.axis=1.75)
+    mtext(side=1, ylabs[i], padj=2.5, cex=1.5)
+    mtext(side=2, "Partial Residuals", padj=-1.75, cex=1.5)
+    if (i == 3)
         legend('topright', c('model fit', '95% CI', 'lowess line'), 
-               col=c('blue','blue', 'red'), lty=c(1,3,2), lwd=2,
+               col=c('blue','grey', 'red'), lty=c(1,1,2), lwd=c(2, 8, 2),
                cex=2, bty='n')
 }
 dev.off()
