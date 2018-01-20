@@ -37,20 +37,21 @@ full = lm(sr ~ ., data=dat)
 png('./figs/repeat_partial_regression.png', width=480*3, height=480*1,
     res=100)
 par(mfrow=c(1,3))
-for(i in c("YrsOB","BP5Yrs","YrsSLB")) {
-    termplot(full, partial.resid = T, terms=i,
-             se=T, smooth=panel.smooth,
+ylabs = c('Years of Bison', '# of Burns in Past 5 Years', 'Years Since Burn')
+for(i in seq_along(ylabs)) {
+    termplot(full, partial.resid = T, terms=names(dat)[i + 31],
+             se=T, smooth=panel.smooth, col.res = 'black',
              col.term = 'blue', lwd.term=2,
              col.se = 'blue', lwd.se = 2, lty.se=3,
              col.smth = 'red', lty.smth = 2,
-             xlab='', ylab='', axes=F, bty='n')
+             xlabs='', ylabs='', axes=F, bty='n')
     axis(side=1, cex.axis=1.75, padj=0.5)
     axis(side=2, cex.axis=1.75)
-    mtext(side=1, i, padj=2.5, cex=1.5)
+    mtext(side=1, ylabs[i], padj=2.5, cex=1.5)
     mtext(side=2, "Partial Residuals", padj=-1.75, cex=1.5)
-    if (i == 'YrsSLB')
+    if (i == 3)
         legend('topright', c('model fit', '95% CI', 'lowess line'), 
-               col=c('blue','blue', 'red'), lty=c(1,3,2), lwd=2,
+               col=c('blue','grey', 'red'), lty=c(1,1,2), lwd=c(2, 8, 2),
                cex=2, bty='n')
 }
 dev.off()
@@ -79,15 +80,34 @@ full = rda(comm_sqr ~ plot_mat + year_mat +
                       mang_mat$YrsOB + mang_mat$BP5Yrs + mang_mat$YrsSLB)
 anova(full, by='margin')
 
-site = rda(comm_sqr, plot_mat, cbind(year_mat, mang_mat))
+site = rda(comm_sqr ~ plot + Condition(yr) + Condition(YrsOB) + Condition(BP5Yrs) +
+           Condition(YrsSLB), data=env)
 permutest(site, permutations=999)
 
-year = rda(comm_sqr, year_mat, cbind(plot_mat, mang_mat))
+year = rda(comm_sqr ~ Condition(plot) + yr + Condition(YrsOB) + Condition(BP5Yrs) +
+           Condition(YrsSLB), data=env)
 permutest(year, permutations=999)
 
-mang = rda(comm_sqr, mang_mat, cbind(year_mat, plot_mat))
+mang = rda(comm_sqr ~ Condition(plot) + Condition(yr) + YrsOB + BP5Yrs + YrsSLB,
+           data=env)
 permutest(mang, permutations=999)
 
+### plot RDA partial plots
+png('./figs/repeat_ordination.png', res=100)
+par(mfrow=c(1,3))
+xlims = c(-1.5, 1.5)
+ylims = c(-2, 2)
+plot(site, type='n', xlim=xlims, ylim=ylims)
+points(site, 'sp', pch=19, col='dodgerblue', cex=1)
+points(site, 'cn', pch=2, col='red')
+plot(year, type='n', xlim=xlims, ylim=ylims)
+points(year, 'sp', pch=19, col='dodgerblue', cex=1)
+points(year, 'cn', pch=2, col='red')
+text(year, 'cn', 1998:2009, col='red')
+plot(mang, type='n', xlim=xlims, ylim=ylims)
+points(mang, 'sp', pch=19, col='dodgerblue', cex=1)
+text(mang, 'bp', col='red', cex=1, label=c('YS', 'BP5Y','YB'))
+dev.off()
 
 print('CCA model of composition-------------------------------')
 ### cca model of composition
