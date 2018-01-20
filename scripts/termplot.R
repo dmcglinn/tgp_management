@@ -1,5 +1,5 @@
 termplot= function (model, data = NULL, envir = environment(formula(model)), 
-          partial.resid = FALSE, rug = FALSE, terms = NULL, se = FALSE, 
+          partial.resid = FALSE, rug = FALSE, terms = NULL, se = FALSE,
           xlabs = NULL, ylabs = NULL, main = NULL, col.term = 2, lwd.term = 1.5, 
           col.se = "orange", lty.se = 2, lwd.se = 1, col.res = "gray", 
           cex = 1, pch = par("pch"), col.smth = "darkred", lty.smth = 2, 
@@ -109,12 +109,10 @@ termplot= function (model, data = NULL, envir = environment(formula(model)),
     if (!is.null(which.terms)) 
       pres <- pres[, which.terms, drop = FALSE]
   }
-  se.lines <- function(x, iy, i, ff = 2) {
+  se.poly <- function(x, iy, i, ff = 2) {
     tt <- ff * terms$se.fit[iy, i]
-    lines(x, tms[iy, i] + tt, lty = lty.se, lwd = lwd.se, 
-          col = col.se)
-    lines(x, tms[iy, i] - tt, lty = lty.se, lwd = lwd.se, 
-          col = col.se)
+    polygon(c(x, rev(x)), c(tms[iy, i] + tt, rev(tms[iy, i] - tt)),
+            col='grey', border=NA)
   }
   nb.fig <- prod(par("mfcol"))
   if (ask) {
@@ -136,9 +134,8 @@ termplot= function (model, data = NULL, envir = environment(formula(model)),
     if (identical(ylim, "free")) {
       ylims <- range(tms[, i], na.rm = TRUE)
       if (se) 
-        ylims <- range(ylims, tms[, i] + 1.05 * 2 * 
-                         terms$se.fit[, i], tms[, i] - 1.05 * 2 * terms$se.fit[, 
-                                                                               i], na.rm = TRUE)
+        ylims <- range(ylims, tms[, i] + 1.05 * 2 * terms$se.fit[, i],
+                       tms[, i] - 1.05 * 2 * terms$se.fit[, i], na.rm = TRUE)
       if (partial.resid) 
         ylims <- range(ylims, pres[, i], na.rm = TRUE)
       if (rug) 
@@ -166,10 +163,11 @@ termplot= function (model, data = NULL, envir = environment(formula(model)),
       for (j in seq_along(ll)) {
         ww <- which(ff == ll[j])[c(1, 1)]
         jf <- j + c(-0.4, 0.4)
+        if (se) 
+          se.poly(jf, iy = ww, i = i)        
         lines(jf, tms[ww, i], col = col.term, lwd = lwd.term, 
               ...)
-        if (se) 
-          se.lines(jf, iy = ww, i = i)
+
       }
     }
     else {
@@ -180,12 +178,12 @@ termplot= function (model, data = NULL, envir = environment(formula(model)),
       if (rug) 
         xlims[1L] <- xlims[1L] - 0.07 * diff(xlims)
       oo <- order(xx)
-      plot(xx[oo], tms[oo, i], type = "l", xlab = xlabs[i], 
+      plot(xx[oo], tms[oo, i], type = "n", xlab = xlabs[i], 
            ylab = ylabs[i], xlim = xlims, ylim = ylims, 
-           main = main[i], col = col.term, lwd = lwd.term, 
-           ...)
+           main = main[i], ...)
       if (se) 
-        se.lines(xx[oo], iy = oo, i = i)
+        se.poly(xx[oo], iy = oo, i = i)
+      lines(xx[oo], tms[oo, i], col = col.term, lwd = lwd.term)
     }
     if (partial.resid) {
       if (!is.fac[i] && !is.null(smooth)) {
