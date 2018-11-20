@@ -1,44 +1,18 @@
-## the purpose of this script is to consider an idealized
-## outcome of a patch-burn management scheme
-## The setup:
-## there are six patches each sampled across six years
-## each patch is burned once
-## there are six species each of which prefers a given
-## time since burn (i.e., time since burn is the gradient).
-## What we learn:
-## site and year dummy variables explain 0 variance in composition
-## years since burn explains a large portion of the variance 
-## however, the degree to which this is true depends on how 
-## specialized species are on a particular time science burn
-## if they only completely occur in a given time since burn
-## then at most this variable explains around 20% 
-## this will increase to approx 80% if species show a unimodal
-## relationship with their specific year of preference.
+# the purpose of this script is to consider an idealized outcome of a patch-burn
+# management scheme The setup: there are six patches each sampled across six
+# years each patch is burned once there are S species each of which prefers a
+# given time since burn (i.e., time since burn is the gradient). The species
+# optima are evenly spaced along this gradient What we learn: site and year
+# dummy variables explain 0 to very little variance in composition years since
+# burn explains a large portion of the variance however, the degree to which
+# this is true depends on how specialized species are on a particular time since
+# burn if they have very narrow niches then time since fire explains about 40%. 
+# This increases to about 80% when species have unimodal responses to time since fire
 
 library(vegan)
+library(dummies)
 
-site = rep(1:6, each=6)
-
-yr = rep(1:6, 6)
-
-burn_yr = NULL
-for(i in 0:5) { 
-  x = NULL
-  for(j in i:5) {
-    x = c(x, j)
-  }
-  if(length(x) < 6) {
-    x = c(x, 0:(min(x) - 1))
-  }
-  burn_yr = c(burn_yr, x)
-}  
-
-sp_mat = matrix(0, ncol=6, nrow=length(burn_yr))
-for(i in 0:5) {
-  sp_mat[ , i + 1] = ifelse(burn_yr == i, 1, 0)  
-}
-
-gauss.niche<-function(m,z,u,s){
+gauss.niche <- function(m,z,u,s){
   ##Purpose: to provide an exponential unimodal function 
   ##which is a model for a species response to the enviornment
   ##Called within the functions 'peaks' and 'sim.init.uni'
@@ -48,38 +22,126 @@ gauss.niche<-function(m,z,u,s){
   ##'z' is enviornment at given coordinate
   ##'u' is env optim
   ##'s' is habitat breadth
-  m*exp(-.5*(z-u)^2/s^2)
+  m * exp(-0.5 * (z - u)^2 / s^2)
 }
 
-sp_mat = matrix(0, ncol=6, nrow=length(burn_yr))
-for(i in 0:5) {
-  sp_mat[ , i + 1] = gauss.niche(1, burn_yr, i, 3) 
+
+setup_env = function(site, yr) {
+  env = as.data.frame(expand.grid(yr, site))
+  names(env) = c('yr', 'site')
+  env$yr = as.factor(env$yr)
+  env$site = as.factor(env$site)
+ 
+  icount = 1
+  YrsSLB = NULL
+  for (i in site) {
+      tmp = i - 1
+      for (j in yr) {
+          if (j > 1) {
+              tmp = tmp + 1
+              tmp = ifelse(tmp > 5, 0, tmp)
+          }
+          YrsSLB[icount] = tmp
+          icount = icount + 1
+      }
+  }
+  env$YrsSLB = YrsSLB
+  return(env)
 }
 
-plot_id = sort(unique(site))
-year_id = sort(unique(yr))
-plot_mat = matrix(0, ncol=length(plot_id), nrow=length(burn_yr))
-year_mat = matrix(0, ncol=length(year_id), nrow=length(burn_yr))
-               
-for(i in 1:length(burn_yr)) {
-  plot_mat[i, match(site[i], plot_id)] = 1
-  year_mat[i, match(yr[i], year_id)] = 1 
+get_BP5Yrs = function(env, n_patches) {
+  BP5Yrs = rep(NA, nrow(env))
+  icount = 1
+  sites = unique(env$site)
+  yrs = unique(env$yr)
+  for (i in sites) {
+     env_sub = subset(env, site == i)
+     for (j in yrs) {
+         start_index = j - n_patches + 1
+         start_index = ifelse(start_index < 1, 1, start_index)
+         BP5Yrs[icount] = sum(env_sub$YrsSLB[start_index:j] == 0)
+         icount = icount + 1
+     }
+  }
+  return(BP5Yrs)
 }
 
-## drop first columns so no singular variables in models
-plot_mat = plot_mat[ , -1]
-year_mat = year_mat[ , -1]
 
+burn_type = c("reg", "ran") 
+niche_width = c(0.01, 0.1, 1, 10)
+analysis_type = c("rda", "cca")
 
-ord = rda(sp_mat, burn_yr)
-anova(ord)
-plot(ord)
+n_patches = 6
+site = 1:n_patches
 
-ord = rda(sp_mat ~ plot_mat + year_mat + burn_yr)
-ord = cca(sp_mat ~ plot_mat + year_mat + burn_yr)
-ord
-anova(ord, by='terms')
-plot(ord)
+n_years = 6
+yr = 1:n_years
 
+S = 20
+max_abu = 10
+
+results = data.frame()
+icount = 1
+for (n in niche_width) {
+  for (b in burn_type) {
+    for (a in analysis_type) {
+      env = setup_env(site, yr)
+      if (b == "ran") {
+        env$YrsSLB = sample(env$YrsSLB)
+        #env$BP5Yrs = get_BP5Yrs(env, n_patches)
+      }
+      sp_optima = seq(0, n_patches - 1, length.out = S)
+      sp_mat = matrix(0, ncol=S, nrow=nrow(env))
+      sp_mat = sapply(1:S, function(i) 
+                      gauss.niche(max_abu, env$YrsSLB, sp_optima[i], n))
+      richness = rowSums(sp_mat > 0)
+      lmod = rda(richness ~ site + yr + YrsSLB, env)
+      plmod = rda(richness ~ Condition(site) + Condition(yr) + YrsSLB, env)
+      if (a == 'rda') {
+        ord = rda(sp_mat ~ site + yr + YrsSLB, env)
+        pord = rda(sp_mat ~ Condition(site) + Condition(yr) + YrsSLB, env)
+      }
+      if (a == 'cca') {
+        ord = cca(sp_mat ~ site + yr + YrsSLB, env)
+        pord = rda(sp_mat ~ Condition(site) + Condition(yr) + YrsSLB, env)
+      }
+      results[icount, 'niche_width'] = n
+      results[icount, 'burn_type'] = b
+      results[icount, 'analysis_type'] = a
+      results[icount, 'r2_S_all'] = round(RsquareAdj(lmod)[[2]], 2)
+      results[icount, 'r2_S_burn'] = round(RsquareAdj(plmod)[[2]], 2)
+      results[icount, 'r2_comp_all'] = round(RsquareAdj(ord)[[2]], 2)
+      results[icount, 'r2_comp_burn'] = round(RsquareAdj(pord)[[2]], 2)
+      tst = anova(ord, by='terms')
+      results[icount, 'Fsite'] = round(tst$F[1])
+      results[icount, 'Fyr'] = round(tst$F[2])
+      results[icount, 'Fburn'] = round(tst$F[3])
+      icount = icount + 1
+    }
+  }
+}
+results
+   niche_width burn_type analysis_type r2_S_all r2_S_burn r2_comp_all r2_comp_burn Fsite  Fyr  Fburn
+1         0.01       reg           rda    -0.46     -0.06        0.17         0.57     0    0     18
+2         0.01       reg           cca    -0.46     -0.06       -0.06         0.57     0    0      6
+3         0.01       ran           rda     0.03     -0.04        0.41         0.39     2    2     18
+4         0.01       ran           cca    -0.03     -0.04        0.02         0.39     1    1      2
+5         0.10       reg           rda    -0.46     -0.06       -0.09         0.31     0    0      8
+6         0.10       reg           cca    -0.46     -0.06       -0.16         0.31     0    0      6
+7         0.10       ran           rda     0.13      0.00        0.22         0.23     1    1      8
+8         0.10       ran           cca     0.13     -0.03        0.18         0.28     1    2      7
+9         1.00       reg           rda      NaN       NaN        0.33         0.73     0    0     28
+10        1.00       reg           cca      NaN       NaN        0.54         0.73     0    0     50
+11        1.00       ran           rda      NaN       NaN        0.48         0.42     3    1     21
+12        1.00       ran           cca      NaN       NaN        0.65         0.62     2    2     56
+13       10.00       reg           rda      NaN       NaN        0.73         1.13     0    0    105
+14       10.00       reg           cca      NaN       NaN        1.00         1.13     0    0 244155
+15       10.00       ran           rda      NaN       NaN        0.81         0.83     4    6    110
+16       10.00       ran           cca      NaN       NaN        1.00         0.72 19793 9174 256578
+
+# one off variation partitioning
+site_mat = dummy(env$site) 
+year_mat = dummy(env$yr)
+varpart(sp_mat, site_mat, year_mat, env$YrsSLB)
 
 
