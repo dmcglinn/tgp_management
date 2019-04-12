@@ -30,9 +30,11 @@ env$sr = rowSums(comm > 0)
 soil_vars = c("P","CA","MG","K","NA","B","FE","MN","CU","ZN","AL")
 soil_vars = paste('log', soil_vars, sep='')
 soil_pca = princomp(scale(env[ , soil_vars]))
-soil_pca$loadings[,]
 summary(soil_pca)
 soil_mat = as.data.frame(soil_pca$scores[ , 1:3])
+
+# export loadings of cations on axes
+write.csv(soil_pca$loadings[,], file = './results/grid_soil_pca_loadings.csv')
 
 ## management variables
 mang_vars = c('YrsOB', 'BP5Yrs', 'YrsSLB')
