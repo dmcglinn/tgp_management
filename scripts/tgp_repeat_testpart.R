@@ -131,41 +131,52 @@ permutest(mang, permutations=999)
 
 ### plot RDA partial plots--------
 
-pdf('./figs/repeat_rda.pdf', width=7*1.5)
-par(mfrow=c(1,2))
-xlims = c(-3.75, 5.75)
-ylims = c(-6, 4)
+# examine sp level ordination fit
+sp_fit = vector('list', 3)
+sp_fit[[1]] = rowSums(goodness(site, display='sp', model = "CCA"))
+sp_fit[[2]] = rowSums(goodness(year, display='sp', model = "CCA"))
+sp_fit[[3]] = rowSums(goodness(mang, display='sp', model = "CCA"))
+
+
+pdf('./figs/repeat_rda.pdf', width=7)
+par(mfrow=c(1,1))
+xlims = c(-3.5, 3.5)
+ylims = c(-3, 3)
 results = list(site, year, mang)
 yr_labels = substr(as.character(1998:2009), 3,4)
 yr_cols = colorRampPalette(c('black', 'red'))
-for (i in seq_along(results)) {
+for (i in 3) {
     plot(results[[i]], type='n', scaling=1, axes=F, xlab='', ylab='', 
          xlim=xlims, ylim=ylims)
     if (i == 1) {
-        orditorp(results[[i]], 'sp', cex=0.75, scaling=1, col=1,
-               pcol='dodgerblue', pch=19)  
+        orditorp(results[[i]], 'sp', cex=0.5, scaling=1, col=1,
+                 pch=NA, priority =sp_fit[[i]])  
         points(results[[i]], 'cn', pch=2, col='red', cex=1.5)
     } 
     if (i == 2) { 
-        orditorp(results[[i]], 'sp', cex=0.75, scaling=1, col=1,
-               pcol='dodgerblue', pch=19)        
+        orditorp(results[[i]], 'sp', cex=0.5, scaling=1, col=1,
+                 pch=NA, priority = sp_fit[[i]])        
         points(year, 'cn', pch=2, col='red', cex=1.5)
     } 
     if (i == 3) {
-        orditorp(results[[i]], 'sp', cex=0.75, scaling=1, col=1,
-                 pcol='dodgerblue', pch=19) 
         text(mang, 'bp', lwd=2, 
              labels = c('Years of Bison', '# Burns Past 5 years',
                         'Years Since Burn'),
              col='red', cex=1, axis.bp = FALSE)
+        orditorp(results[[i]], 'sp', cex=0.75, scaling=1, col=1,
+                 pch=NA, priority = sp_fit[[i]]) 
+        legend('topright', expression(paste(italic(R[adj]^2) == 0.01, ", ", 
+                                           italic(p) == 0.001)),
+               bty='n')
+
  
     }
     axis(side=1, cex.axis=1.5, padj=0.5)
     axis(side=2, cex.axis=1.5)
     mtext(side=1, 'partial RDA axis 1', cex=1.5, padj=3.5)
     mtext(side=2, 'partial RDA axis 2', cex=1.5, padj=-3)
-    mtext(side=3, paste(letters[i], ")", sep=''), cex=1.5, 
-          at = par("usr")[1]+0.025*diff(par("usr")[1:2]))
+#    mtext(side=3, paste(letters[i], ")", sep=''), cex=1.5, 
+#          at = par("usr")[1]+0.025*diff(par("usr")[1:2]))
 }
 dev.off()
 
@@ -188,6 +199,13 @@ mang = cca(comm_sqr ~ Condition(plot) + Condition(yr) + YrsOB + BP5Yrs + YrsSLB,
            data=env)
 permutest(mang, permutations=999)
 
+# examine sp level ordination fit
+sp_fit = vector('list', 3)
+sp_fit[[1]] = rowSums(goodness(site, display='sp', model = "CCA"))
+sp_fit[[2]] = rowSums(goodness(year, display='sp', model = "CCA"))
+sp_fit[[3]] = rowSums(goodness(mang, display='sp', model = "CCA"))
+
+
 pdf('./figs/repeat_cca.pdf', width=7*1.5)
 par(mfrow=c(1,2))
 xlims = c(-15, 15)
@@ -198,17 +216,21 @@ yr_cols = colorRampPalette(c('black', 'red'))
 for (i in seq_along(results)) {
     plot(results[[i]], type='n', scaling=1, axes=F, xlab='', ylab='', 
          xlim=xlims, ylim=ylims)
-    orditorp(results[[i]], 'sp', cex=0.75, scaling=1, col=1,
-             pcol='dodgerblue', pch=19)
     if (i == 1) 
+        orditorp(results[[i]], 'sp', cex=0.5, scaling=1, col=1,
+                 pch=NA, priority =sp_fit[[i]])  
         points(results[[i]], 'cn', pch=2, col='red', cex=1.5)
     if (i == 2)
+        orditorp(results[[i]], 'sp', cex=0.5, scaling=1, col=1,
+                 pch=NA, priority =sp_fit[[i]])        
         points(year, 'cn', pch=2, col='red', cex=1.5)
     if (i == 3)
         text(mang, 'bp',
              labels = c('Years of Bison', '# Burns Past 5 years',
                         'Years Since Burn'),
              col='red', cex=1, axis.bp = FALSE)
+        orditorp(results[[i]], 'sp', cex=0.75, scaling=1, col=1,
+                 pch=NA, priority = sp_fit[[i]])         
     axis(side=1, cex.axis=1.5, padj=0.5)
     axis(side=2, cex.axis=1.5)
     mtext(side=1, 'partial CCA axis 1', cex=1.5, padj=3.5)

@@ -99,7 +99,7 @@ soil = rda(comm_sqr ~ soil_mat$Comp.1 + soil_mat$Comp.2 + soil_mat$Comp.3 +
            Condition(mang_mat$YrsOB) + Condition(mang_mat$BP5Yrs) +
            Condition(mang_mat$YrsSLB))
 permutest(soil, permutations=999)
-u
+
 mang = rda(comm_sqr, mang_mat, soil_mat)
 permutest(mang, permutations=999)
 
@@ -110,6 +110,12 @@ indices = which(row.names(sp_scr) %in% sp_core)
 
 rda_stat = list(list(R2 = RsquareAdj(soil)), list())
 
+# examine sp level ordination fit
+sp_fit = vector('list', 3)
+sp_fit[[1]] = rowSums(goodness(soil, display='sp', model = "CCA"))
+sp_fit[[2]] = rowSums(goodness(mang, display='sp', model = "CCA"))
+
+
 pdf('./figs/grid_rda_partial.pdf', width=7*1.5, height=7)
 par(mfrow=c(1, 2))
 
@@ -117,26 +123,24 @@ xlim = c(-4, 3)
 ylim = c(-3, 3)
 plot(soil, type='n', scaling=1, axes=F, xlim=xlim, ylim=ylim,
      xlab='', ylab='')
-text(soil, display='bp', labels=rep('', 3), col='red', lwd=2)
+text(soil, display='bp', labels= paste0('PC', 1:3), col='red', lwd=2)
 orditorp(soil, display='sp', cex=0.75, scaling=1,
-         pcol='dodgerblue', pch=19)
-points(sp_scr[indices, 1], sp_scr[indices, 2], pch=2, col='blue')
-text(sp_scr[indices, 1], sp_scr[indices, 2], labels = sp_core, col='purple') 
-x = c(2.85, 0.69, 0.55)
-y = c(0.25, -2.5, 1.1)
-text(x, y, labels = paste0('PC', 1:3), col='red', lwd=2)
+         priority = sp_fit[[1]], pch=NA)
 axis(side=1, cex.axis=1.5, padj=0.5)
 axis(side=2, cex.axis=1.5)
 mtext(side=1, 'partial RDA axis 1', cex=1.5, padj=3.5)
 mtext(side=2, 'partial RDA axis 2', cex=1.5, padj=-3)
 mtext(side=3, "a)", cex=1.5, 
       at = par("usr")[1]+0.025*diff(par("usr")[1:2]))
-stats = substitute(paste(italic(R^2), ' = ', r2, ", ", italic(p), ' = ', pv), 
-                   list(r2 = round(lm_stat[[i]]$r.squared, 2),
-                        pv = 1 - round(pf(lm_stat[[i]]$f[1], 
-                                          lm_stat[[i]]$f[2],
-                                          lm_stat[[i]]$f[3]), 3))) 
-legend('bottomleft', legend=stats, bty='n', cex=2)
+legend('topright', expression(paste(italic(R[adj]^2) == 0.08, ", ", 
+                                    italic(p) == 0.001)),
+       bty='n')
+#stats = substitute(paste(italic(R^2), ' = ', r2, ", ", italic(p), ' = ', pv), 
+#                   list(r2 = round(lm_stat[[i]]$r.squared, 2),
+#                        pv = 1 - round(pf(rda_stat[[i]]$f[1], 
+#                                          rda_stat[[i]]$f[2],
+#                                          rda_stat[[i]]$f[3]), 3))) 
+#legend('bottomleft', legend=stats, bty='n', cex=2)
 
 
 ##
@@ -144,7 +148,7 @@ plot(mang, type='n', scaling=1, axes=F, xlim=xlim, ylim=ylim,
      xlab='', ylab='')
 text(mang, display='bp', labels = rep('', 3), col='red', lwd=2)
 orditorp(mang, display='sp', cex=0.75, scaling=1,
-         pcol='dodgerblue', pch=19)
+         priority = sp_fit[[2]], pch=NA)
 x = c(-1.6, 2.33, -3.05)
 y = c(3.5, -2.45, -1.35)
 text(x, y, 
@@ -157,6 +161,9 @@ mtext(side=1, 'partial RDA axis 1', cex=1.5, padj=3.5)
 mtext(side=2, 'partial RDA axis 2', cex=1.5, padj=-3)
 mtext(side=3, "b)", cex=1.5, 
       at = par("usr")[1]+0.025*diff(par("usr")[1:2]))
+legend('topright', expression(paste(italic(R[adj]^2) == 0.02, ", ", 
+                                    italic(p) == 0.001)),
+       bty='n')
 dev.off()
 
 print('CCA model of composition-------------------------------')
