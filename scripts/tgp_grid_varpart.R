@@ -1,7 +1,5 @@
 library(vegan)
 
-setwd('~/tgp_management/')
-
 source('./scripts/tgp_functions.R')
 source('./scripts/tgp_grid_data_import.R')
 

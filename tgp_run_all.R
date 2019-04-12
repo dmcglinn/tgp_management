@@ -10,23 +10,23 @@ dir.create('./figs')
 
 ## download the climate data
 system('Rscript ./scripts/tgp_mesonet_download.R > ./scripts/log_files/mesonet_download.log 2>&1',
-       wait=T)
+       wait=TRUE)
 
 ## filter enviornmental data
 system('Rscript ./scripts/filter_enviornmental_data.R > ./scripts/log_files/filter_envio.log 2>&1',
-       wait=T)
-
-## merge the various management datasets
-system('Rscript ./scripts/merge_management_data.R > ./scripts/log_files/merge_mang.log 2>&1',
-       wait=T)
+       wait=TRUE)
 
 ## extract only the relevant management information
 system('Rscript ./scripts/extract_management_data.R > ./scripts/log_files/extract_mang.log 2>&1',
-       wait=T)
+       wait=TRUE)
+
+## merge the various management datasets
+system('Rscript ./scripts/merge_management_data.R > ./scripts/log_files/merge_mang.log 2>&1',
+       wait=TRUE)
 
 ## generate a site-by-species matrix to analyze
 system('Rscript ./scripts/create_site_by_sp_matrix.R > ./scripts/log_files/site_by_sp.log 2>&1',
-       wait=T)
+       wait=TRUE)
 
 ## conduct analysis ------------------------------------------------------------
 ## variation partitioning 

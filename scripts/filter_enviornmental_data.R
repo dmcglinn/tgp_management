@@ -56,12 +56,3 @@ out = data.frame(plot = uni_plots,
                  easting = env$easting[match(uni_plots, env$plot)],
                  northing = env$northing[match(uni_plots, env$plot)])
 write.csv(out, './data/tgp_plot_utm.csv', row.names=F)
-
-### examine distance decay rel
-comm = comm[match(plot_yr, comm[ , 1]), ]
-library(vegan)
-gdist = dist(env[ , c('easting', 'northing')])
-vsim = 1 - vegdist(comm[ , -1])
-
-plot(gdist, vsim, xlim=c(0, max(gdist)/2))
-lines(lowess(gdist, vsim), col='red')
