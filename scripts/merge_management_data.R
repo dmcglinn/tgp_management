@@ -1,10 +1,8 @@
-setwd('~/tgp_management/')
+library(sp)
 
 env = read.csv('./data/tgp_utm_env.csv')
 burn = read.csv('./data/plot_burn.csv')
 graze = read.csv('./data/plot_graze.csv')
-
-class(env$date_samp)
 
 env$date_samp = as.Date(env$date_samp)
 burn$burn_date = as.Date(burn$burn_date)
@@ -67,7 +65,6 @@ write.csv(env, file='./data/tgp_utm_env_complete.csv', row.names=F)
 
 ## error checking -------------------------------------------------------------------
 load('./data/tgp_shpfiles.Rdata')
-library(sp)
 
 head(burns$'1997'@data)
 spplot(burns$'1997', 'DATE')
@@ -76,6 +73,7 @@ spplot(burns$'1997', 'DATE')
 plot(pasture, axes=T, xlim=c(7.25e5, 7.35e5), ylim=c(4.0755e6, 4.0765e6))
 #points(env$easting, env$northing, pch=19)
 par(new=TRUE)
-plot(burns$'2007', col='green', lty=2, xlim=c(7.25e5, 7.35e5), ylim=c(4.0755e6, 4.0765e6))
+plot(burns$'2007', col='green', lty=2, xlim=c(7.25e5, 7.35e5),
+     ylim=c(4.0755e6, 4.0765e6))
 points(env$easting[2], env$northing[2], pch=19, col='red')
 
