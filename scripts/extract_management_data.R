@@ -1,14 +1,5 @@
-
-## Purpose
-## to create a burn matrix 
-## rows = one fire event in a specific plot
-## columns = plot, date, 
-
 library(sp)
-library(dichromat)
 
-
-setwd('~/tgp_management/')
 
 load('./data/tgp_shpfiles.Rdata')
 
@@ -19,10 +10,13 @@ proj4string(plots_sp) = CRS(proj4string(pasture))
 
 
 plot(pasture)
-points(plots$easting, plots$northing, pch=19, col='red')
+points(plots$easting, plots$northing, pch='.', col='red')
 
 
 ## extract burn data ----------------------------------------------------------------
+## Purpose: to create a burn matrix where rows = one fire event in a specific
+## plot, and columns = plot, date, 
+## 
 ## loop through each plot and each burn layer
 ## evaluate if the plot fell within any of the burn polygons
 ## record the date when it did
@@ -35,7 +29,6 @@ tst = sapply(burns, function(x) over(plots_sp, x))
 
 ## for a slower and more through method we need this loop
 date_column = sapply(burns, function(x) grep('DATE', names(x)))
-flag = 0
 for (i in seq_along(plots$plot)) { 
   for (j in seq_along(burns)) {
     for (k in seq_along(burns[[j]])) {
@@ -44,9 +37,8 @@ for (i in seq_along(plots$plot)) {
                                poly_coords[ , 1], poly_coords[ , 2])
       if (pt_in == 1) {
         burn_date = burns[[j]]@data[k, date_column[j]]
-        if (flag == 0) {
+        if (!exists("plot_burn")) {
           plot_burn = data.frame(plot=plots$plot[i], burn_date)
-          flag = 1 
         }  
         else {
           plot_burn = rbind(plot_burn, 
@@ -57,7 +49,7 @@ for (i in seq_along(plots$plot)) {
   }  
 }  
 
-## this sort suggests these results are plausible
+## this sort suggests these results are reasonable
 sort(table(plot_burn[,1]), dec=T)
 
 ## convert dates into a consistent format
@@ -78,11 +70,11 @@ write.csv(plot_burn, file = './data/plot_burn.csv', row.names=F)
 ## extract grazing data--------------------------------------------------------------
 spplot(pasture, 'BISON_2000')
 plot(pasture)
-points(coordinates(plots_sp), pch=19, col='red')
-spplot(pasture, 'USAGE', col.regions=colorschemes$Categorical.12[1:9])
+points(coordinates(plots_sp), pch='.', col='red')
+spplot(pasture, 'USAGE')
 ## so some of the plots occur in the ungrazed area
 
-spplot(bison, 'BEG_DATE', col.regions=colorschemes$Categorical.12[1:9])
+spplot(bison, 'BEG_DATE')
 spplot(bison, 'UNIT')
 
 ## first extract the start date of bison grazing for each plot
@@ -113,10 +105,10 @@ write.csv(plot_graze, file = './data/plot_graze.csv', row.names=F)
 ## are not expected to overlap one another
 r1 = cbind(c(0, 2, 2, 0, 0), c(0, 0, 2, 2, 0))
 r2 = r1 + 1
-sr1=Polygons(list(Polygon(r1)),"r1")
-sr2=Polygons(list(Polygon(r2)),"r2")
-sr=SpatialPolygons(list(sr1,sr2))
-srdf=SpatialPolygonsDataFrame(sr, data.frame(cbind(1:2,3:4), row.names=c("r1","r2")))
+sr1 = Polygons(list(Polygon(r1)),"r1")
+sr2 = Polygons(list(Polygon(r2)),"r2")
+sr = SpatialPolygons(list(sr1,sr2))
+srdf = SpatialPolygonsDataFrame(sr, data.frame(cbind(1:2,3:4), row.names=c("r1","r2")))
 proj4string(srdf) = CRS("+proj=longlat +datum=WGS84")
 
 plot(srdf, axes=T)
