@@ -27,7 +27,7 @@ env$sr = rowSums(comm > 0)
 
 ## create explanatory modeling variables
 ## soil variables
-soil_vars = c("P","CA","MG","K","NA","B","FE","MN","CU","ZN","AL")
+soil_vars = c("P","CA","MG","K","NA.","B","FE","MN","CU","ZN","AL")
 soil_vars = paste('log', soil_vars, sep='')
 soil_pca = princomp(scale(env[ , soil_vars]))
 summary(soil_pca)
